@@ -1,0 +1,57 @@
+@import 'bootstrap/scss/bootstrap-grid.scss';
+@import 'styles/_variables.sass';
+
+:root {
+	line-height: 1.5;
+	font-weight: 400;
+	font-family: 'Open sans', 'Noto sans', Arial, Helvetica, sans-serif;
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+
+	// re-mapping color variables
+	--white: $white;
+	--light: $light;
+	--color-1: $color-1;
+	--color-2: $color-2;
+	--color-3: $color-3;
+	--dark: $dark;
+}
+
+#root {
+	margin: 0;
+	overflow-x: hidden
+}
+
+img {
+	max-width: 100%;
+}
+
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+::-moz-selection {
+	color: $white;
+	background: $color-2;
+}
+
+::-webkit-selection {
+	color: $white;
+	background: $color-2;
+}
+
+::selection {
+	color: $white;
+	background: $color-2;
+}
+
+.debug,
+.debug * {
+	outline: 1px solid red
+}

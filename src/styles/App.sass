@@ -1,0 +1,32 @@
+@import 'bootstrap/scss/bootstrap-grid.scss'
+@import '_variables.sass'
+
+body
+	background-color: $white
+	color: $dark
+	margin: 0
+	padding: 0
+	font-weight: 400
+	font-size: 18px
+	min-height: 100vh
+
+	// use that for media queries
+	// sm, md, lg, xl
+	border: 10px solid transparentize($color-1, 0.5) // remove this whenever you want
+	@include media-breakpoint-up(md)
+		border: 10px solid transparentize($color-3, 0.5) // remove this whenever you want
+
+a, a:visited
+	font-weight: 400
+	text-decoration: inherit
+	color: $dark
+	&:hover,
+	&:focus,
+	&:active
+		color: lighten($dark, 20%)
+		outline: none
+
+.App
+	display: flex
+	flex-direction: column
+	min-height: 100vh
