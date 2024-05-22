@@ -1,0 +1,70 @@
+@import '/src/styles/_variables.sass'
+
+.btn
+	padding: 10px 20px
+	border-radius: 6px
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	width: fit-content
+	font-weight: 700
+	white-space: nowrap
+	margin: 4px
+	&-primary
+		@extend .btn
+		background-color: $color-1
+		border: 2px solid $color-1
+		color: $white !important
+		&:hover,
+		&:focus,
+		&:active
+			background-color: darken($color-1, 10%)
+			color: $white !important
+			border: 2px solid darken($color-1, 10%)
+		&-outline
+			@extend .btn
+			background-color: transparent
+			color: $color-1 !important
+			border: 2px solid $color-1
+			&:hover,
+			&:focus,
+			&:active
+				background-color: $color-1
+				color: $white !important
+				border: 2px solid $color-1
+	&-secondary
+		@extend .btn
+		background-color: $color-2
+		border: 2px solid $color-2
+		color: $white !important
+		&:hover,
+		&:focus,
+		&:active
+			background-color: darken($color-2, 10%)
+			color: $white !important
+			border: 2px solid darken($color-2, 10%)
+		&-outline
+			@extend .btn
+			background-color: transparent
+			color: $color-2 !important
+			border: 2px solid $color-2
+			&:hover,
+			&:focus,
+			&:active
+				background-color: $color-2
+				color: $white !important
+				border: 2px solid $color-2
+	&.full-width
+		width: 100%
+	&.icon
+		svg
+			width: 25px
+			height: 25px
+		&-left
+			@extend .icon
+			svg
+				margin-right: 8px
+		&-right
+			@extend .icon
+			svg
+				margin-left: 8px
