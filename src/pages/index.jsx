@@ -1,8 +1,5 @@
-import HomePage from './HomePage'
-import NotFound from './NotFound'
+import LandingPage from "./LandingPage";
+import NotFound from "./NotFound";
+import Dashboard from "./Dashboard";
 
-
-export {
-    HomePage,
-    NotFound
-}
+export { LandingPage, NotFound, Dashboard };

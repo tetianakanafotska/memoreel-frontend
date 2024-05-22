@@ -1,23 +1,18 @@
-import '@styles/App.sass';
-import { HomePage, NotFound } from '@pages';
-import { Routes, Route } from 'react-router-dom';
+import "@styles/App.sass";
+import { LandingPage, NotFound, Dashboard } from "@pages";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
-	return (
-		<div className='App'>
-				<Routes>
-					<Route
-						path='/'
-						element={<HomePage />}
-					/>
+  return (
+    <div className="App">
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
 
-					<Route
-						path='*'
-						element={<NotFound />}
-					/>
-				</Routes>
-		</div>
-	);
+        <Route path="*" element={<NotFound />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </div>
+  );
 }
 
 export default App;
