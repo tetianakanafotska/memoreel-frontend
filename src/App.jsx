@@ -1,5 +1,5 @@
 import "@styles/App.sass";
-import { LandingPage, NotFound, Dashboard } from "@pages";
+import { LandingPage, NotFound, Login, Signup, Dashboard } from "@pages";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -7,6 +7,10 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<LandingPage />} />
+
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/signup" element={<Signup />} />
 
         <Route path="*" element={<NotFound />} />
         <Route path="/dashboard" element={<Dashboard />} />
