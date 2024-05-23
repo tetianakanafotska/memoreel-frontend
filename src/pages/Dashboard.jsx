@@ -1,51 +1,41 @@
 import React, { useState } from "react";
 import Button from "../components/Button";
 import PopUpButtons from "../components/PopUpButtons";
+import MediaForm from "../components/MediaForm";
+import MediaItem from "../components/MediaItem";
 
 const Dashboard = () => {
   const [openPopUp, setOpenPopUp] = useState(false);
-  const [openTextArea, setOpenTextArea] = useState(false);
-  //const [openImage, setOpenImage] = useState(false);
-  const [allNotes, setAllNotes] = useState([]);
-  const [newNote, setNewNote] = useState("");
+  const [openMediaForm, setOpenMediaForm] = useState(false);
+  const [mediaType, setMediaType] = useState(null);
 
-  function createNote() {
-    setOpenPopUp(false);
-    setOpenTextArea(true);
-  }
-
-  //   function addImage() {
-  //     setOpenPopUp(false);
-  //     setOpenImage(true);
-  //   }
-
-  function saveNote() {
-    if (newNote.trim()) {
-      setAllNotes((prevNotes) => [...prevNotes, newNote]);
-      setNewNote("");
-      setOpenTextArea(false);
-    }
-  }
-
-  function handleOnChange(e) {
-    setNewNote(e.target.value);
-  }
-
+  const [allMedia, setAllMedia] = useState([]);
   return (
-    <div>
-      {allNotes.map((note, index) => (
-        <p key={index}>{note}</p>
-      ))}
-      {openTextArea && (
-        <div>
-          <input onChange={handleOnChange} value={newNote} type="text" />
-          <Button onClick={saveNote} label="add" />
-        </div>
+    <div className="dashboard-container">
+      <Button onClick={() => setOpenPopUp(!openPopUp)} label="+" />
+      {openPopUp && (
+        <PopUpButtons
+          setMediaType={setMediaType}
+          setOpenMediaForm={setOpenMediaForm}
+          setOpenPopUp={setOpenPopUp}
+        />
       )}
-      <div>
-        <Button onClick={() => setOpenPopUp(!openPopUp)} label="+" />
-      </div>
-      {openPopUp && <PopUpButtons createNote={createNote} />}
+      {openMediaForm && (
+        <MediaForm
+          mediaType={mediaType}
+          setAllMedia={setAllMedia}
+          setOpenPopUp={setOpenPopUp}
+          setOpenMediaForm={setOpenMediaForm}
+        />
+      )}
+      {allMedia.map((media) => {
+        console.log(allMedia);
+        return (
+          <div key={media._id}>
+            <MediaItem media={media} />
+          </div>
+        );
+      })}
     </div>
   );
 };
