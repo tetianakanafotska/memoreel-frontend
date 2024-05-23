@@ -14,7 +14,9 @@ export default function LandingPage() {
 				</Row>
 
 				<Row>
-					<Col md='6' lg='4'>
+					<Col
+						md='6'
+						lg='4'>
 						<Button
 							to='/'
 							type='primary'>
@@ -50,9 +52,8 @@ export default function LandingPage() {
 						<Button
 							to='/'
 							type='secondary-outline'
-							iconLeft={<EmojiSmile />}
-						>
-            And be outlined
+							iconLeft={<EmojiSmile />}>
+							And be outlined
 						</Button>
 					</Col>
 				</Row>
