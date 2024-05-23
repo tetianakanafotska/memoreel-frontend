@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PopUpButtons from "../components/PopUpButtons";
 import MediaForm from "../components/MediaForm";
 import MediaItem from "../components/MediaItem";
+import axios from "axios";
 
 const Dashboard = () => {
   const [openPopUp, setOpenPopUp] = useState(false);
@@ -9,6 +10,7 @@ const Dashboard = () => {
   const [mediaType, setMediaType] = useState(null);
 
   const [allMedia, setAllMedia] = useState([]);
+
   return (
     <div className="dashboard-container">
       <button onClick={() => setOpenPopUp(!openPopUp)}>+</button>
@@ -25,6 +27,7 @@ const Dashboard = () => {
           setAllMedia={setAllMedia}
           setOpenPopUp={setOpenPopUp}
           setOpenMediaForm={setOpenMediaForm}
+          allMedia={allMedia}
         />
       )}
       {allMedia.map((media) => {
