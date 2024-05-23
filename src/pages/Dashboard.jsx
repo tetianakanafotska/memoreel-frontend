@@ -11,6 +11,22 @@ const Dashboard = () => {
 
   const [allMedia, setAllMedia] = useState([]);
 
+  useEffect(() => {
+    const currentDate = new Date().toISOString().slice(0, 10);
+    axios
+      .get(`http://localhost:5005/boards?date=${currentDate}`)
+      .then((res) => {
+        console.log(res.data);
+      });
+  }, [allMedia]);
+
+  // determine at which point send the post request
+  // axios
+  // .post("http://localhost:5005/boards", { boardContent: allMedia })
+  // .then((resp) => {
+  //   console.log(resp);
+  // });
+
   return (
     <div className="dashboard-container">
       <button onClick={() => setOpenPopUp(!openPopUp)}>+</button>
