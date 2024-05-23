@@ -14,7 +14,6 @@ export default function PopUpButtons({
           setOpenMediaForm(true);
           setOpenPopUp(false);
         }}
-        label="add image"
       >
         add image
       </button>

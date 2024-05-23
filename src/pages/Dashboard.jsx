@@ -6,7 +6,6 @@ import { AuthContext } from '@context';
 
 const Dashboard = () => {
 	const { user } = useContext(AuthContext);
-
 	const [openPopUp, setOpenPopUp] = useState(false);
 	const [openMediaForm, setOpenMediaForm] = useState(false);
 	const [mediaType, setMediaType] = useState(null);

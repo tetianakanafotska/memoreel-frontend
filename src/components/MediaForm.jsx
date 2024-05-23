@@ -1,6 +1,13 @@
 import React, { useState } from "react";
+import axios from "axios";
 
-function MediaForm({ mediaType, setAllMedia, setOpenPopUp, setOpenMediaForm }) {
+function MediaForm({
+  mediaType,
+  setAllMedia,
+  setOpenPopUp,
+  setOpenMediaForm,
+  allMedia,
+}) {
   const [newMedia, setNewMedia] = useState({
     _id: "",
     type: "",
