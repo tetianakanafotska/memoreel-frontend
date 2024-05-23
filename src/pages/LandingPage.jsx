@@ -3,6 +3,8 @@ import { Button } from '@components';
 import { Heart, EmojiSmile } from 'react-bootstrap-icons'; // see https://icons.getbootstrap.com/
 import { Container, Row, Col } from 'react-bootstrap';
 
+// just a test
+
 export default function LandingPage() {
 	return (
 		<div className={styles.landingpage}>
