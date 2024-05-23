@@ -5,6 +5,9 @@ function MediaItem({ media }) {
     <div>
       {media.type === "text" && media.content}
       {media.type === "videoURL" && media.content}
+      {media.type === "image" && (
+        <img src={media.content} alt="Uploaded content" />
+      )}
     </div>
   );
 }
