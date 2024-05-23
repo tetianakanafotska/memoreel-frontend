@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from "./Button";
 
 function MediaForm({ mediaType, setAllMedia, setOpenPopUp, setOpenMediaForm }) {
   const [newMedia, setNewMedia] = useState({
@@ -30,7 +29,7 @@ function MediaForm({ mediaType, setAllMedia, setOpenPopUp, setOpenMediaForm }) {
       {mediaType === "videoURL" && (
         <input type="text" onChange={handleOnChange} value={newMedia.content} />
       )}
-      <Button onClick={handleAddMedia} label="add" />
+      <button onClick={handleAddMedia}>Add</button>
     </div>
   );
 }

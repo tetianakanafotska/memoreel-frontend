@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Button from "../components/Button";
 import PopUpButtons from "../components/PopUpButtons";
 import MediaForm from "../components/MediaForm";
 import MediaItem from "../components/MediaItem";
@@ -12,7 +11,7 @@ const Dashboard = () => {
   const [allMedia, setAllMedia] = useState([]);
   return (
     <div className="dashboard-container">
-      <Button onClick={() => setOpenPopUp(!openPopUp)} label="+" />
+      <button onClick={() => setOpenPopUp(!openPopUp)}>+</button>
       {openPopUp && (
         <PopUpButtons
           setMediaType={setMediaType}

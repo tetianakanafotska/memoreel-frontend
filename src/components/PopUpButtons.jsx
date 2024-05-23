@@ -8,30 +8,34 @@ export default function PopUpButtons({
 }) {
   return (
     <div>
-      <Button
+      <button
         onClick={() => {
           setMediaType("image");
           setOpenMediaForm(true);
           setOpenPopUp(false);
         }}
         label="add image"
-      />
-      <Button
+      >
+        add image
+      </button>
+      <button
         onClick={() => {
           setMediaType("text");
           setOpenMediaForm(true);
           setOpenPopUp(false);
         }}
-        label="add text"
-      />
-      <Button
+      >
+        add text
+      </button>
+      <button
         onClick={() => {
           setMediaType("videoURL");
           setOpenMediaForm(true);
           setOpenPopUp(false);
         }}
-        label="add Youtube video"
-      />
+      >
+        add Youtube video
+      </button>
     </div>
   );
 }
