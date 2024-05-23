@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styles from './styles/Button.module.sass';
 import classNames from 'classnames';
 
-export default function Button({ to, label, type = 'primary', fullWidth = false, iconRight, iconLeft, onClick }) {
+export default function Button({ to, label, style = 'primary', fullWidth = false, iconRight, iconLeft, onClick, children, type }) {
     const typeStyles = {
         primary: styles['btn-primary'],
         secondary: styles['btn-secondary'],
@@ -12,19 +12,19 @@ export default function Button({ to, label, type = 'primary', fullWidth = false,
         'tertiary-outline': styles['btn-tertiary-outline'],
     };
 
-    const buttonTypeClass = typeStyles[type] || typeStyles.primary;
+    const buttonStyle = typeStyles[type] || typeStyles.primary;
 
     const buttonClasses = classNames(
-        buttonTypeClass,
+        buttonStyle,
         { [styles['full-width']]: fullWidth },
         { [styles['icon-left']]: iconLeft },
         { [styles['icon-right']]: iconRight }
     );
 
     return (
-        <Link to={to} className={buttonClasses} onClick={onClick}>
+        <Link to={to} className={buttonClasses} onClick={onClick} type={type}>
             {iconLeft}
-            {label}
+            {children}
             {iconRight}
         </Link>
     );

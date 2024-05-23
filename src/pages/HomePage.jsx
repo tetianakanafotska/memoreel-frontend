@@ -7,46 +7,54 @@ export default function HomePage() {
 	return (
 		<div className={styles.homepage}>
 			<Container fluid>
-				<Row className="my-5">
+				<Row className='my-5'>
 					<Col>
 						<h1>Hello!</h1>
 					</Col>
 				</Row>
 
 				<Row>
-					<Col md='6' lg='4'>
+					<Col
+						md='6'
+						lg='4'>
 						<Button
 							to='/'
-							label='Here are buttons!'
-							type='primary'
-						/>
+							type='primary'>
+							Here are buttons!
+						</Button>
 					</Col>
 
-					<Col md='6' lg='4'>
+					<Col
+						md='6'
+						lg='4'>
 						<Button
 							to='/'
-							label='They can be full-width'
 							type='primary-outline'
-							fullWidth
-						/>
+							fullWidth>
+							They can be full-width
+						</Button>
 					</Col>
 
-					<Col md='6' lg='4'>
+					<Col
+						md='6'
+						lg='4'>
 						<Button
 							to='/'
-							label='They can have icons'
 							type='secondary'
-							iconRight={<Heart />}
-						/>
+							iconRight={<Heart />}>
+							They can have icons
+						</Button>
 					</Col>
 
-					<Col md='6' lg='4'>
+					<Col
+						md='6'
+						lg='4'>
 						<Button
 							to='/'
-							label='And be outlined'
 							type='secondary-outline'
-							iconLeft={<EmojiSmile />}
-						/>
+							iconLeft={<EmojiSmile />}>
+							And be outlined
+						</Button>
 					</Col>
 				</Row>
 			</Container>

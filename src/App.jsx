@@ -1,5 +1,5 @@
 import '@styles/App.sass';
-import { HomePage, NotFound } from '@pages';
+import { HomePage, NotFound, Login, Signup } from '@pages';
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -9,6 +9,16 @@ function App() {
 					<Route
 						path='/'
 						element={<HomePage />}
+					/>
+
+					<Route
+						path='/login'
+						element={<Login />}
+					/>
+
+					<Route
+						path='/signup'
+						element={<Signup />}
 					/>
 
 					<Route
