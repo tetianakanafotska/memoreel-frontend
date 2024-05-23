@@ -1,12 +1,9 @@
-import HomePage from './HomePage'
-import NotFound from './NotFound'
-import Login from './Login'
-import Signup from './Signup'
+import LandingPage from "./LandingPage";
+import NotFound from "./NotFound";
+import Dashboard from "./Dashboard";
+import Login from "./Login";
+import Signup from "./Signup";
 
+export { LandingPage, NotFound, Dashboard };
 
-export {
-    HomePage,
-    NotFound,
-    Login,
-    Signup
-}
+export { HomePage, NotFound, Login, Signup };
