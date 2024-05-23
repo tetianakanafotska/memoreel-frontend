@@ -10,22 +10,36 @@ const Dashboard = () => {
   const [mediaType, setMediaType] = useState(null);
 
   const [allMedia, setAllMedia] = useState([]);
+  const [currentBoard, setCurrentBoard] = useState({
+    boardContent: [allMedia],
+  });
+
+  // useEffect(() => {
+  //   const currentDate = new Date().toISOString().slice(0, 10);
+  //   axios
+  //     .get(`http://localhost:5005/boards?date=${currentDate}`)
+  //     .then((res) => {
+  //       console.log(res.data);
+  //     });
+  // }, [allMedia]);
 
   useEffect(() => {
-    const currentDate = new Date().toISOString().slice(0, 10);
-    axios
-      .get(`http://localhost:5005/boards?date=${currentDate}`)
-      .then((res) => {
-        console.log(res.data);
-      });
+    if (currentBoard.boardContent.length === 0) {
+      axios
+        .post("http://localhost:5005/boards", { boardContent: allMedia })
+        .then((resp) => {
+          console.log(resp);
+        });
+    }
   }, [allMedia]);
 
-  // determine at which point send the post request
-  // axios
-  // .post("http://localhost:5005/boards", { boardContent: allMedia })
-  // .then((resp) => {
-  //   console.log(resp);
-  // });
+  useEffect(() => {
+    axios
+      .patch("http://localhost:5005/boards", { boardContent: allMedia })
+      .then((resp) => {
+        console.log(resp);
+      });
+  }, [allMedia]);
 
   return (
     <div className="dashboard-container">
@@ -46,8 +60,8 @@ const Dashboard = () => {
           allMedia={allMedia}
         />
       )}
-      {allMedia.map((media) => {
-        console.log(allMedia);
+      {currentBoard.boardContent.map((media) => {
+        console.log(currentBoard.boardContent);
         return (
           <div key={media._id}>
             <MediaItem media={media} />
