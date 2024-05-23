@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '@context';
 import { Button } from '@components';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5005';
+import authService from "../services/auth.service";
 
 function Login() {
 	const [email, setEmail] = useState('');
@@ -21,12 +22,12 @@ function Login() {
 		e.preventDefault();
 		const requestBody = { email, password };
 
-		axios
-			.post(`${API_URL}/auth/login`, requestBody)
+		authService
+			.login(requestBody)
 			.then((response) => {
 				storeToken(response.data.authToken);
 				authenticateUser();
-				navigate('/');
+				navigate('/dashboard');
 			})
 			.catch((error) => {
 				const errorDescription = error.response
