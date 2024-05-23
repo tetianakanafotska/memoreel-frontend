@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Button from "./Button";
 import axios from "axios";
 import fileUploadService from "../services/file-upload.service";
+
 function MediaForm({ mediaType, setAllMedia, setOpenPopUp, setOpenMediaForm }) {
   const [newMedia, setNewMedia] = useState({
     _id: "",
@@ -87,8 +87,7 @@ function MediaForm({ mediaType, setAllMedia, setOpenPopUp, setOpenMediaForm }) {
       {mediaType === "videoURL" && (
         <input type="text" onChange={handleOnChange} value={newMedia.content} />
       )}
-
-      <Button onClick={handleAddMedia} label="add" />
+      <button onClick={handleAddMedia}>Add</button>
     </div>
   );
 }
