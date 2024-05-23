@@ -13,17 +13,8 @@ const Dashboard = () => {
   const [mediaType, setMediaType] = useState(null);
   const [allMedia, setAllMedia] = useState([]);
 
-  const getLocalISODate = () => {
-    const now = new Date();
-    const offset = now.getTimezoneOffset() * 60000;
-    const localISOTime = new Date(now.getTime() - offset)
-      .toISOString()
-      .slice(0, 10);
-    return localISOTime;
-  };
-
   useEffect(() => {
-    const currentDate = getLocalISODate();
+    const currentDate = new Date().toISOString().slice(0, 10);
     console.log("THE DATE", currentDate);
     if (user) {
       const userId = user._id;
