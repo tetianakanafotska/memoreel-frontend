@@ -2,8 +2,8 @@
 @import '_variables.sass'
 
 body
-	background-color: $white
-	color: $dark
+	background-color: $indigo
+	color: $green
 	margin: 0
 	padding: 0
 	font-weight: 400
@@ -19,11 +19,11 @@ body
 a, a:visited
 	font-weight: 800
 	text-decoration: inherit
-	color: $color-2
+	color: $green
 	&:hover,
 	&:focus,
 	&:active
-		color: lighten($dark, 20%)
+		color: lighten($green, 20%)
 		outline: none
 
 .App
@@ -44,9 +44,9 @@ input
 	font-weight: 600
 	font-size: 1rem
 	border-radius: 6px
-	border: 2px solid darken($color-3, 10%)
-	background-color: $color-3
-	color: $color-1
+	border: 2px solid darken($light-blue, 10%)
+	background-color: $indigo
+	color: $light-blue
 
 button
 	padding: 10px 20px
@@ -60,12 +60,12 @@ button
 	font-size: 1rem
 	white-space: nowrap
 	margin: 4px
-	background-color: $color-1
-	border: 2px solid $color-1
-	color: $white !important
+	background-color: $green
+	border: 2px solid $green
+	color: $indigo !important
 	&:hover,
 	&:focus,
 	&:active
-		background-color: darken($color-1, 10%)
-		color: $white !important
-		border: 2px solid darken($color-1, 10%)
+		background-color: darken($green, 10%)
+		color: $indigo !important
+		border: 2px solid darken($green, 10%)

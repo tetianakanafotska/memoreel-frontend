@@ -9,51 +9,52 @@
 	width: fit-content
 	font-weight: 700
 	white-space: nowrap
+	transition: all 0.2s ease-in-out
 	margin: 4px
 	&-primary
 		@extend .btn
-		background-color: $color-1
-		border: 2px solid $color-1
-		color: $white !important
+		background-color: $green
+		border: 2px solid $green
+		color: $indigo !important
 		&:hover,
 		&:focus,
 		&:active
-			background-color: darken($color-1, 10%)
-			color: $white !important
-			border: 2px solid darken($color-1, 10%)
+			background-color: lighten($green, 10%)
+			color: $indigo !important
+			border: 2px solid lighten($green, 10%)
 		&-outline
 			@extend .btn
 			background-color: transparent
-			color: $color-1 !important
-			border: 2px solid $color-1
+			color: $green !important
+			border: 2px solid $green
 			&:hover,
 			&:focus,
 			&:active
-				background-color: $color-1
-				color: $white !important
-				border: 2px solid $color-1
+				background-color: $green
+				color: $indigo !important
+				border: 2px solid $green
 	&-secondary
 		@extend .btn
-		background-color: $color-2
-		border: 2px solid $color-2
+		background-color: $purple
+		border: 2px solid $purple
 		color: $white !important
 		&:hover,
 		&:focus,
 		&:active
-			background-color: darken($color-2, 10%)
+			background-color: lighten($purple, 10%)
 			color: $white !important
-			border: 2px solid darken($color-2, 10%)
+			border: 2px solid lighten($purple, 10%)
 		&-outline
 			@extend .btn
 			background-color: transparent
-			color: $color-2 !important
-			border: 2px solid $color-2
+			color: $white !important
+			border: 2px solid $white
 			&:hover,
 			&:focus,
 			&:active
-				background-color: $color-2
-				color: $white !important
-				border: 2px solid $color-2
+				background-color: $white
+				color: $indigo !important
+				border: 2px solid $white
 	&.full-width
 		width: 100%
 	&.icon

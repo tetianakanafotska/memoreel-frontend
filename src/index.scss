@@ -14,10 +14,11 @@
 
 	// re-mapping color variables
 	--white: $white;
-	--light: $light;
-	--color-1: $color-1;
-	--color-2: $color-2;
-	--color-3: $color-3;
+	--offwhite: $offwhite;
+	--green: $green;
+	--light-blue: $light-blue;
+	--purple: $purple
+	--indigo: $indigo;
 	--dark: $dark;
 }
 
@@ -38,17 +39,17 @@ img {
 
 ::-moz-selection {
 	color: $white;
-	background: $color-2;
+	background: $purple;
 }
 
 ::-webkit-selection {
 	color: $white;
-	background: $color-2;
+	background: $purple;
 }
 
 ::selection {
 	color: $white;
-	background: $color-2;
+	background: $purple;
 }
 
 .debug,
