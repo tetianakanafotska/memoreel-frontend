@@ -1,5 +1,6 @@
 @import 'bootstrap/scss/bootstrap-grid.scss'
 @import '_variables.sass'
+@import '_font-chakra-petch.sass'
 
 body
 	background-color: $indigo
@@ -7,7 +8,7 @@ body
 	margin: 0
 	padding: 0
 	font-weight: 400
-	font-size: 18px
+	font-size: 20px
 	min-height: 100vh
 
 	// use that for media queries
@@ -16,8 +17,11 @@ body
 	@include media-breakpoint-up(md)
 		// border: 10px solid transparentize($color-3, 0.5) // remove this whenever you want
 
+p
+	font-size: 1rem
+
 a, a:visited
-	font-weight: 800
+	font-weight: 600
 	text-decoration: inherit
 	color: $green
 	&:hover,
@@ -25,6 +29,9 @@ a, a:visited
 	&:active
 		color: lighten($green, 20%)
 		outline: none
+
+h1
+	font-size: 2.8rem
 
 .App
 	display: flex
@@ -34,12 +41,14 @@ a, a:visited
 fieldset
 	border: none
 	margin-bottom: 20px
+
 label
 	display: block
 	margin-bottom: 4px
 	font-weight: 600
 
 input
+	font-family: $font-family-sans-serif
 	padding: 10px 18px
 	font-weight: 600
 	font-size: 1rem
@@ -49,7 +58,9 @@ input
 	color: $light-blue
 
 button
-	padding: 10px 20px
+	font-family: $font-family-sans-serif
+	font-size: 1rem
+	padding: 10px 16px
 	border-radius: 6px
 	display: inline-flex
 	cursor: pointer
