@@ -1,10 +1,12 @@
 @import 'bootstrap/scss/bootstrap-grid.scss';
 @import 'styles/_variables.sass';
+@import 'styles/_font-chakra-petch.sass';
 
 :root {
 	line-height: 1.5;
 	font-weight: 400;
-	font-family: 'Open sans', 'Noto sans', Arial, Helvetica, sans-serif;
+	font-family: $font-family-sans-serif;
+	font-size: 20px;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -14,10 +16,11 @@
 
 	// re-mapping color variables
 	--white: $white;
-	--light: $light;
-	--color-1: $color-1;
-	--color-2: $color-2;
-	--color-3: $color-3;
+	--offwhite: $offwhite;
+	--green: $green;
+	--light-blue: $light-blue;
+	--purple: $purple
+	--indigo: $indigo;
 	--dark: $dark;
 }
 
@@ -38,17 +41,17 @@ img {
 
 ::-moz-selection {
 	color: $white;
-	background: $color-2;
+	background: $purple;
 }
 
 ::-webkit-selection {
 	color: $white;
-	background: $color-2;
+	background: $purple;
 }
 
 ::selection {
 	color: $white;
-	background: $color-2;
+	background: $purple;
 }
 
 .debug,

@@ -1,13 +1,15 @@
 @import 'bootstrap/scss/bootstrap-grid.scss'
 @import '_variables.sass'
+@import '_font-chakra-petch.sass'
+@import '_font-roboto-mono.sass'
 
 body
-	background-color: $white
-	color: $dark
+	background-color: $indigo
+	color: $green
 	margin: 0
 	padding: 0
 	font-weight: 400
-	font-size: 18px
+	font-size: 20px
 	min-height: 100vh
 
 	// use that for media queries
@@ -16,15 +18,21 @@ body
 	@include media-breakpoint-up(md)
 		// border: 10px solid transparentize($color-3, 0.5) // remove this whenever you want
 
+p
+	font-size: 1rem
+
 a, a:visited
-	font-weight: 800
+	font-weight: 600
 	text-decoration: inherit
-	color: $color-2
+	color: $green
 	&:hover,
 	&:focus,
 	&:active
-		color: lighten($dark, 20%)
+		color: lighten($green, 20%)
 		outline: none
+
+h1
+	font-size: 2.8rem
 
 .App
 	display: flex
@@ -34,22 +42,26 @@ a, a:visited
 fieldset
 	border: none
 	margin-bottom: 20px
+
 label
 	display: block
 	margin-bottom: 4px
 	font-weight: 600
 
 input
+	font-family: $font-family-sans-serif
 	padding: 10px 18px
 	font-weight: 600
 	font-size: 1rem
 	border-radius: 6px
-	border: 2px solid darken($color-3, 10%)
-	background-color: $color-3
-	color: $color-1
+	border: 2px solid darken($light-blue, 10%)
+	background-color: $indigo
+	color: $light-blue
 
 button
-	padding: 10px 20px
+	font-family: $font-family-sans-serif
+	font-size: 1rem
+	padding: 10px 16px
 	border-radius: 6px
 	display: inline-flex
 	cursor: pointer
@@ -60,12 +72,12 @@ button
 	font-size: 1rem
 	white-space: nowrap
 	margin: 4px
-	background-color: $color-1
-	border: 2px solid $color-1
-	color: $white !important
+	background-color: $green
+	border: 2px solid $green
+	color: $indigo !important
 	&:hover,
 	&:focus,
 	&:active
-		background-color: darken($color-1, 10%)
-		color: $white !important
-		border: 2px solid darken($color-1, 10%)
+		background-color: darken($green, 10%)
+		color: $indigo !important
+		border: 2px solid darken($green, 10%)
