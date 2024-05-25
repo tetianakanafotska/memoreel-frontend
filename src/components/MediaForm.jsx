@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import loadingGif from "../assets/images/loading.gif"; // Corrected path
 import fileUploadService from "../services/file-upload.service";
 
 function MediaForm({ mediaType, setAllMedia, setOpenPopUp, setOpenMediaForm }) {
@@ -10,6 +11,8 @@ function MediaForm({ mediaType, setAllMedia, setOpenPopUp, setOpenMediaForm }) {
   });
 
   const [imageUrl, setImageUrl] = useState("");
+  const [loading, setLoading] = useState(false); // Add loading state///////////////////////////////////
+
   console.log(imageUrl, "setsState");
   const handleAddMedia = () => {
     setAllMedia((prevMedia) => [...prevMedia, newMedia]);
@@ -39,6 +42,7 @@ function MediaForm({ mediaType, setAllMedia, setOpenPopUp, setOpenMediaForm }) {
 
     console.log(e.target.files[0]);
     console.log(uploadData, "uploaded data");
+    setLoading(true); /////////////////////////////////////////////////////
     const fetchData = async () => {
       try {
         const response = await axios.post(
@@ -56,8 +60,10 @@ function MediaForm({ mediaType, setAllMedia, setOpenPopUp, setOpenMediaForm }) {
         });
 
         console.log(newMedia);
+        setLoading(false); /////////////////////////////////////////////////////
       } catch (error) {
         console.log(error);
+        setLoading(false); //
       }
     };
     fetchData();
@@ -87,7 +93,15 @@ function MediaForm({ mediaType, setAllMedia, setOpenPopUp, setOpenMediaForm }) {
       {mediaType === "videoURL" && (
         <input type="text" onChange={handleOnChange} value={newMedia.content} />
       )}
-      <button onClick={handleAddMedia}>Add</button>
+      {loading ? (
+        <img
+          src={loadingGif}
+          alt="Loading..."
+          style={{ width: "30px", height: "30px" }}
+        /> ////////////////////////////////////////
+      ) : (
+        <button onClick={handleAddMedia}>Add</button>
+      )}
     </div>
   );
 }
