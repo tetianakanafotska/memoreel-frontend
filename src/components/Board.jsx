@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styles from './styles/Board.module.sass';
+import classNames from 'classnames';
 
 function Board({ board }) {
 	const { id, createdAt } = board;
+  
 	return (
 		<div className={styles.board}>
 			{board &&
@@ -12,7 +14,7 @@ function Board({ board }) {
 						<>
 							<div key={id}>
 								{value.type === 'image' && (
-									<div className='boardImage'>
+									<div className={classNames(styles.boardImage, styles.boardElement)}>
 										<img
 											src={value.content}
 											alt={key}
@@ -20,7 +22,14 @@ function Board({ board }) {
 									</div>
 								)}
 								{value.type === 'text' && (
-									<div className={styles.boardNote}>
+									<div className={classNames(styles.boardNote, styles.boardElement)}>
+										<div>
+											<p>{value.content}</p>
+										</div>
+									</div>
+								)}
+								{value.type === 'video' && (
+									<div className={classNames(styles.boardNote, styles.boardElement)}>
 										<div>
 											<p>{value.content}</p>
 										</div>
