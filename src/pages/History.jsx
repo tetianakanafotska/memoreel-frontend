@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '@context';
 import axios from 'axios';
 import authService from '../services/auth.service';
+import { Board } from '@components';
 
 function History() {
 	const { user } = useContext(AuthContext);
@@ -37,7 +38,8 @@ function History() {
 							return (
 								<div key={board._id}>
 									<h3>Board {i}</h3>
-									{Object.entries(board.boardContent).map(
+									<Board board={board} />
+									{/* {Object.entries(board.boardContent).map(
 										([key, value]) => {
 											return <>
 											{value.type === "image" && (
@@ -47,12 +49,12 @@ function History() {
 											)}
 											{value.type === "text" && (
 												<div className="boardNote" key={key}>
-													<p>{value.content}</p>
+													<p>{value}</p>
 												</div>
 											)}
 												</>
 										}
-									)}
+									)} */}
 								</div>
 							);
 					  }))}
