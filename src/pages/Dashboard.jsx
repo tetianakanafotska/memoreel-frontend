@@ -4,6 +4,7 @@ import MediaForm from "../components/MediaForm";
 import MediaItem from "../components/MediaItem";
 import { AuthContext } from "@context";
 import axios from "axios";
+//import placeholder from "@img/placeholder.jpg";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
@@ -13,17 +14,8 @@ const Dashboard = () => {
   const [mediaType, setMediaType] = useState(null);
   const [allMedia, setAllMedia] = useState([]);
 
-  const getCurrentLocalDateFormatted = () => {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const day = String(now.getDate()).padStart(2, "0");
-    const formattedDate = `${year}-${month}-${day}`;
-    return formattedDate;
-  };
-
   useEffect(() => {
-    const currentDate = getCurrentLocalDateFormatted();
+    const currentDate = new Date().toISOString().slice(0, 10);
     console.log("THE DATE", currentDate);
     if (user) {
       const userId = user._id;
@@ -67,7 +59,11 @@ const Dashboard = () => {
   return (
     <>
       <h2>{user ? `Hello, ${user.name}!` : "Hello!"}</h2>
-
+      {user && (
+        <div className="profilePic">
+          <img src={user.profileImg} alt={user.name} />
+        </div>
+      )}
       <div className="dashboard-container">
         <button onClick={() => setOpenPopUp(!openPopUp)}>+</button>
         {openPopUp && (
