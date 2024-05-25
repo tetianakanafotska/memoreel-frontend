@@ -1,6 +1,6 @@
 import "@styles/App.sass";
 import { NavBar } from "@components";
-import { LandingPage, NotFound, Login, Signup, Dashboard } from "@pages";
+import { LandingPage, NotFound, Login, Signup, Dashboard, History } from "@pages";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -15,8 +15,12 @@ function App() {
 
         <Route path="/signup" element={<Signup />} />
 
-        <Route path="*" element={<NotFound />} />
         <Route path="/dashboard" element={<Dashboard />} />
+
+        <Route path="/dashboard/history" element={<History />} />
+
+        <Route path="*" element={<NotFound />} />
+
       </Routes>
     </div>
   );
