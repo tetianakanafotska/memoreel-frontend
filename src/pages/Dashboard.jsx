@@ -13,8 +13,17 @@ const Dashboard = () => {
   const [mediaType, setMediaType] = useState(null);
   const [allMedia, setAllMedia] = useState([]);
 
+  const getCurrentLocalDateFormatted = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+    const formattedDate = `${year}-${month}-${day}`;
+    return formattedDate;
+  };
+
   useEffect(() => {
-    const currentDate = new Date().toISOString().slice(0, 10);
+    const currentDate = getCurrentLocalDateFormatted();
     console.log("THE DATE", currentDate);
     if (user) {
       const userId = user._id;
@@ -23,14 +32,20 @@ const Dashboard = () => {
           `http://localhost:5005/users/${userId}/boards?start=${currentDate}`
         )
         .then((res) => {
-          setAllMedia(res.data[0].boardContent);
-          setBoardId(res.data[0]._id);
+          if (res.data.length !== 0) {
+            setAllMedia(res.data[0].boardContent);
+            setBoardId(res.data[0]._id);
+          } else {
+            setAllMedia([]);
+            setBoardId(null);
+          }
         });
     }
   }, [user]);
 
   useEffect(() => {
-    if (!boardId && user) {
+    console.log("this is board id:", boardId);
+    if (boardId === null && allMedia.length > 0 && user) {
       axios
         .post(`http://localhost:5005/boards`, {
           userId: user._id,
@@ -38,16 +53,16 @@ const Dashboard = () => {
         })
         .then((res) => {
           console.log(res);
+          setBoardId(res.data._id);
         });
-    }
-    if (boardId && user) {
+    } else if (boardId && user) {
       axios
         .patch(`http://localhost:5005/boards/${boardId}`, allMedia)
         .then((res) => {
           console.log(res);
         });
     }
-  }, [allMedia]);
+  }, [allMedia, boardId, user]);
 
   return (
     <>
@@ -70,15 +85,15 @@ const Dashboard = () => {
             setOpenMediaForm={setOpenMediaForm}
           />
         )}
-        {allMedia &&
-          allMedia.map((media, index) => {
-            //replace with decent key - media._id
-            return (
-              <div key={index}>
-                <MediaItem media={media} />
-              </div>
-            );
-          })}
+        {allMedia.length > 0 ? (
+          allMedia.map((media, index) => (
+            <div key={index}>
+              <MediaItem media={media} />
+            </div>
+          ))
+        ) : (
+          <p>Create content for today</p>
+        )}
       </div>
     </>
   );
