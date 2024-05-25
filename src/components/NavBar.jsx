@@ -15,12 +15,19 @@ function NavBar() {
 
 				<div>
 					{isLoggedIn ? (
-                        <NavLink
-                            to='/'
-                            className={styles.navlink}
-                            onClick={logOutUser}>
-                            Logout
-                        </NavLink>
+						<>
+							<NavLink
+								to='/dashboard/history'
+								className={styles.navlink}>
+								History
+							</NavLink>
+							<NavLink
+								to='/'
+								className={styles.navlink}
+								onClick={logOutUser}>
+								Logout
+							</NavLink>
+						</>
 					) : (
 						<>
 							<NavLink
