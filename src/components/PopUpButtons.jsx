@@ -2,7 +2,7 @@ import React from "react";
 import Button from "./Button";
 
 export default function PopUpButtons({
-  setMediaType,
+  setAssetType,
   setOpenMediaForm,
   setOpenPopUp,
 }) {
@@ -10,7 +10,7 @@ export default function PopUpButtons({
     <div>
       <button
         onClick={() => {
-          setMediaType("image");
+          setAssetType("image");
           setOpenMediaForm(true);
           setOpenPopUp(false);
         }}
@@ -19,7 +19,7 @@ export default function PopUpButtons({
       </button>
       <button
         onClick={() => {
-          setMediaType("text");
+          setAssetType("text");
           setOpenMediaForm(true);
           setOpenPopUp(false);
         }}
@@ -28,7 +28,7 @@ export default function PopUpButtons({
       </button>
       <button
         onClick={() => {
-          setMediaType("videoURL");
+          setAssetType("youtubeURL");
           setOpenMediaForm(true);
           setOpenPopUp(false);
         }}

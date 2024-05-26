@@ -1,48 +1,79 @@
 import React, { useState } from "react";
 import axios from "axios";
-import loadingGif from "../assets/images/loading.gif"; // Corrected path
-import fileUploadService from "../services/file-upload.service";
+import loadingGif from "../assets/images/loading.gif";
 
-function MediaForm({ mediaType, setAllMedia, setOpenPopUp, setOpenMediaForm }) {
-  const [newMedia, setNewMedia] = useState({
-    _id: "",
-    type: "",
+function MediaForm({
+  assetType,
+  setAllAssets,
+  setOpenPopUp,
+  setOpenMediaForm,
+  boardId,
+  userId,
+}) {
+  const [newAsset, setNewAsset] = useState({
+    type: assetType,
     content: "",
+    userId: userId,
+    boardId: boardId,
   });
 
+  const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
-  const [loading, setLoading] = useState(false); // Add loading state///////////////////////////////////
 
-  console.log(imageUrl, "setsState");
-  const handleAddMedia = () => {
-    setAllMedia((prevMedia) => [...prevMedia, newMedia]);
-    setNewMedia({
-      _id: "",
-      type: "",
-      content: "",
-    });
-    setOpenPopUp(false);
-    setOpenMediaForm(false);
+  const handleAddAsset = async () => {
+    try {
+      if (!boardId) {
+        const boardResp = await axios.post("http://localhost:5005/boards", {
+          userId: userId,
+        });
+        console.log("A new board created with id:", boardResp.data._id);
+        const newBoardId = boardResp.data._id;
+        const assetResp = await axios.post("http://localhost:5005/assets", {
+          ...newAsset,
+          boardId: newBoardId,
+        });
+
+        const createdAsset = assetResp.data;
+        setAllAssets((prevAssets) => [...prevAssets, createdAsset]);
+      } else {
+        const response = await axios.post(
+          "http://localhost:5005/assets",
+          newAsset
+        );
+        const createdAsset = response.data;
+        setAllAssets((prevAssets) => [...prevAssets, createdAsset]);
+      }
+      setNewAsset({
+        type: "",
+        content: "",
+        userId: "",
+        boardId: "",
+      });
+      setOpenPopUp(false);
+      setOpenMediaForm(false);
+    } catch (error) {
+      console.log("Error adding asset:", error);
+    }
   };
+
   const handleOnChange = (e) => {
-    setNewMedia({ _id: Date.now(), type: mediaType, content: e.target.value });
-    console.log(newMedia);
+    setNewAsset((prevAsset) => ({
+      ...prevAsset,
+      content: e.target.value,
+    }));
+    console.log("this is what is added to the newAsset", {
+      type: assetType,
+      userId: userId,
+      boardId: boardId,
+      content: e.target.value,
+    });
   };
+
   const handleImageChange = (e) => {
     e.preventDefault();
-    console.log(e.target.files[0]);
-    // setImageUrl(e.target.value);
-    // setImageUrl(e.target.files[0]);
-    console.log(imageUrl);
     const uploadData = new FormData();
-
-    // imageUrl => this name has to be the same as in the model since we pass
-    // req.body to .create() method when creating a new movie in '/api/movies' POST route
     uploadData.append("imageUrl", e.target.files[0]);
-
-    console.log(e.target.files[0]);
-    console.log(uploadData, "uploaded data");
-    setLoading(true); /////////////////////////////////////////////////////
+    setLoading(true);
     const fetchData = async () => {
       try {
         const response = await axios.post(
@@ -50,57 +81,37 @@ function MediaForm({ mediaType, setAllMedia, setOpenPopUp, setOpenMediaForm }) {
           uploadData
         );
         console.log(response.data.fileUrl);
-
         const fileUrl = response.data.fileUrl;
         setImageUrl(fileUrl);
-        setNewMedia({
-          _id: Date.now(),
-          type: mediaType,
-          content: fileUrl,
-        });
-
-        console.log(newMedia);
-        setLoading(false); /////////////////////////////////////////////////////
+        setNewAsset((prevAsset) => ({ ...prevAsset, content: fileUrl }));
+        setLoading(false);
       } catch (error) {
         console.log(error);
-        setLoading(false); //
+        setLoading(false);
       }
     };
     fetchData();
-
-    // axios
-    //   .post("http://localhost:5005/boards/upload", uploadData)
-    //   .then((response) => {
-    //     // Update imageUrl state and chain setNewMedia with the promise returned by setImageUrl
-    //     setImageUrl(response.data.fileUrl);
-    //     setNewMedia({
-    //       _id: Date.now(),
-    //       type: mediaType,
-    //       content: imageUrl,
-    //     });
-    //   })
-    //   .catch((err) => console.log("Error while uploading the file: ", err));
   };
 
   return (
     <div>
-      {mediaType === "text" && (
-        <input type="text" onChange={handleOnChange} value={newMedia.content} />
+      {assetType === "text" && (
+        <input type="text" onChange={handleOnChange} value={newAsset.content} />
       )}
-      {mediaType === "image" && (
-        <input type="file" onChange={(e) => handleImageChange(e)} />
+      {assetType === "image" && (
+        <input type="file" onChange={handleImageChange} />
       )}
-      {mediaType === "videoURL" && (
-        <input type="text" onChange={handleOnChange} value={newMedia.content} />
+      {assetType === "youtubeURL" && (
+        <input type="text" onChange={handleOnChange} value={newAsset.content} />
       )}
       {loading ? (
         <img
           src={loadingGif}
           alt="Loading..."
           style={{ width: "30px", height: "30px" }}
-        /> ////////////////////////////////////////
+        />
       ) : (
-        <button onClick={handleAddMedia}>Add</button>
+        <button onClick={handleAddAsset}>Add</button>
       )}
     </div>
   );
