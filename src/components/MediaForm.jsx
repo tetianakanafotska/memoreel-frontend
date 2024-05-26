@@ -19,6 +19,19 @@ function MediaForm({
 
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
+  const [touched, setTouched] = useState(false);
+
+  const validateContent = (item) => {
+    if (!item.trim()) {
+      console.log("there is no item", item);
+      return false;
+    } else if (assetType === "youtubeURL") {
+      const youtubeUrlRegex =
+        /^(http(s)??\:\/\/)?(www\.)?((youtube\.com\/watch\?v=)|(youtu.be\/))([a-zA-Z0-9\-_])+$/;
+      console.log("result of youtube validation", youtubeUrlRegex.test(item));
+      return youtubeUrlRegex.test(item);
+    } else return true;
+  };
 
   const handleAddAsset = async () => {
     try {
@@ -32,7 +45,6 @@ function MediaForm({
           ...newAsset,
           boardId: newBoardId,
         });
-
         const createdAsset = assetResp.data;
         setAllAssets((prevAssets) => [...prevAssets, createdAsset]);
       } else {
@@ -61,6 +73,7 @@ function MediaForm({
       ...prevAsset,
       content: e.target.value,
     }));
+    setTouched(true);
     console.log("this is what is added to the newAsset", {
       type: assetType,
       userId: userId,
@@ -92,7 +105,6 @@ function MediaForm({
     };
     fetchData();
   };
-
   return (
     <div>
       {assetType === "text" && (
@@ -111,7 +123,18 @@ function MediaForm({
           style={{ width: "30px", height: "30px" }}
         />
       ) : (
-        <button onClick={handleAddAsset}>Add</button>
+        <div>
+          <button
+            onClick={handleAddAsset}
+            disabled={!validateContent(newAsset.content)}
+          >
+            Add
+          </button>
+          <button onClick={() => setOpenMediaForm(false)}>Cancel</button>
+          {touched && !validateContent(newAsset.content) && (
+            <p>Invalid content</p>
+          )}
+        </div>
       )}
     </div>
   );
