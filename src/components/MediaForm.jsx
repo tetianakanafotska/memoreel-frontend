@@ -11,26 +11,17 @@ const cld = new Cloudinary({
     cloudName,
   },
 });
-// function applyFilter(filter, image) {
-//   // this will be used to apply filters
-// }
-// const filters = [
-//   // strings representing a filter
-// ];
+
 function ImagePreviewer({ url, deleteImage }) {
   return url ? (
     <div className="img_box">
       <img src={url} alt="my_image" />
-      <p>{url}</p>
       <button className="close_btn" onClick={deleteImage}>
-        Delete
+        Retake
       </button>
     </div>
   ) : null;
 }
-// function FilterItem({ imgId, setPrevURL, filterName }) {
-//   //this will be used to apply a filter
-// }
 
 function MediaForm({
   assetType,
@@ -49,7 +40,6 @@ function MediaForm({
 
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
-
   const constraints = {
     width: 500,
     height: 500,
@@ -57,12 +47,10 @@ function MediaForm({
     aspectRatio: 9 / 16,
   };
   const camRef = useRef();
-  // const [loading, setLoading] = useState(false);
   const [id, setId] = useState("");
   const [prevURL, setPrevURL] = useState("");
   const captureAndUpload = async () => {
     // get screenshot
-
     const data = camRef.current.getScreenshot();
     console.log(camRef);
     // upload to cloudinary and get public_id
@@ -77,6 +65,7 @@ function MediaForm({
         ` https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
         imageData
       );
+      console.log(res);
       const imageDetails = res.data;
       setId(imageDetails.public_id);
       setPrevURL(imageDetails.url);
@@ -175,8 +164,8 @@ function MediaForm({
       {assetType === "youtubeURL" && (
         <input type="text" onChange={handleOnChange} value={newAsset.content} />
       )}
-      {assetType === "selfie" && (
-        <section className="main">
+      {assetType === "camImage" && (
+        <div className="main">
           <article className="media_box">
             <Webcam
               ref={camRef}
@@ -189,11 +178,11 @@ function MediaForm({
               onClick={captureAndUpload}
               className="capture_btn"
             >
-              SNAP
+              Snap
             </button>
             <ImagePreviewer url={prevURL} deleteImage={deleteImage} />
           </article>
-        </section>
+        </div>
       )}
       {loading ? (
         <img

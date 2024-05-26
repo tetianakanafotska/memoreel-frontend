@@ -37,12 +37,12 @@ export default function PopUpButtons({
       </button>
       <button
         onClick={() => {
-          setAssetType("selfie");
+          setAssetType("camImage");
           setOpenMediaForm(true);
           setOpenPopUp(false);
         }}
       >
-        Take Selfie
+        take selfie
       </button>
     </div>
   );
