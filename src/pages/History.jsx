@@ -4,6 +4,8 @@ import axios from 'axios';
 import authService from '../services/auth.service';
 import { Board, MediaItem } from '@components';
 import boardStyles from '../components/styles/Board.module.sass';
+import { X } from 'react-bootstrap-icons';
+import { Link } from 'react-router-dom';
 
 function History() {
 	const { user } = useContext(AuthContext);
@@ -35,6 +37,10 @@ function History() {
 
 	return (
 		<>
+			<div className='closeBtn'>
+				<Link to='/dashboard'>{<X size='40' />}</Link>
+			</div>
+
 			{allBoards &&
 				allBoards.length >= 0 &&
 				(allBoards.length === 0
@@ -58,7 +64,7 @@ function History() {
 									</div>
 								</>
 							);
-						}))}
+					  }))}
 		</>
 	);
 }
