@@ -68,7 +68,7 @@ function MediaForm({
       console.log(res);
       const imageDetails = res.data;
       setId(imageDetails.public_id);
-      setPrevURL(imageDetails.url);
+      setNewAsset((prevAsset) => ({ ...prevAsset, content: imageDetails.url }));
     } catch (error) {
       console.log(error);
     } finally {
@@ -102,6 +102,7 @@ function MediaForm({
         );
         const createdAsset = response.data;
         setAllAssets((prevAssets) => [...prevAssets, createdAsset]);
+        console.log(createdAsset);
       }
       setNewAsset({
         type: "",
