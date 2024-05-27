@@ -81,6 +81,9 @@ button
 		background-color: darken($green, 10%)
 		color: $indigo !important
 		border: 2px solid darken($green, 10%)
+	&:disabled
+		background-color: darken($offwhite, 20%)
+		border: none
 
 .profilePic
 	display: block
@@ -92,3 +95,7 @@ button
 	img
 		width: 100%
 		height: 100%
+		object-fit: cover
+		padding: 0
+		margin: 0
+		border: none !important
