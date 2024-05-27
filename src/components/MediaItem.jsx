@@ -42,6 +42,16 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset }) {
         ) : (
           <ReactPlayer url={asset.content} controls />
         );
+      case "camImage":
+        return isEditing ? (
+          <input
+            type="text"
+            value={editedContent}
+            onChange={(e) => setEditedContent(e.target.value)}
+          />
+        ) : (
+          <img src={editedContent || asset.content} alt="Uploaded content" />
+        );
       default:
         return null;
     }

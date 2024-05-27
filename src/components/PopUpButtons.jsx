@@ -35,6 +35,15 @@ export default function PopUpButtons({
       >
         add Youtube video
       </button>
+      <button
+        onClick={() => {
+          setAssetType("camImage");
+          setOpenMediaForm(true);
+          setOpenPopUp(false);
+        }}
+      >
+        take selfie
+      </button>
     </div>
   );
 }
