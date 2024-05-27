@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import styles from './styles/Board.module.sass';
-import classNames from 'classnames';
+import React, { useState } from "react";
+import styles from "./styles/Board.module.sass";
+import classNames from "classnames";
 
 function Board({ board }) {
 	const { id, createdAt } = board;
