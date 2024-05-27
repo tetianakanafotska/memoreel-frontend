@@ -53,17 +53,20 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset }) {
 							value={assetContent}
 							onChange={(e) => setAssetContent(e.target.value)}
 						/>
-
+						<div className={boardStyles.boardVideo}>
+							<ReactPlayer
+								url={assetContent}
+								controls
+							/>
+						</div>
+					</>
+				) : (
+					<div className={boardStyles.boardVideo}>
 						<ReactPlayer
 							url={assetContent}
 							controls
 						/>
-					</>
-				) : (
-					<ReactPlayer
-						url={assetContent}
-						controls
-					/>
+					</div>
 				);
 			case 'camImage':
 				return isEditing ? (
@@ -77,7 +80,7 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset }) {
 						<img
 							src={asset.content}
 							alt='Uploaded content'
-							style={{width: '400px'}}
+							style={{ width: '400px' }}
 						/>
 					</div>
 				);
