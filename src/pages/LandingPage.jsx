@@ -1,5 +1,6 @@
 import styles from './styles/LandingPage.module.sass';
 import './styles/LandingPage.scss';
+import { AuthContext } from '@context';
 import Button from '../components/Button.jsx'; // Ensure this path is correct
 import { Heart, EmojiSmile } from 'react-bootstrap-icons'; // see https://icons.getbootstrap.com/
 import { Container, Row, Col } from 'react-bootstrap';
@@ -10,8 +11,11 @@ import landingslide4 from '../assets/images/landingslide4.png';
 import landingslide5 from '../assets/images/landingslide5.png';
 import landingslide6 from '../assets/images/landingslide6.png';
 import { Link } from 'react-router-dom';
+import React, { useContext } from 'react'
 
 export default function LandingPage() {
+	const { user, isLoggedIn } = useContext(AuthContext);
+
 	return (
 		<div
 			style={{
@@ -101,7 +105,7 @@ export default function LandingPage() {
 			</div>
 			<Row className="mb-5">
 				<Col className="my-5">
-					<Button to='/dashboard'>Highlight Your Day!</Button>
+					<Button to={isLoggedIn ? '/dashboard' : '/login'}>Highlight Your Day!</Button>
 				</Col>
 			</Row>
 		</div>
