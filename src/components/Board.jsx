@@ -54,8 +54,8 @@ function Board({ board }) {
 	return (
 		<div className={styles.board}>
 			{board &&
-				board.boardContent &&
-				Object.entries(board.boardContent).map(([key, value]) => {
+				board.assets &&
+				Object.entries(board.assets).map(([key, value]) => {
 					return (
 						<>{<div key={id}>{renderContent(key, value)}</div>}</>
 					);
