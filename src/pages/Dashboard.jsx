@@ -79,7 +79,7 @@ const Dashboard = () => {
 			{user && (
 				<div className='profilePic'>
 					<img
-						src={user.profileImg}
+						src={user.profileImg || placeholder}
 						onError={(e) => {
 							e.target.src = placeholder;
 						}}
