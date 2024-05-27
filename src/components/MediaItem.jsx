@@ -26,7 +26,7 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset, className }) {
 						{isEditing && (
 							<input
 								type='text'
-								value={assetContent}
+								placeholder="What is on your mind?"
 								onChange={(e) =>
 									setAssetContent(e.target.value)
 								}
@@ -71,7 +71,7 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset, className }) {
 							<>
 								<input
 									type='text'
-									value={assetContent}
+									placeholder='Paste Youtube URL here'
 									onChange={(e) =>
 										setAssetContent(e.target.value)
 									}
