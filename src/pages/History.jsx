@@ -1,32 +1,36 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '@context';
-import axios from 'axios';
-import authService from '../services/auth.service';
-import { Board } from '@components';
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "@context";
+import axios from "axios";
+import authService from "../services/auth.service";
+import { Board } from "@components";
 
 function History() {
-	const { user } = useContext(AuthContext);
-	const [allBoards, setAllboards] = useState([]);
+  const { user } = useContext(AuthContext);
+  const [allBoards, setAllboards] = useState([]);
+  const token = localStorage.getItem("authToken");
 
-	useEffect(() => {
-		if (user) {
-			const userId = user._id;
-			const start = '2023-05-01';
-			const end = '2024-12-12';
+  useEffect(() => {
+    if (user) {
+      const userId = user._id;
+      const start = "2023-05-01";
+      const end = "2024-12-12";
 
-			axios
-				.get(
-					`${
-						import.meta.env.BACKEND_URL || 'http://localhost:5005'
-					}/users/${userId}/boards?start=${start}&end=${end}`
-				)
-				.then((res) => {
-					setAllboards(res.data);
-					console.log(res);
-				})
-				.catch((error) => console.error('Oops', error));
-		}
-	}, [user]);
+      axios
+        .get(
+          `${
+            import.meta.env.BACKEND_URL || "http://localhost:5005"
+          }/users/${userId}/boards?start=${start}&end=${end}`,
+          {
+            headers: { Authorization: ` Bearer ${token}` },
+          }
+        )
+        .then((res) => {
+          setAllboards(res.data);
+          console.log(res);
+        })
+        .catch((error) => console.error("Oops", error));
+    }
+  }, [user]);
 
 	return (
 		<>

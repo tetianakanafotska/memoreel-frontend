@@ -18,65 +18,72 @@ const Dashboard = () => {
 	const [assetType, setAssetType] = useState(null);
 	const [allAssets, setAllAssets] = useState([]);
 	const [addButton, setAddButton] = useState(false);
+  const token = localStorage.getItem("authToken");
 
-	const handleDeleteAsset = (assetId) => {
-		console.log('asset to be deleted', assetId);
-		axios
-			.delete(`http://localhost:5005/assets/${assetId}`)
-			.then((res) => {
-				console.log('resp from deleting', res);
-				setAllAssets((prevAssets) =>
-					prevAssets.filter((asset) => asset._id !== assetId)
-				);
-			})
-			.catch((err) => {
-				console.error('Error deleting asset', err);
-			});
-	};
+  const handleDeleteAsset = (assetId) => {
+    console.log("asset to be deleted", assetId);
+    axios
+      .delete(`http://localhost:5005/assets/${assetId}`)
+      .then((res) => {
+        console.log("resp from deleting", res);
+        setAllAssets((prevAssets) =>
+          prevAssets.filter((asset) => asset._id !== assetId)
+        );
+      })
+      .catch((err) => {
+        console.error("Error deleting asset", err);
+      });
+  };
 
-	const handleEditAsset = (assetId, editedContent) => {
-		console.log('editedContent', editedContent);
-		axios
-			.put(`http://localhost:5005/assets/${assetId}`, {
-				content: editedContent,
-			})
-			.then((res) => {
-				const updatedAsset = res.data;
-				console.log('updated res', res);
-				setAllAssets((prevAssets) =>
-					prevAssets.map((asset) =>
-						asset._id === assetId ? updatedAsset : asset
-					)
-				);
-			})
-			.catch((err) => {
-				console.error('Error updating asset', err);
-			});
-	};
+  const handleEditAsset = (assetId, editedContent) => {
+    console.log("editedContent", editedContent);
+    axios
+      .put(
+        `http://localhost:5005/assets/${assetId}`,
+        {
+          content: editedContent,
+        },
+        {
+          headers: { Authorization: token },
+        }
+      )
+      .then((res) => {
+        const updatedAsset = res.data;
+        console.log("updated res", res);
+        setAllAssets((prevAssets) =>
+          prevAssets.map((asset) =>
+            asset._id === assetId ? updatedAsset : asset
+          )
+        );
+      })
+      .catch((err) => {
+        console.error("Error updating asset", err);
+      });
+  };
 
-	useEffect(() => {
-		const currentDate = new Date().toISOString().slice(0, 10);
-		console.log('THE DATE', currentDate);
-		if (user) {
-			axios
-				.get(
-					`http://localhost:5005/users/${user._id}/boards?start=${currentDate}`
-				)
-				.then((res) => {
-					if (res.data.length !== 0) {
-						setAllAssets(res.data[0].assets);
-						setBoardId(res.data[0]._id);
-						console.log(
-							'Existing board found. BoardID:',
-							res.data[0]._id
-						);
-					} else {
-						setAllAssets([]);
-						setBoardId(null);
-					}
-				});
-		}
-	}, [user]);
+  useEffect(() => {
+    const currentDate = new Date().toISOString().slice(0, 10);
+    console.log("THE DATE", currentDate);
+    if (user) {
+      axios
+        .get(
+          `http://localhost:5005/users/${user._id}/boards?start=${currentDate}`,
+          {
+            headers: { Authorization: ` Bearer ${token}` },
+          }
+        )
+        .then((res) => {
+          if (res.data.length !== 0) {
+            setAllAssets(res.data[0].assets);
+            setBoardId(res.data[0]._id);
+            console.log("Existing board found. BoardID:", res.data[0]._id);
+          } else {
+            setAllAssets([]);
+            setBoardId(null);
+          }
+        });
+    }
+  }, [user]);
 
 	return (
 		<section className={styles.dashboard}>
