@@ -7,8 +7,10 @@ import axios from 'axios';
 import placeholder from '@img/placeholder.jpg';
 import { Container, Row, Col } from 'react-bootstrap';
 import styles from './styles/Dashboard.module.sass';
+import popUpButtonStyles from '@components/styles/PopUpButtons.module.sass';
 import boardStyles from '../components/styles/Board.module.sass';
 import classNames from 'classnames';
+import {PlusLg} from 'react-bootstrap-icons'
 
 const Dashboard = () => {
 	const { user } = useContext(AuthContext);
@@ -119,12 +121,12 @@ const Dashboard = () => {
 									setAddButton(prev => !prev ? true : false);
 								}}
 								className={classNames(
-									styles.dashboard_addContent_addBtn,
+									popUpButtonStyles.popUpButton_addButton,
 									{
-										[styles.dashboard_addContent_addBtn_on]: addButton
+										[popUpButtonStyles.popUpButton_addButton_on]: addButton
 									}
 								)}>
-									+
+									{<PlusLg size="40" />}
 							</button>
 
 							{openPopUp && (
@@ -139,16 +141,16 @@ const Dashboard = () => {
 				</Row>
 			</Container>
 
-				{openMediaForm && (
-					<MediaForm
-						assetType={assetType}
-						setOpenPopUp={setOpenPopUp}
-						setOpenMediaForm={setOpenMediaForm}
-						setAllAssets={setAllAssets}
-						boardId={boardId}
-						userId={user._id}
-					/>
-				)}
+			{openMediaForm && (
+				<MediaForm
+					assetType={assetType}
+					setOpenPopUp={setOpenPopUp}
+					setOpenMediaForm={setOpenMediaForm}
+					setAllAssets={setAllAssets}
+					boardId={boardId}
+					userId={user._id}
+				/>
+			)}
 
 			<div className={boardStyles.board}>
 				{allAssets.length > 0 ? (
