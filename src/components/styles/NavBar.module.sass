@@ -29,6 +29,7 @@ img
 		align-items: center
 	&_bottom
 		@extend .navbar
+		z-index: 999999
 		padding: 20px
 		position: fixed
 		bottom: 0
@@ -45,7 +46,6 @@ img
 				&:focus,
 				&:active
 					animation: spin 1.8s linear infinite
-
 
 @keyframes spin
 	from
