@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
 import boardStyles from './styles/Board.module.sass';
 
-function MediaItem({ asset, handleDeleteAsset, handleEditAsset }) {
+function MediaItem({ asset, handleDeleteAsset, handleEditAsset, className }) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [assetContent, setAssetContent] = useState(asset.content);
 
@@ -15,74 +15,104 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset }) {
 	const renderContent = () => {
 		switch (asset.type) {
 			case 'text':
-				return isEditing ? (
-					<input
-						type='text'
-						value={assetContent}
-						onChange={(e) => setAssetContent(e.target.value)}
-					/>
-				) : (
-					<div
-						className={classNames(
-							boardStyles.boardNote,
-							boardStyles.boardElement
-						)}>
-						<div>
-							<p>{assetContent}</p>
+				return (
+					<>
+						<div
+							className={classNames(
+								boardStyles.board_element,
+								boardStyles.board_element_note
+							)}>
+							<div>
+								<p>{assetContent}</p>
+							</div>
 						</div>
-					</div>
+						{isEditing && (
+							<input
+								type='text'
+								value={assetContent}
+								onChange={(e) =>
+									setAssetContent(e.target.value)
+								}
+							/>
+						)}
+					</>
 				);
 			case 'image':
-				return isEditing ? (
-					<input
-						type='text'
-						value={assetContent}
-						onChange={(e) => setAssetContent(e.target.value)}
-					/>
-				) : (
-					<img
-						src={assetContent}
-						alt='Uploaded content'
-					/>
-				);
-			case 'youtubeURL':
-				return isEditing ? (
+				return (
 					<>
-						<input
-							type='text'
-							value={assetContent}
-							onChange={(e) => setAssetContent(e.target.value)}
-						/>
-						<div className={boardStyles.boardVideo}>
+						<div
+							className={classNames(
+								boardStyles.board_element,
+								boardStyles.board_element_image
+							)}>
+							<img
+								src={assetContent}
+								alt='Uploaded content'
+							/>
+						</div>
+						{isEditing && (
+							<input
+								type='text'
+								value={assetContent}
+								onChange={(e) =>
+									setAssetContent(e.target.value)
+								}
+							/>
+						)}
+					</>
+				);
+
+			case 'youtubeURL':
+				return (
+					<>
+						<div
+							className={classNames(
+								boardStyles.board_element,
+								boardStyles.board_element_video
+							)}>
 							<ReactPlayer
 								url={assetContent}
 								controls
 							/>
 						</div>
+
+						{isEditing && (
+							<>
+								<input
+									type='text'
+									value={assetContent}
+									onChange={(e) =>
+										setAssetContent(e.target.value)
+									}
+								/>
+							</>
+						)}
 					</>
-				) : (
-					<div className={boardStyles.boardVideo}>
-						<ReactPlayer
-							url={assetContent}
-							controls
-						/>
-					</div>
 				);
 			case 'camImage':
-				return isEditing ? (
-					<input
-						type='text'
-						value={asset.content}
-						onChange={(e) => setEditedContent(e.target.value)}
-					/>
-				) : (
-					<div className={boardStyles.boardPolaroid}>
-						<img
-							src={asset.content}
-							alt='Uploaded content'
-							style={{ width: '400px' }}
-						/>
-					</div>
+				return (
+					<>
+						<div
+							className={classNames(
+								boardStyles.board_element,
+								boardStyles.board_element_polaroid
+							)}>
+							<img
+								src={asset.content}
+								alt='Uploaded content'
+								style={{ width: '400px' }}
+							/>
+						</div>
+						{isEditing && (
+							<input
+								type='text'
+								value={asset.content}
+								onChange={(e) =>
+									setEditedContent(e.target.value)
+								}
+							/>
+						)}
+					</>
 				);
 			default:
 				return null;

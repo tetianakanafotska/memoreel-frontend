@@ -8,67 +8,66 @@
     overflow-y: hidden
     margin-bottom: 20px
     padding: 30px 0
-    .boardElement
-        width: 340px
-        height: 340px
+    &_element
+        // width: 340px
+        // height: 340px
         margin: 0 20px
-    &Image
-        height: 100%
-        display: block
-        img
-            width: 100%
-            height: 100%
-            border-radius: 30px
-            object-fit: cover
-    &Note
-        position: relative
-        margin: 20px 40px
-        width: 35vw
-        height: 400px
-        display: block
-        background-color: darken($indigo, 30%)
-        z-index: 0
-        & > div
-            transform: rotateZ(357deg)
-            width: 100%
-            height: 100%
-            background-color: $light-blue
-            padding: 20px
-            font-family: $font-family-monospace
-            color: $dark
-            display: flex
-            align-items: center
-            justify-content: center
-            z-index: 1111
-            position: absolute
-    &Polaroid
-        width: fit-content
-        padding: 10px
-        background-color: $white
-        box-shadow: 0 0.2rem 1.2rem rgba(0,0,0,0.2)
-        transform: rotate(3deg) scale(0.9, 0.9)
-        transition: all 0.35s
-        animation: rotate-in 0.5s ease-in-out
-        > img,
-        > video
-            max-width: 100%
-            height: auto
-            border: 0
-            border-radius: 0
-            margin-bottom: 60px
-        &:before
-            content: ''
-            position: absolute
-            z-index: -1
+        &_image
+            width: 500px
+            display: block
+            img
+                width: 100%
+                border-radius: 30px
+                object-fit: cover
+        &_note
+            position: relative
+            margin: 20px 40px
+            width: 35vw
+            height: 400px
+            display: block
+            background-color: darken($indigo, 30%)
+            z-index: 0
+            & > div
+                transform: rotateZ(357deg)
+                width: 100%
+                height: 100%
+                background-color: $light-blue
+                padding: 20px
+                font-family: $font-family-monospace
+                color: $dark
+                display: flex
+                align-items: center
+                justify-content: center
+                z-index: 1111
+                position: absolute
+        &_polaroid
+            width: fit-content
+            padding: 10px
+            background-color: $white
+            box-shadow: 0 0.2rem 1.2rem rgba(0,0,0,0.2)
+            transform: rotate(3deg) scale(0.9, 0.9)
             transition: all 0.35s
-    &Video
-        iframe
-            border-radius: 30px
-            box-shadow: 0 10px 20px transparentize($dark, 0.8)
-            background-color: lighten($indigo, 10%)
-            background-image: url(/src/assets/images/flower.svg)
-            background-position: center center
-            background-size: 60px 60px
-            background-repeat: no-repeat
-            outline: 2px solid white
-            // outline: 10px dotted $green
+            animation: rotate-in 0.5s ease-in-out
+            width: 400px
+            > img
+                max-width: 100%
+                height: auto
+                border: 0
+                border-radius: 0
+                margin-bottom: 60px
+            &:before
+                content: ''
+                position: absolute
+                z-index: -1
+                transition: all 0.35s
+        &_video
+            iframe
+                border-radius: 30px
+                box-shadow: 0 10px 20px transparentize($dark, 0.8)
+                background-color: lighten($indigo, 10%)
+                background-image: url(/src/assets/images/flower.svg)
+                background-position: center center
+                background-size: 60px 60px
+                background-repeat: no-repeat
+                outline: 2px solid white
+                // outline: 10px dotted $green

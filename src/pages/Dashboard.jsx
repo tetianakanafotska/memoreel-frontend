@@ -5,6 +5,10 @@ import MediaItem from '../components/MediaItem';
 import { AuthContext } from '@context';
 import axios from 'axios';
 import placeholder from '@img/placeholder.jpg';
+import { Container, Row, Col } from 'react-bootstrap';
+import styles from './styles/Dashboard.module.sass';
+import boardStyles from '../components/styles/Board.module.sass';
+import classNames from 'classnames';
 
 const Dashboard = () => {
 	const { user } = useContext(AuthContext);
@@ -13,6 +17,7 @@ const Dashboard = () => {
 	const [openMediaForm, setOpenMediaForm] = useState(false);
 	const [assetType, setAssetType] = useState(null);
 	const [allAssets, setAllAssets] = useState([]);
+	const [addButton, setAddButton] = useState(false);
 
 	const handleDeleteAsset = (assetId) => {
 		console.log('asset to be deleted', assetId);
@@ -74,28 +79,59 @@ const Dashboard = () => {
 	}, [user]);
 
 	return (
-		<>
-			<h2>{user ? `Hello, ${user.name}!` : 'Hello!'}</h2>
-			{user && (
-				<div className='profilePic'>
-					<img
-						src={user.profileImg || placeholder}
-						onError={(e) => {
-							e.target.src = placeholder;
-						}}
-						alt={user.name}
-					/>
-				</div>
-			)}
-			<div className='dashboard-container'>
-				<button onClick={() => setOpenPopUp(!openPopUp)}>+</button>
-				{openPopUp && (
-					<PopUpButtons
-						setAssetType={setAssetType}
-						setOpenMediaForm={setOpenMediaForm}
-						setOpenPopUp={setOpenPopUp}
-					/>
-				)}
+		<section className={styles.dashboard}>
+			<Container fluid>
+				<Row>
+					<Col className='d-flex flex-column align-items-center justify-content-center my-5'>
+						{user && (
+							<div className='profilePic mb-2'>
+								<img
+									src={user.profileImg || placeholder}
+									onError={(e) => {
+										e.target.src = placeholder;
+									}}
+									alt={user.name}
+								/>
+							</div>
+						)}
+						<h2>{user ? `Hello, ${user.name}!` : 'Hello!'}</h2>
+					</Col>
+				</Row>
+				<Row>
+					<Col>
+						<h3>What's on your mind today?</h3>
+					</Col>
+				</Row>
+
+				<Row>
+					<Col>
+						<div className={styles.dashboard_addContent}>
+							<button
+								onClick={() => {
+									setOpenPopUp(!openPopUp);
+									setAddButton(prev => !prev ? true : false);
+								}}
+								className={classNames(
+									styles.dashboard_addContent_addBtn,
+									{
+										[styles.dashboard_addContent_addBtn_on]: addButton
+									}
+								)}>
+									+
+							</button>
+
+							{openPopUp && (
+								<PopUpButtons
+									setAssetType={setAssetType}
+									setOpenMediaForm={setOpenMediaForm}
+									setOpenPopUp={setOpenPopUp}
+								/>
+							)}
+						</div>
+					</Col>
+				</Row>
+			</Container>
+
 				{openMediaForm && (
 					<MediaForm
 						assetType={assetType}
@@ -106,6 +142,8 @@ const Dashboard = () => {
 						userId={user._id}
 					/>
 				)}
+
+			<div className={boardStyles.board}>
 				{allAssets.length > 0 ? (
 					allAssets.map((asset) => (
 						<div key={asset._id}>
@@ -120,7 +158,7 @@ const Dashboard = () => {
 					<p>Create content for today</p>
 				)}
 			</div>
-		</>
+		</section>
 	);
 };
 

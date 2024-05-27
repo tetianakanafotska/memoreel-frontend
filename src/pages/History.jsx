@@ -39,25 +39,9 @@ function History() {
 								<div key={board._id}>
 									<h3>Board {i}</h3>
 									<Board board={board} />
-									{/* {Object.entries(board.boardContent).map(
-										([key, value]) => {
-											return <>
-											{value.type === "image" && (
-												<div className="boardImage" key={key}>
-													<img src={value.content} alt={key} />
-												</div>
-											)}
-											{value.type === "text" && (
-												<div className="boardNote" key={key}>
-													<p>{value}</p>
-												</div>
-											)}
-												</>
-										}
-									)} */}
 								</div>
 							);
-					  }))}
+					}))}
 		</>
 	);
 }
