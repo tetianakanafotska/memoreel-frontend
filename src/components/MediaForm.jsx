@@ -2,8 +2,10 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import loadingGif from '../assets/images/loading.gif';
 import Webcam from 'react-webcam';
-import boardStyles from './styles/Board.module.sass';
 import { Cloudinary } from '@cloudinary/url-gen';
+import boardStyles from './styles/Board.module.sass';
+import dashboardStyles from '@pages/styles/Dashboard.module.sass';
+import { Camera, Pen, XLg, Trash, CheckLg } from 'react-bootstrap-icons';
 
 const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
@@ -16,16 +18,11 @@ const cld = new Cloudinary({
 
 function ImagePreviewer({ url, deleteImage }) {
 	return url ? (
-		<div className='img_box'>
+		<div className={boardStyles.board_item_polaroid}>
 			<img
 				src={url}
 				alt='my_image'
 			/>
-			<button
-				className='close_btn'
-				onClick={deleteImage}>
-				Retake
-			</button>
 		</div>
 	) : null;
 }
@@ -47,6 +44,7 @@ function MediaForm({
 
 	const [loading, setLoading] = useState(false);
 	const [touched, setTouched] = useState(false);
+	const [photoTaken, setPhotoTaken] = useState(false);
 	const camRef = useRef();
 	const [prevURL, setPrevURL] = useState('');
 
@@ -61,10 +59,10 @@ function MediaForm({
 	};
 
 	const constraints = {
-		width: 500,
-		height: 500,
+		width: 400,
+		height: 400,
 		facingMode: 'user',
-		aspectRatio: 9 / 16,
+		aspectRatio: 1 / 1,
 	};
 
 	const uploadImage = async (fileOrDataUrl) => {
@@ -111,11 +109,13 @@ function MediaForm({
 		const dataUrl = camRef.current.getScreenshot();
 		if (dataUrl) {
 			uploadImage(dataUrl);
+			setPhotoTaken(true);
 		}
 	};
 
 	const deleteImage = () => {
 		setPrevURL('');
+		setPhotoTaken(false);
 	};
 
 	const handleAddAsset = async () => {
@@ -167,12 +167,14 @@ function MediaForm({
 	};
 
 	return (
-		<div>
+		<div className={dashboardStyles.dashboard_mediaForm_inputs}>
 			{assetType === 'text' && (
-				<input
+				<textarea
 					type='text'
+					placeholder="What's on your mind today?"
 					onChange={handleOnChange}
 					value={newAsset.content}
+					className={dashboardStyles.editButtons_input}
 				/>
 			)}
 			{assetType === 'image' && (
@@ -180,36 +182,55 @@ function MediaForm({
 					type='file'
 					accept='image/*'
 					onChange={handleFileChange}
+					className={dashboardStyles.editButtons_input}
 				/>
 			)}
 			{assetType === 'youtubeURL' && (
 				<input
 					type='text'
+					placeholder='Paste Youtube URL here'
 					onChange={handleOnChange}
 					value={newAsset.content}
+					className={dashboardStyles.editButtons_input}
 				/>
 			)}
 			{assetType === 'camImage' && (
 				<div className='main'>
-					<article className='media_box'>
-						<div className={boardStyles.boardPolaroid}>
-							<Webcam
-								ref={camRef}
-								videoConstraints={constraints}
-								screenshotFormat='image/jpeg'
-							/>
-						</div>
-						<button
-							disabled={loading}
-							onClick={captureAndUpload}
-							className='capture_btn'>
-							Snap
-						</button>
-						<ImagePreviewer
-							url={prevURL}
-							deleteImage={deleteImage}
-						/>
-					</article>
+					<div className={dashboardStyles.editButtons_photoContainer}>
+						{photoTaken ? (
+							<>
+								<ImagePreviewer
+									url={prevURL}
+									deleteImage={deleteImage}
+								/>
+							</>
+						) : (
+							<>
+								<div className={boardStyles.board_item_polaroid}>
+									<Webcam
+										ref={camRef}
+										videoConstraints={constraints}
+										screenshotFormat='image/jpeg'
+									/>
+								</div>
+							</>
+						)}
+
+						{photoTaken ? (
+							<button
+								className={dashboardStyles.editButtons_webcamBtn}
+								onClick={deleteImage}>
+								<Camera size="30" className="me-2" /> Retake
+							</button>
+						) : (
+							<button
+								disabled={loading}
+								onClick={captureAndUpload}
+								className={dashboardStyles.editButtons_webcamBtn}>
+								<Camera size="30" className="me-2" /> Snap!
+							</button>
+						)}
+					</div>
 				</div>
 			)}
 			{loading ? (
@@ -219,19 +240,26 @@ function MediaForm({
 					style={{ width: '30px', height: '30px' }}
 				/>
 			) : (
-				<div>
-					<button
-						onClick={handleAddAsset}
-						disabled={!validateContent(newAsset.content)}>
-						Add
-					</button>
-					<button onClick={() => setOpenMediaForm(false)}>
-						Cancel
-					</button>
-					{touched && !validateContent(newAsset.content) && (
-						<p>Invalid content</p>
-					)}
-				</div>
+				<>
+					<div>
+						<button
+							onClick={handleAddAsset}
+							disabled={!validateContent(newAsset.content)}
+							className={dashboardStyles.editButtons_button}>
+							<CheckLg size='20' />
+						</button>
+
+						<button
+							onClick={() => setOpenMediaForm(false)}
+							className={dashboardStyles.editButtons_button}>
+							<XLg />
+						</button>
+
+						{touched && !validateContent(newAsset.content) && (
+							<p>Invalid content</p>
+						)}
+					</div>
+				</>
 			)}
 		</div>
 	);
