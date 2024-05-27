@@ -17,11 +17,7 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset, className }) {
 			case 'text':
 				return (
 					<>
-						<div
-							className={classNames(
-								boardStyles.board_element,
-								boardStyles.board_element_note
-							)}>
+						<div className={boardStyles.board_item_note}>
 							<div>
 								<p>{assetContent}</p>
 							</div>
@@ -40,11 +36,7 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset, className }) {
 			case 'image':
 				return (
 					<>
-						<div
-							className={classNames(
-								boardStyles.board_element,
-								boardStyles.board_element_image
-							)}>
+						<div className={boardStyles.board_item_image}>
 							<img
 								src={assetContent}
 								alt='Uploaded content'
@@ -65,11 +57,7 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset, className }) {
 			case 'youtubeURL':
 				return (
 					<>
-						<div
-							className={classNames(
-								boardStyles.board_element,
-								boardStyles.board_element_video
-							)}>
+						<div className={boardStyles.board_item_video}>
 							<ReactPlayer
 								url={assetContent}
 								controls
@@ -92,11 +80,7 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset, className }) {
 			case 'camImage':
 				return (
 					<>
-						<div
-							className={classNames(
-								boardStyles.board_element,
-								boardStyles.board_element_polaroid
-							)}>
+						<div className={boardStyles.board_item_polaroid}>
 							<img
 								src={asset.content}
 								alt='Uploaded content'
@@ -134,9 +118,14 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset, className }) {
 	};
 
 	return (
-		<div>
-			{renderContent()}
-			{renderButtons()}
+		<div className={boardStyles.board_item}>
+			<div className={boardStyles.board_item_body}>
+				{renderContent()}
+			</div>
+
+			<div className={boardStyles.board_item_buttons}>
+				{renderButtons()}
+			</div>
 		</div>
 	);
 }

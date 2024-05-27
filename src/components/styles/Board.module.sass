@@ -8,22 +8,33 @@
     overflow-y: hidden
     margin-bottom: 20px
     padding: 30px 0
-    &_element
-        // width: 340px
-        // height: 340px
+    &_item
         margin: 0 20px
+        height: 100%
+        // border: 1px solid pink
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        &_body
+            display: flex
+            align-items: center
+            // border: 1px solid red
+            flex: 1
+            *
+                max-height: 400px
+        &_buttons
+            // border: 1px solid yellow
         &_image
             width: 500px
-            display: block
             img
                 width: 100%
                 border-radius: 30px
-                object-fit: cover
+                object-fit: contain
         &_note
             position: relative
             margin: 20px 40px
-            width: 35vw
-            height: 400px
+            width: 350px
+            height: 350px
             display: block
             background-color: darken($indigo, 30%)
             z-index: 0
@@ -53,8 +64,9 @@
                 max-width: 100%
                 height: auto
                 border: 0
+                object-fit: cover
                 border-radius: 0
-                margin-bottom: 60px
+                padding-bottom: 70px
             &:before
                 content: ''
                 position: absolute
