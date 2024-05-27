@@ -2,11 +2,12 @@ import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import loadingGif from '../assets/images/loading.gif';
 import Webcam from 'react-webcam';
-import { Cloudinary } from '@cloudinary/url-gen';
-import { Effect } from '@cloudinary/url-gen/actions/effect';
 import boardStyles from './styles/Board.module.sass';
+import { Cloudinary } from '@cloudinary/url-gen';
 
-let cloudName = 'ddhj0f2kr';
+const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+
 const cld = new Cloudinary({
 	cloud: {
 		cloudName,
@@ -45,20 +46,16 @@ function MediaForm({
 	});
 
 	const [loading, setLoading] = useState(false);
-	const [imageUrl, setImageUrl] = useState('');
 	const [touched, setTouched] = useState(false);
+	const camRef = useRef();
+	const [prevURL, setPrevURL] = useState('');
 
 	const validateContent = (item) => {
 		if (!item.trim()) {
-			console.log('there is no item', item);
 			return false;
 		} else if (assetType === 'youtubeURL') {
 			const youtubeUrlRegex =
 				/^(http(s)??\:\/\/)?(www\.)?((youtube\.com\/watch\?v=)|(youtu.be\/))([a-zA-Z0-9\-_])+$/;
-			console.log(
-				'result of youtube validation',
-				youtubeUrlRegex.test(item)
-			);
 			return youtubeUrlRegex.test(item);
 		} else return true;
 	};
@@ -69,40 +66,58 @@ function MediaForm({
 		facingMode: 'user',
 		aspectRatio: 9 / 16,
 	};
-	const camRef = useRef();
-	const [id, setId] = useState('');
-	const [prevURL, setPrevURL] = useState('');
-	const captureAndUpload = async () => {
-		// get screenshot
-		const data = camRef.current.getScreenshot();
-		console.log(camRef);
-		// upload to cloudinary and get public_id
+
+	const uploadImage = async (fileOrDataUrl) => {
 		try {
 			setLoading(true);
 			const imageData = new FormData();
-			imageData.append('file', data);
-			imageData.append('upload_preset', 'wxnflc5v');
+
+			if (typeof fileOrDataUrl === 'string') {
+				// Data URL from webcam
+				const response = await fetch(fileOrDataUrl);
+				const blob = await response.blob();
+
+				imageData.append('file', blob, 'webcam_image.jpg');
+			} else {
+				imageData.append('file', fileOrDataUrl);
+			}
+
+			imageData.append('upload_preset', uploadPreset);
 			const res = await axios.post(
-				` https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+				`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
 				imageData
 			);
-			console.log(res);
 			const imageDetails = res.data;
-			setId(imageDetails.public_id);
+			setPrevURL(imageDetails.url);
 			setNewAsset((prevAsset) => ({
 				...prevAsset,
 				content: imageDetails.url,
 			}));
+			setLoading(false);
 		} catch (error) {
-			console.log(error);
-		} finally {
+			console.error(error);
 			setLoading(false);
 		}
 	};
+
+	const handleFileChange = (e) => {
+		const file = e.target.files[0];
+		if (file) {
+			uploadImage(file);
+		}
+	};
+
+	const captureAndUpload = () => {
+		const dataUrl = camRef.current.getScreenshot();
+		if (dataUrl) {
+			uploadImage(dataUrl);
+		}
+	};
+
 	const deleteImage = () => {
 		setPrevURL('');
-		setId('');
 	};
+
 	const handleAddAsset = async () => {
 		try {
 			if (!boardId) {
@@ -112,7 +127,6 @@ function MediaForm({
 						userId: userId,
 					}
 				);
-				console.log('A new board created with id:', boardResp.data._id);
 				const newBoardId = boardResp.data._id;
 				const assetResp = await axios.post(
 					'http://localhost:5005/assets',
@@ -130,7 +144,6 @@ function MediaForm({
 				);
 				const createdAsset = response.data;
 				setAllAssets((prevAssets) => [...prevAssets, createdAsset]);
-				console.log(createdAsset);
 			}
 			setNewAsset({
 				type: '',
@@ -141,7 +154,7 @@ function MediaForm({
 			setOpenPopUp(false);
 			setOpenMediaForm(false);
 		} catch (error) {
-			console.log('Error adding asset:', error);
+			console.error('Error adding asset:', error);
 		}
 	};
 
@@ -151,40 +164,8 @@ function MediaForm({
 			content: e.target.value,
 		}));
 		setTouched(true);
-		console.log('this is what is added to the newAsset', {
-			type: assetType,
-			userId: userId,
-			boardId: boardId,
-			content: e.target.value,
-		});
 	};
 
-	const handleImageChange = (e) => {
-		e.preventDefault();
-		const uploadData = new FormData();
-		uploadData.append('imageUrl', e.target.files[0]);
-		setLoading(true);
-		const fetchData = async () => {
-			try {
-				const response = await axios.post(
-					'http://localhost:5005/boards/upload',
-					uploadData
-				);
-				console.log(response.data.fileUrl);
-				const fileUrl = response.data.fileUrl;
-				setImageUrl(fileUrl);
-				setNewAsset((prevAsset) => ({
-					...prevAsset,
-					content: fileUrl,
-				}));
-				setLoading(false);
-			} catch (error) {
-				console.log(error);
-				setLoading(false);
-			}
-		};
-		fetchData();
-	};
 	return (
 		<div>
 			{assetType === 'text' && (
@@ -197,7 +178,8 @@ function MediaForm({
 			{assetType === 'image' && (
 				<input
 					type='file'
-					onChange={handleImageChange}
+					accept='image/*'
+					onChange={handleFileChange}
 				/>
 			)}
 			{assetType === 'youtubeURL' && (
@@ -217,14 +199,12 @@ function MediaForm({
 								screenshotFormat='image/jpeg'
 							/>
 						</div>
-						{/* this button will be used to capture the image*/}
 						<button
 							disabled={loading}
 							onClick={captureAndUpload}
 							className='capture_btn'>
 							Snap
 						</button>
-
 						<ImagePreviewer
 							url={prevURL}
 							deleteImage={deleteImage}
