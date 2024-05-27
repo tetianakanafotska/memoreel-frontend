@@ -1,24 +1,22 @@
 import axios from "axios";
 
-const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+const api = axios.create({
+  baseURL: "http://localhost:5005",
+});
 
-const uploadImage = async (imgUrl) => {
+const uploadImage = async (file) => {
   try {
     const imageData = new FormData();
-    if (typeof imgUrl === "string") {
-      const response = await fetch(imgUrl);
+    //if imgUrl === "string" - it is from webcam, otherwise uploaded file from input
+    if (typeof file === "string") {
+      const response = await fetch(file);
       const blob = await response.blob();
       imageData.append("file", blob, "webcam_image.jpg");
     } else {
-      imageData.append("file", imgUrl);
+      imageData.append("file", file);
     }
-    imageData.append("upload_preset", uploadPreset);
-    const res = await axios.post(
-      `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-      imageData
-    );
-    return res.data;
+    const res = await api.post("/upload", imageData);
+    return res.data.imgUrl;
   } catch (error) {
     console.error(error);
     throw error;

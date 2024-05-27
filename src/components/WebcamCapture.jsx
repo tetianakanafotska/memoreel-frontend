@@ -12,9 +12,8 @@ function WebcamCapture({ uploadImage, loading, setLoading }) {
     if (dataUrl) {
       try {
         setLoading(true);
-        const imageDetails = await uploadImage(dataUrl);
-        console.log("imagedetails", imageDetails);
-        setPreviewURL(imageDetails.url);
+        const imageURL = await uploadImage(dataUrl);
+        setPreviewURL(imageURL);
         setLoading(false);
       } catch (error) {
         console.error(error);

@@ -1,34 +1,33 @@
 import axios from "axios";
 
-class AuthService {
+class UsersService {
   constructor() {
     this.api = axios.create({
       baseURL: import.meta.env.SERVER_URL || "http://localhost:5005",
     });
+
     this.api.interceptors.request.use((config) => {
       const storedToken = localStorage.getItem("authToken");
-
       if (storedToken) {
         config.headers = { Authorization: `Bearer ${storedToken}` };
       }
-
       return config;
     });
   }
 
-  login = (requestBody) => {
-    return this.api.post("/auth/login", requestBody);
+  getCurrentBoard = (userId, currentDate) => {
+    return this.api.get(`/users/${userId}/boards?start=${currentDate}`);
   };
 
-  signup = (requestBody) => {
-    return this.api.post("/auth/signup", requestBody);
+  put = (id, requestBody) => {
+    return this.api.put(`/users/${id}`, requestBody);
   };
 
-  verify = () => {
-    return this.api.get("/auth/verify");
+  delete = (id) => {
+    return this.api.delete(`/users/${id}`);
   };
 }
 
-const authService = new AuthService();
+const usersService = new UsersService();
 
-export default authService;
+export default usersService;

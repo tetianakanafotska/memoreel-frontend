@@ -1,8 +1,9 @@
-import React, { useState, useRef } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import loadingGif from "../assets/images/loading.gif";
 import uploadService from "../services/file-upload.service";
 import WebcamCapture from "./WebcamCapture";
+import assetsService from "../services/assets.service";
+import boardsService from "../services/boards.service";
 
 function MediaForm({
   assetType,
@@ -32,13 +33,14 @@ function MediaForm({
     } else return true;
   };
 
-  const uploadImage = async (imgUrl) => {
+  const uploadImage = async (file) => {
     try {
       setLoading(true);
-      const imageDetails = await uploadService.uploadImage(imgUrl);
-      setNewAsset((prevAsset) => ({ ...prevAsset, content: imageDetails.url }));
+      const imageUrl = await uploadService.uploadImage(file);
+      console.log("imageUrl", imageUrl);
+      setNewAsset((prevAsset) => ({ ...prevAsset, content: imageUrl }));
       setLoading(false);
-      return imageDetails;
+      return imageUrl;
     } catch (error) {
       console.error(error);
       setLoading(false);
@@ -48,21 +50,18 @@ function MediaForm({
   const handleAddAsset = async () => {
     try {
       if (!boardId) {
-        const boardResp = await axios.post("http://localhost:5005/boards", {
+        const boardResp = await boardsService.post({
           userId: userId,
         });
         const newBoardId = boardResp.data._id;
-        const assetResp = await axios.post("http://localhost:5005/assets", {
+        const assetResp = await assetsService.post({
           ...newAsset,
           boardId: newBoardId,
         });
         const createdAsset = assetResp.data;
         setAllAssets((prevAssets) => [...prevAssets, createdAsset]);
       } else {
-        const response = await axios.post(
-          "http://localhost:5005/assets",
-          newAsset
-        );
+        const response = await assetsService.post(newAsset);
         const createdAsset = response.data;
         setAllAssets((prevAssets) => [...prevAssets, createdAsset]);
       }
