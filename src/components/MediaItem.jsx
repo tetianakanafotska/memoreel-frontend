@@ -35,13 +35,13 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset }) {
       case "youtubeURL":
         return isEditing ? (
           <>
-          <input
-            type="text"
-            value={assetContent}
-            onChange={(e) => setAssetContent(e.target.value)}
-          />
+            <input
+              type="text"
+              value={assetContent}
+              onChange={(e) => setAssetContent(e.target.value)}
+            />
 
-          <ReactPlayer url={assetContent} controls />
+            <ReactPlayer url={assetContent} controls />
           </>
         ) : (
           <ReactPlayer url={assetContent} controls />
@@ -50,11 +50,11 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset }) {
         return isEditing ? (
           <input
             type="text"
-            value={editedContent}
+            value={asset.content}
             onChange={(e) => setEditedContent(e.target.value)}
           />
         ) : (
-          <img src={editedContent || asset.content} alt="Uploaded content" />
+          <img src={asset.content} alt="Uploaded content" />
         );
       default:
         return null;
