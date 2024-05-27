@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player/youtube';
 import boardStyles from './styles/Board.module.sass';
+import { Pen, XLg, Trash, CheckLg } from 'react-bootstrap-icons';
 
 function MediaItem({ asset, handleDeleteAsset, handleEditAsset, className }) {
 	const [isEditing, setIsEditing] = useState(false);
@@ -29,6 +30,7 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset, className }) {
 								onChange={(e) =>
 									setAssetContent(e.target.value)
 								}
+								className={boardStyles.editButtons_input}
 							/>
 						)}
 					</>
@@ -49,6 +51,7 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset, className }) {
 								onChange={(e) =>
 									setAssetContent(e.target.value)
 								}
+								className={boardStyles.editButtons_input}
 							/>
 						)}
 					</>
@@ -72,6 +75,7 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset, className }) {
 									onChange={(e) =>
 										setAssetContent(e.target.value)
 									}
+									className={boardStyles.editButtons_input}
 								/>
 							</>
 						)}
@@ -92,7 +96,7 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset, className }) {
 								type='text'
 								value={asset.content}
 								onChange={(e) =>
-									setEditedContent(e.target.value)
+									setAssetContent(e.target.value)
 								}
 							/>
 						)}
@@ -104,16 +108,31 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset, className }) {
 	};
 
 	const renderButtons = () => {
-		return isEditing ? (
-			<div className='edit-mode-buttons'>
-				<button onClick={handleSaveEdit}>Save</button>
-				<button onClick={() => setIsEditing(false)}>Cancel</button>
-				<button onClick={() => handleDeleteAsset(asset._id)}>
-					Delete
+		return (
+			<>
+			<div className={boardStyles.editButtons_container}>
+				<button 
+					onClick={() => setIsEditing((prev) => !prev)}
+					className={boardStyles.editButtons_button}>
+					{isEditing ? <XLg size='20' /> : <Pen />}
 				</button>
-			</div>
-		) : (
-			<button onClick={() => setIsEditing(true)}>Edit</button>
+
+				{isEditing && (
+					<>
+						<button 
+							onClick={handleSaveEdit} 
+							className={boardStyles.editButtons_button}>
+							<CheckLg size='20' />
+						</button>
+						<button
+							onClick={() => handleDeleteAsset(asset._id)}
+							className={boardStyles.editButtons_button}>
+							<Trash />
+						</button>
+					</>
+				)}
+				</div>
+			</>
 		);
 	};
 
@@ -121,7 +140,7 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset, className }) {
 		<div className={boardStyles.board_item}>
 			<div className={boardStyles.board_item_body}>
 				{renderContent()}
-			</div>
+				</div>
 
 			<div className={boardStyles.board_item_buttons}>
 				{renderButtons()}

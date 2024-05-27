@@ -9,17 +9,47 @@
     margin-bottom: 20px
     padding: 30px 0
     &_item
+        position: relative
         margin: 0 20px
         height: 100%
-        // border: 1px solid pink
         display: flex
         flex-direction: column
         justify-content: space-between
+        &:hover,
+        &:focus,
+        &:active
+            .editButtons
+                &_container
+                    opacity: 1
+                    transition: all .2s ease-in-out
+        .editButtons
+            &_container
+                position: absolute
+                z-index: 999
+                top: 30px
+                left: 10px
+                opacity: 0
+            &_button
+                border-radius: 50%
+                height: 50px
+                width: 50px
+                padding: 0
+                background-color: darken($indigo, 40%)
+                border: 0
+                svg path
+                    fill: $white
+            &_input
+                position: absolute
+                bottom: 30px
+                width: 60%
+                background-color: $white
+                color: $indigo
         &_body
             display: flex
             flex-direction: column
             align-items: center
-            // border: 1px solid red
+            justify-content: center
+            border: 1px solid red
             flex: 1
             *
                 max-height: 400px
