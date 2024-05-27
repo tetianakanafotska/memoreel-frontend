@@ -45,7 +45,7 @@ function MediaForm({
   const [touched, setTouched] = useState(false);
   const camRef = useRef();
   const [prevURL, setPrevURL] = useState("");
-  const [audioURL, setAudioURL] = useState(""); // State variable for audio URL
+  const [audioURL, setAudioURL] = useState("");
 
   const validateContent = (item) => {
     if (!item.trim()) {
@@ -104,11 +104,11 @@ function MediaForm({
       audioData.append("file", blob, "audio_recording.webm");
       audioData.append("upload_preset", uploadPreset);
       const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`, // Use 'video' endpoint for audio files
+        `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`,
         audioData
       );
       const audioDetails = res.data;
-      setAudioURL(audioDetails.url); // Set the audio URL state
+      setAudioURL(audioDetails.url);
       setNewAsset((prevAsset) => ({
         ...prevAsset,
         content: audioDetails.url,
