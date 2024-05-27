@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactPlayer from "react-player/youtube";
 
 function MediaItem({ asset, handleDeleteAsset, handleEditAsset }) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedContent, setEditedContent] = useState(asset.content);
+  const [assetContent, setAssetContent] = useState(asset.content);
 
   const handleSaveEdit = () => {
-    handleEditAsset(asset._id, editedContent);
+    handleEditAsset(asset._id, assetContent);
     setIsEditing(false);
   };
 
@@ -16,31 +16,35 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset }) {
         return isEditing ? (
           <input
             type="text"
-            value={editedContent}
-            onChange={(e) => setEditedContent(e.target.value)}
+            value={assetContent}
+            onChange={(e) => setAssetContent(e.target.value)}
           />
         ) : (
-          <p>{editedContent || asset.content}</p>
+          <p>{assetContent}</p>
         );
       case "image":
         return isEditing ? (
           <input
             type="text"
-            value={editedContent}
-            onChange={(e) => setEditedContent(e.target.value)}
+            value={assetContent}
+            onChange={(e) => setAssetContent(e.target.value)}
           />
         ) : (
-          <img src={editedContent || asset.content} alt="Uploaded content" />
+          <img src={assetContent} alt="Uploaded content" />
         );
       case "youtubeURL":
         return isEditing ? (
+          <>
           <input
             type="text"
-            value={editedContent || editedContent}
-            onChange={(e) => setEditedContent(e.target.value)}
+            value={assetContent}
+            onChange={(e) => setAssetContent(e.target.value)}
           />
+
+          <ReactPlayer url={assetContent} controls />
+          </>
         ) : (
-          <ReactPlayer url={asset.content} controls />
+          <ReactPlayer url={assetContent} controls />
         );
       default:
         return null;
