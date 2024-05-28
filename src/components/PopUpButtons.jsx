@@ -1,5 +1,6 @@
 import React from "react";
 import Button from "./Button";
+import styles from './styles/PopUpButtons.module.sass';
 
 export default function PopUpButtons({
   setAssetType,
@@ -14,6 +15,7 @@ export default function PopUpButtons({
           setOpenMediaForm(true);
           setOpenPopUp(false);
         }}
+        className={styles.popUpBtn}
       >
         add image
       </button>
@@ -23,6 +25,7 @@ export default function PopUpButtons({
           setOpenMediaForm(true);
           setOpenPopUp(false);
         }}
+        className={styles.popUpBtn}
       >
         add text
       </button>
@@ -32,6 +35,7 @@ export default function PopUpButtons({
           setOpenMediaForm(true);
           setOpenPopUp(false);
         }}
+        className={styles.popUpBtn}
       >
         add Youtube video
       </button>
@@ -41,6 +45,7 @@ export default function PopUpButtons({
           setOpenMediaForm(true);
           setOpenPopUp(false);
         }}
+        className={styles.popUpBtn}
       >
         take selfie
       </button>

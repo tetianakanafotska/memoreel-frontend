@@ -32,38 +32,22 @@ function History() {
     }
   }, [user]);
 
-  return (
-    <>
-      {allBoards &&
-        allBoards.length >= 0 &&
-        (allBoards.length === 0
-          ? "No board to show yet!"
-          : allBoards.map((board, i) => {
-              return (
-                <div key={board._id}>
-                  <h3>Board {i}</h3>
-                  <Board board={board} />
-                  {/* {Object.entries(board.boardContent).map(
-										([key, value]) => {
-											return <>
-											{value.type === "image" && (
-												<div className="boardImage" key={key}>
-													<img src={value.content} alt={key} />
-												</div>
-											)}
-											{value.type === "text" && (
-												<div className="boardNote" key={key}>
-													<p>{value}</p>
-												</div>
-											)}
-												</>
-										}
-									)} */}
-                </div>
-              );
-            }))}
-    </>
-  );
+	return (
+		<>
+			{allBoards &&
+				allBoards.length >= 0 &&
+				(allBoards.length === 0
+					? 'No board to show yet!'
+					: allBoards.map((board, i) => {
+							return (
+								<div key={board._id}>
+									<h3>Board {i}</h3>
+									<Board board={board} />
+								</div>
+							);
+					}))}
+		</>
+	);
 }
 
 export default History;
