@@ -1,34 +1,33 @@
 import axios from "axios";
 
-class AuthService {
+class AssetsService {
   constructor() {
     this.api = axios.create({
       baseURL: import.meta.env.SERVER_URL || "http://localhost:5005",
     });
+
     this.api.interceptors.request.use((config) => {
       const storedToken = localStorage.getItem("authToken");
-
       if (storedToken) {
         config.headers = { Authorization: `Bearer ${storedToken}` };
       }
-
       return config;
     });
   }
 
-  login = (requestBody) => {
-    return this.api.post("/auth/login", requestBody);
+  post = (requestBody) => {
+    return this.api.post("/assets", requestBody);
   };
 
-  signup = (requestBody) => {
-    return this.api.post("/auth/signup", requestBody);
+  put = (id, requestBody) => {
+    return this.api.put(`/assets/${id}`, requestBody);
   };
 
-  verify = () => {
-    return this.api.get("/auth/verify");
+  delete = (id) => {
+    return this.api.delete(`/assets/${id}`);
   };
 }
 
-const authService = new AuthService();
+const assetsService = new AssetsService();
 
-export default authService;
+export default assetsService;

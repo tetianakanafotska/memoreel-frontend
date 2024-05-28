@@ -1,33 +1,12 @@
-import React, { useState, useRef } from 'react';
-import axios from 'axios';
-import loadingGif from '../assets/images/loading.gif';
-import Webcam from 'react-webcam';
-import { Cloudinary } from '@cloudinary/url-gen';
-import boardStyles from './styles/Board.module.sass';
-import dashboardStyles from '@pages/styles/Dashboard.module.sass';
-import { AudioRecorder } from "react-audio-voice-recorder";
-import { Camera, Pen, XLg, Trash, CheckLg } from 'react-bootstrap-icons';
-
-const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
-
-const cld = new Cloudinary({
-  cloud: {
-    cloudName,
-  },
-});
-
-function ImagePreviewer({ url, deleteImage }) {
-	return url ? (
-		<div className={boardStyles.board_item_polaroid}>
-			<img
-				src={url}
-				alt='my_image'
-			/>
-		</div>
-	) : null;
-
-}
+import React, { useState } from "react";
+import loadingGif from "../assets/images/loading.gif";
+import uploadService from "../services/file-upload.service";
+import WebcamCapture from "./WebcamCapture";
+import assetsService from "../services/assets.service";
+import boardsService from "../services/boards.service";
+import AudioCapture from "./AudioRecorder";
+import dashboardStyles from "@pages/styles/Dashboard.module.sass";
+import { XLg, CheckLg } from "react-bootstrap-icons";
 
 function MediaForm({
   assetType,
@@ -37,7 +16,6 @@ function MediaForm({
   boardId,
   userId,
 }) {
-
   const [newAsset, setNewAsset] = useState({
     type: assetType,
     content: "",
@@ -47,9 +25,6 @@ function MediaForm({
 
   const [loading, setLoading] = useState(false);
   const [touched, setTouched] = useState(false);
-  const camRef = useRef();
-  const [prevURL, setPrevURL] = useState("");
-  const [audioURL, setAudioURL] = useState("");
 
   const validateContent = (item) => {
     if (!item.trim()) {
@@ -61,106 +36,35 @@ function MediaForm({
     } else return true;
   };
 
-	const constraints = {
-		width: 400,
-		height: 400,
-		facingMode: 'user',
-		aspectRatio: 1 / 1,
-	};
-
-  const uploadImage = async (fileOrDataUrl) => {
+  const handleUploadFile = async (file) => {
     try {
       setLoading(true);
-      const imageData = new FormData();
-
-      if (typeof fileOrDataUrl === "string") {
-        // Data URL from webcam
-        const response = await fetch(fileOrDataUrl);
-        const blob = await response.blob();
-
-        imageData.append("file", blob, "webcam_image.jpg");
-      } else {
-        imageData.append("file", fileOrDataUrl);
-      }
-
-      imageData.append("upload_preset", uploadPreset);
-      const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-        imageData
-      );
-      const imageDetails = res.data;
-      setPrevURL(imageDetails.url);
-      setNewAsset((prevAsset) => ({
-        ...prevAsset,
-        content: imageDetails.url,
-      }));
+      const fileUrl = await uploadService.uploadFile(file);
+      console.log("fileUrl", fileUrl);
+      setNewAsset((prevAsset) => ({ ...prevAsset, content: fileUrl }));
       setLoading(false);
+      return fileUrl;
     } catch (error) {
       console.error(error);
       setLoading(false);
     }
   };
-
-  const uploadAudio = async (blob) => {
-    try {
-      setLoading(true);
-      const audioData = new FormData();
-      audioData.append("file", blob, "audio_recording.webm");
-      audioData.append("upload_preset", uploadPreset);
-      const res = await axios.post(
-        `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`,
-        audioData
-      );
-      const audioDetails = res.data;
-      setAudioURL(audioDetails.url);
-      setNewAsset((prevAsset) => ({
-        ...prevAsset,
-        content: audioDetails.url,
-      }));
-      setLoading(false);
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-    }
-  };
-
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      uploadImage(file);
-    }
-  };
-
-  const captureAndUpload = () => {
-    const dataUrl = camRef.current.getScreenshot();
-    if (dataUrl) {
-      uploadImage(dataUrl);
-    }
-  };
-
-	const deleteImage = () => {
-		setPrevURL('');
-		setPhotoTaken(false);
-	};
 
   const handleAddAsset = async () => {
     try {
       if (!boardId) {
-        const storedToken = localStorage.getItem('authToken');
-        const boardResp = await axios.post("http://localhost:5005/boards", { userId: userId },
-					{ headers: { Authorization: `Bearer ${storedToken}` } });
+        const boardResp = await boardsService.post({
+          userId: userId,
+        });
         const newBoardId = boardResp.data._id;
-        const assetResp = await axios.post("http://localhost:5005/assets", {
+        const assetResp = await assetsService.post({
           ...newAsset,
           boardId: newBoardId,
         });
         const createdAsset = assetResp.data;
         setAllAssets((prevAssets) => [...prevAssets, createdAsset]);
       } else {
-        const response = await axios.post(
-          "http://localhost:5005/assets",
-          newAsset
-        );
+        const response = await assetsService.post(newAsset);
         const createdAsset = response.data;
         setAllAssets((prevAssets) => [...prevAssets, createdAsset]);
       }
@@ -177,6 +81,13 @@ function MediaForm({
     }
   };
 
+  const handleAddImage = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleUploadFile(file);
+    }
+  };
+
   const handleOnChange = (e) => {
     setNewAsset((prevAsset) => ({
       ...prevAsset,
@@ -185,134 +96,76 @@ function MediaForm({
     setTouched(true);
   };
 
-  const addAudioElement = (blob) => {
-    uploadAudio(blob);
-  };
-
-
-	return (
-		<div className={dashboardStyles.dashboard_mediaForm_inputs}>
-			{assetType === 'text' && (
-				<textarea
-					type='text'
-					placeholder="What's on your mind today?"
-					onChange={handleOnChange}
-					value={newAsset.content}
-					className={dashboardStyles.editButtons_input}
-				/>
-			)}
-			{assetType === 'image' && (
-				<input
-					type='file'
-					accept='image/*'
-					onChange={handleFileChange}
-					className={dashboardStyles.editButtons_input}
-				/>
-			)}
-			{assetType === 'youtubeURL' && (
-				<input
-					type='text'
-					placeholder='Paste Youtube URL here'
-					onChange={handleOnChange}
-					value={newAsset.content}
-					className={dashboardStyles.editButtons_input}
-				/>
-			)}
-			{assetType === 'camImage' && (
-				<div className='main'>
-					<div className={dashboardStyles.editButtons_photoContainer}>
-						{photoTaken ? (
-							<>
-								<ImagePreviewer
-									url={prevURL}
-									deleteImage={deleteImage}
-								/>
-							</>
-						) : (
-							<>
-								<div className={boardStyles.board_item_polaroid}>
-									<Webcam
-										ref={camRef}
-										videoConstraints={constraints}
-										screenshotFormat='image/jpeg'
-									/>
-								</div>
-							</>
-						)}
-            
-            {assetType === "audio" && (
+  return (
+    <div className={dashboardStyles.dashboard_mediaForm_inputs}>
+      {assetType === "text" && (
+        <textarea
+          type="text"
+          placeholder="What's on your mind today?"
+          onChange={handleOnChange}
+          value={newAsset.content}
+          className={dashboardStyles.editButtons_input}
+        />
+      )}
+      {assetType === "image" && (
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleAddImage}
+          className={dashboardStyles.editButtons_input}
+        />
+      )}
+      {assetType === "youtubeURL" && (
+        <input
+          type="text"
+          onChange={handleOnChange}
+          value={newAsset.content}
+          placeholder="Paste Youtube URL here"
+          className={dashboardStyles.editButtons_input}
+        />
+      )}
+      {assetType === "camImage" && (
+        <WebcamCapture
+          handleUploadFile={handleUploadFile}
+          loading={loading}
+          setLoading={setLoading}
+        />
+      )}
+      {assetType === "audio" && (
+        <AudioCapture
+          handleUploadFile={handleUploadFile}
+          setLoading={setLoading}
+        />
+      )}
+      {loading ? (
+        <img
+          src={loadingGif}
+          alt="Loading..."
+          style={{ width: "30px", height: "30px" }}
+        />
+      ) : (
         <div>
-          <AudioRecorder
-            onRecordingComplete={addAudioElement}
-            audioTrackConstraints={{
-              noiseSuppression: true,
-              echoCancellation: true,
-            }}
-            onNotAllowedOrFound={(err) => console.error(err)}
-            downloadOnSavePress={false}
-            downloadFileExtension="webm"
-            mediaRecorderOptions={{
-              audioBitsPerSecond: 128000,
-            }}
-          />
-          {audioURL && (
-            <div>
-              <audio controls>
-                <source src={audioURL} type="audio/webm" />
-                Your browser does not support the audio element.
-              </audio>
-            </div>
+          <button
+            onClick={handleAddAsset}
+            disabled={!validateContent(newAsset.content)}
+            className={dashboardStyles.editButtons_button}
+          >
+            <CheckLg size="20" />
+          </button>
+          <button
+            onClick={() => setOpenMediaForm(false)}
+            className={dashboardStyles.editButtons_button}
+          >
+            <XLg />
+          </button>
+          {touched && !validateContent(newAsset.content) && (
+            <p>Invalid content</p>
           )}
         </div>
       )}
-
-						{photoTaken ? (
-							<button
-								className={dashboardStyles.editButtons_webcamBtn}
-								onClick={deleteImage}>
-								<Camera size="30" className="me-2" /> Retake
-							</button>
-						) : (
-							<button
-								disabled={loading}
-								onClick={captureAndUpload}
-								className={dashboardStyles.editButtons_webcamBtn}>
-								<Camera size="30" className="me-2" /> Snap!
-							</button>
-						)}
-					</div>
-				</div>
-			)}
-			{loading ? (
-				<img
-					src={loadingGif}
-					alt='Loading...'
-					style={{ width: '30px', height: '30px' }}
-				/>
-			) : (
-				<>
-					<div>
-						<button
-							onClick={handleAddAsset}
-							disabled={!validateContent(newAsset.content)}
-							className={dashboardStyles.editButtons_button}>
-							<CheckLg size='20' />
-						</button>
-
-						<button
-							onClick={() => setOpenMediaForm(false)}
-							className={dashboardStyles.editButtons_button}>
-							<XLg />
-						</button>
-
-						{touched && !validateContent(newAsset.content) && (
-							<p>Invalid content</p>
-						)}
-					</div>
-				</>
-			)}
-		</div>
-	);
+    </div>
+  );
 }
 
 export default MediaForm;
+

@@ -19,7 +19,6 @@ function App() {
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
-
         <Route
           path="/login"
           element={
@@ -28,7 +27,6 @@ function App() {
             </IsAnon>
           }
         />
-
         <Route
           path="/signup"
           element={
@@ -37,7 +35,6 @@ function App() {
             </IsAnon>
           }
         />
-
         <Route
           path="/dashboard"
           element={
@@ -46,7 +43,6 @@ function App() {
             </IsPrivate>
           }
         />
-
         <Route
           path="/dashboard/history"
           element={
@@ -55,7 +51,6 @@ function App() {
             </IsPrivate>
           }
         />
-
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
