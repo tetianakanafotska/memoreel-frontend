@@ -166,7 +166,7 @@ const Dashboard = () => {
 
 			<div className={boardStyles.board}>
 				{allAssets.length > 0 ? (
-					allAssets.map((asset) => (
+					allAssets.reverse().map((asset) => (
 						<div key={asset._id}>
 							<MediaItem
 								asset={asset}
