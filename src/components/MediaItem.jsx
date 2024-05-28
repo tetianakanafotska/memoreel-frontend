@@ -1,5 +1,4 @@
-import classNames from "classnames";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReactPlayer from "react-player/youtube";
 import boardStyles from "./styles/Board.module.sass";
 import { Pen, XLg, Trash, CheckLg } from "react-bootstrap-icons";
@@ -145,3 +144,4 @@ function MediaItem({ asset, handleDeleteAsset, handleEditAsset, className }) {
 }
 
 export default MediaItem;
+

@@ -115,7 +115,6 @@ const Dashboard = () => {
                 <PopUpButtons
                   setAssetType={setAssetType}
                   setOpenMediaForm={setOpenMediaForm}
-                  setOpenPopUp={setOpenPopUp}
                 />
               )}
             </div>

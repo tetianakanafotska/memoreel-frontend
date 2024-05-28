@@ -1,23 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./styles/PopUpButtons.module.sass";
-import Button from "./Button";
-import classNames from "classnames";
-
 import { ImageFill, Youtube, Camera, Stickies } from "react-bootstrap-icons";
-import { Col, Container, Row } from "react-bootstrap";
 
-export default function PopUpButtons({
-  setAssetType,
-  setOpenMediaForm,
-  setOpenPopUp,
-}) {
+export default function PopUpButtons({ setAssetType, setOpenMediaForm }) {
   return (
     <>
       <button
         onClick={() => {
           setAssetType("image");
           setOpenMediaForm((prev) => (prev ? false : true));
-          // setOpenPopUp(false);
         }}
         className={styles.popUpButton_assetTypeButton}
       >
@@ -28,7 +19,6 @@ export default function PopUpButtons({
         onClick={() => {
           setAssetType("text");
           setOpenMediaForm((prev) => (prev ? false : true));
-          //setOpenPopUp(false);
         }}
         className={styles.popUpButton_assetTypeButton}
       >
@@ -39,7 +29,6 @@ export default function PopUpButtons({
         onClick={() => {
           setAssetType("youtubeURL");
           setOpenMediaForm((prev) => (prev ? false : true));
-          // setOpenPopUp(false);
         }}
         className={styles.popUpButton_assetTypeButton}
       >
@@ -50,7 +39,6 @@ export default function PopUpButtons({
         onClick={() => {
           setAssetType("camImage");
           setOpenMediaForm((prev) => (prev ? false : true));
-          // setOpenPopUp(false);
         }}
         className={styles.popUpButton_assetTypeButton}
       >
@@ -61,7 +49,6 @@ export default function PopUpButtons({
         onClick={() => {
           setAssetType("audio");
           setOpenMediaForm(true);
-          //setOpenPopUp(false);
         }}
       >
         add audio
@@ -69,3 +56,4 @@ export default function PopUpButtons({
     </>
   );
 }
+
