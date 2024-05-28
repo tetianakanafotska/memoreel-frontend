@@ -19,6 +19,10 @@ class UsersService {
     return this.api.get(`/users/${userId}/boards?start=${currentDate}`);
   };
 
+  getAllBoards = (userId) => {
+    return this.api.get(`/users/${userId}/boards`);
+  };
+
   put = (id, requestBody) => {
     return this.api.put(`/users/${id}`, requestBody);
   };

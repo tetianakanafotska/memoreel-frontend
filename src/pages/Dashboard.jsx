@@ -9,6 +9,8 @@ import placeholder from "@img/placeholder.jpg";
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "./styles/Dashboard.module.sass";
 import boardStyles from "../components/styles/Board.module.sass";
+import popUpButtonStyles from "@components/styles/PopUpButtons.module.sass";
+import { PlusLg } from "react-bootstrap-icons";
 import classNames from "classnames";
 
 const Dashboard = () => {
@@ -102,11 +104,11 @@ const Dashboard = () => {
                   setOpenPopUp(!openPopUp);
                   setAddButton((prev) => (!prev ? true : false));
                 }}
-                className={classNames(styles.dashboard_addContent_addBtn, {
-                  [styles.dashboard_addContent_addBtn_on]: addButton,
+                className={classNames(popUpButtonStyles.popUpButton_addButton, {
+                  [popUpButtonStyles.popUpButton_addButton_on]: addButton,
                 })}
               >
-                +
+                {<PlusLg size="40" />}
               </button>
 
               {openPopUp && (
@@ -134,7 +136,7 @@ const Dashboard = () => {
 
       <div className={boardStyles.board}>
         {allAssets.length > 0 ? (
-          allAssets.map((asset) => (
+          allAssets.reverse().map((asset) => (
             <div key={asset._id}>
               <MediaItem
                 asset={asset}

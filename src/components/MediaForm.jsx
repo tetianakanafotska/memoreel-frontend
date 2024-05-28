@@ -4,6 +4,9 @@ import uploadService from "../services/file-upload.service";
 import WebcamCapture from "./WebcamCapture";
 import assetsService from "../services/assets.service";
 import boardsService from "../services/boards.service";
+import AudioCapture from "./AudioRecorder";
+import dashboardStyles from "@pages/styles/Dashboard.module.sass";
+import { XLg, CheckLg } from "react-bootstrap-icons";
 
 function MediaForm({
   assetType,
@@ -33,14 +36,14 @@ function MediaForm({
     } else return true;
   };
 
-  const uploadImage = async (file) => {
+  const handleUploadFile = async (file) => {
     try {
       setLoading(true);
-      const imageUrl = await uploadService.uploadImage(file);
-      console.log("imageUrl", imageUrl);
-      setNewAsset((prevAsset) => ({ ...prevAsset, content: imageUrl }));
+      const fileUrl = await uploadService.uploadFile(file);
+      console.log("fileUrl", fileUrl);
+      setNewAsset((prevAsset) => ({ ...prevAsset, content: fileUrl }));
       setLoading(false);
-      return imageUrl;
+      return fileUrl;
     } catch (error) {
       console.error(error);
       setLoading(false);
@@ -81,7 +84,7 @@ function MediaForm({
   const handleAddImage = (e) => {
     const file = e.target.files[0];
     if (file) {
-      uploadImage(file);
+      handleUploadFile(file);
     }
   };
 
@@ -94,20 +97,43 @@ function MediaForm({
   };
 
   return (
-    <div>
+    <div className={dashboardStyles.dashboard_mediaForm_inputs}>
       {assetType === "text" && (
-        <input type="text" onChange={handleOnChange} value={newAsset.content} />
+        <textarea
+          type="text"
+          placeholder="What's on your mind today?"
+          onChange={handleOnChange}
+          value={newAsset.content}
+          className={dashboardStyles.editButtons_input}
+        />
       )}
       {assetType === "image" && (
-        <input type="file" accept="image/*" onChange={handleAddImage} />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleAddImage}
+          className={dashboardStyles.editButtons_input}
+        />
       )}
       {assetType === "youtubeURL" && (
-        <input type="text" onChange={handleOnChange} value={newAsset.content} />
+        <input
+          type="text"
+          onChange={handleOnChange}
+          value={newAsset.content}
+          placeholder="Paste Youtube URL here"
+          className={dashboardStyles.editButtons_input}
+        />
       )}
       {assetType === "camImage" && (
         <WebcamCapture
-          uploadImage={uploadImage}
+          handleUploadFile={handleUploadFile}
           loading={loading}
+          setLoading={setLoading}
+        />
+      )}
+      {assetType === "audio" && (
+        <AudioCapture
+          handleUploadFile={handleUploadFile}
           setLoading={setLoading}
         />
       )}
@@ -122,10 +148,16 @@ function MediaForm({
           <button
             onClick={handleAddAsset}
             disabled={!validateContent(newAsset.content)}
+            className={dashboardStyles.editButtons_button}
           >
-            Add
+            <CheckLg size="20" />
           </button>
-          <button onClick={() => setOpenMediaForm(false)}>Cancel</button>
+          <button
+            onClick={() => setOpenMediaForm(false)}
+            className={dashboardStyles.editButtons_button}
+          >
+            <XLg />
+          </button>
           {touched && !validateContent(newAsset.content) && (
             <p>Invalid content</p>
           )}

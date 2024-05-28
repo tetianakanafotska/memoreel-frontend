@@ -4,19 +4,25 @@ const api = axios.create({
   baseURL: "http://localhost:5005",
 });
 
-const uploadImage = async (file) => {
+const uploadFile = async (file) => {
   try {
-    const imageData = new FormData();
-    //if imgUrl === "string" - it is from webcam, otherwise uploaded file from input
+    const fileData = new FormData();
+    // If the file is a string (URL), fetch it and convert to blob
     if (typeof file === "string") {
       const response = await fetch(file);
       const blob = await response.blob();
-      imageData.append("file", blob, "webcam_image.jpg");
+      fileData.append("file", blob, "webcam_image.jpg");
+      // If the file is a blob, append it with a specific name
+    } else if (file instanceof Blob) {
+      fileData.append("file", file, "audio_recording.webm");
+      // Otherwise, append the file as it is (uploaded file from input)
     } else {
-      imageData.append("file", file);
+      fileData.append("file", file);
     }
-    const res = await api.post("/upload", imageData);
-    return res.data.imgUrl;
+    console.log("filedata", fileData);
+
+    const res = await api.post("/upload", fileData);
+    return res.data.fileUrl;
   } catch (error) {
     console.error(error);
     throw error;
@@ -24,5 +30,5 @@ const uploadImage = async (file) => {
 };
 
 export default {
-  uploadImage,
+  uploadFile,
 };

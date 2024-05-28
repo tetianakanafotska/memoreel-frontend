@@ -2,18 +2,22 @@ import React, { useRef, useState } from "react";
 import Webcam from "react-webcam";
 import ImagePreviewer from "./ImagePreviewer";
 import boardStyles from "./styles/Board.module.sass";
+import dashboardStyles from "@pages/styles/Dashboard.module.sass";
+import { Camera } from "react-bootstrap-icons";
 
-function WebcamCapture({ uploadImage, loading, setLoading }) {
+function WebcamCapture({ handleUploadFile, loading, setLoading }) {
   const camRef = useRef();
   const [previewURL, setPreviewURL] = useState("");
+  const [photoTaken, setPhotoTaken] = useState(false);
 
   const captureAndUpload = async () => {
     const dataUrl = camRef.current.getScreenshot();
     if (dataUrl) {
       try {
         setLoading(true);
-        const imageURL = await uploadImage(dataUrl);
+        const imageURL = await handleUploadFile(dataUrl);
         setPreviewURL(imageURL);
+        setPhotoTaken(true);
         setLoading(false);
       } catch (error) {
         console.error(error);
@@ -24,33 +28,54 @@ function WebcamCapture({ uploadImage, loading, setLoading }) {
 
   return (
     <div className="main">
-      <article className="media_box">
-        <div className={boardStyles.boardPolaroid}>
-          <Webcam
-            ref={camRef}
-            videoConstraints={{
-              width: 500,
-              height: 500,
-              facingMode: "user",
-              aspectRatio: 9 / 16,
+      <div className={dashboardStyles.editButtons_photoContainer}>
+        {photoTaken ? (
+          <>
+            <ImagePreviewer
+              url={previewURL}
+              deleteImage={() => {
+                setPreviewURL("");
+                setPhotoTaken(false);
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <div className={boardStyles.board_item_polaroid}>
+              <Webcam
+                ref={camRef}
+                videoConstraints={{
+                  width: 400,
+                  height: 400,
+                  facingMode: "user",
+                  aspectRatio: 1 / 1,
+                }}
+                screenshotFormat="image/jpeg"
+              />
+            </div>
+          </>
+        )}
+
+        {photoTaken ? (
+          <button
+            className={dashboardStyles.editButtons_webcamBtn}
+            onClick={() => {
+              setPreviewURL("");
+              setPhotoTaken(false);
             }}
-            screenshotFormat="image/jpeg"
-          />
+          >
+            <Camera size="30" className="me-2" /> Retake
+          </button>
+        ) : (
           <button
             disabled={loading}
             onClick={captureAndUpload}
-            className="capture_btn"
+            className={dashboardStyles.editButtons_webcamBtn}
           >
-            Snap
+            <Camera size="30" className="me-2" /> Snap!
           </button>
-          <ImagePreviewer
-            url={previewURL}
-            deleteImage={() => {
-              setPreviewURL("");
-            }}
-          />
-        </div>
-      </article>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,9 +1,53 @@
 @import '/src/styles/_variables.sass'
 
-.popUpBtn
-	opacity: 1
-	animation: slideInFromLeft 0.4s ease-out 0s 1
-	transition: all 0.2s ease-in-out
+.popUpButton
+	border-radius: 30px
+	border: none
+	background-color: transparentize($white, 0.7)
+	color: $white !important
+	height: 3rem
+	transition: all .2s ease-in-out
+	&:hover,
+	&:focus,
+	&:active
+		border: 0
+		background-color: transparentize($white, 0.6)
+		color: $white
+		span
+			color: $white
+		svg path
+			fill: white
+	&_addButton
+		@extend .popUpButton	
+		transition: all 0.2s ease-in-out
+		color: $white !important
+		background-color: transparentize($white, 0.85)
+		width: 3rem
+		&_on
+			transform: rotate(45deg)
+	&_assetTypeButton
+		@extend .popUpButton	
+		opacity: 1
+		animation: slideInFromLeft 0.4s ease-out 0s 1
+		transition: all 0.7s ease-in-out
+		display: flex
+		padding: 10px 20px
+		&:hover,
+		&:focus,
+		&:active
+			span
+				display: block !important
+				opacity: 1 !important
+		span
+			transition: all 0.7s ease-in-out
+			display: none
+			opacity: 0
+			margin-left: 12px
+
+// .visible
+// 	display: block !important
+// 	opacity: 1 !important
+// 	transition: all 0.2s ease-in-out
 
 @keyframes slideInFromLeft
 	0%

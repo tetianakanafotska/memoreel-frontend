@@ -1,53 +1,56 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@context";
-import axios from "axios";
-import authService from "../services/auth.service";
-import { Board } from "@components";
+import { Board, MediaItem } from "@components";
+import boardStyles from "../components/styles/Board.module.sass";
+import usersService from "../services/users.service";
+import { X } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
 
 function History() {
   const { user } = useContext(AuthContext);
   const [allBoards, setAllboards] = useState([]);
-  const token = localStorage.getItem("authToken");
+  //const [allAssets, setAllAssets] = useState([]);
 
   useEffect(() => {
     if (user) {
-      const userId = user._id;
-      const start = "2023-05-01";
-      const end = "2024-12-12";
-
-      axios
-        .get(
-          `${
-            import.meta.env.BACKEND_URL || "http://localhost:5005"
-          }/users/${userId}/boards?start=${start}&end=${end}`,
-          {
-            headers: { Authorization: ` Bearer ${token}` },
-          }
-        )
+      usersService
+        .getAllBoards(user._id)
         .then((res) => {
-          setAllboards(res.data);
-          console.log(res);
+          if (res.data.length !== 0) {
+            setAllboards(res.data);
+            console.log("allboards", res.data);
+          }
         })
-        .catch((error) => console.error("Oops", error));
+        .catch((error) => console.log("Error fetching boards" + error));
     }
   }, [user]);
 
-	return (
-		<>
-			{allBoards &&
-				allBoards.length >= 0 &&
-				(allBoards.length === 0
-					? 'No board to show yet!'
-					: allBoards.map((board, i) => {
-							return (
-								<div key={board._id}>
-									<h3>Board {i}</h3>
-									<Board board={board} />
-								</div>
-							);
-					}))}
-		</>
-	);
+  return (
+    <>
+      <div className="closeBtn">
+        <Link to="/dashboard">{<X size="40" />}</Link>
+      </div>
+      {allBoards &&
+        allBoards.length >= 0 &&
+        (allBoards.length === 0
+          ? "No board to show yet!"
+          : allBoards.reverse().map((board) => {
+              return (
+                <div key={board._id}>
+                  <h3>Board {board.createdAt}</h3>
+                  <div className={boardStyles.board}>
+                    {board.assets.length > 0 &&
+                      board.assets.reverse().map((asset) => (
+                        <div key={asset._id}>
+                          <MediaItem asset={asset} />
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              );
+            }))}
+    </>
+  );
 }
 
 export default History;

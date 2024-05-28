@@ -1,12 +1,10 @@
 import React from "react";
+import boardStyles from "./styles/Board.module.sass";
 
-function ImagePreviewer({ url, deleteImage }) {
+function ImagePreviewer({ url }) {
   return url ? (
-    <div className="img_box">
+    <div className={boardStyles.board_item_polaroid}>
       <img src={url} alt="my_image" />
-      <button className="close_btn" onClick={deleteImage}>
-        Retake
-      </button>
     </div>
   ) : null;
 }
