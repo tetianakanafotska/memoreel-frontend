@@ -61,6 +61,15 @@ export default function PopUpButtons({
 					take selfie
 				</span>
 			</button>
+    <button
+        onClick={() => {
+          setAssetType("audio");
+          setOpenMediaForm(true);
+          setOpenPopUp(false);
+        }}
+      >
+        add audio
+      </button>
 		</>
 	);
 }
