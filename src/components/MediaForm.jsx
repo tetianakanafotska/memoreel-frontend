@@ -146,9 +146,9 @@ function MediaForm({
   const handleAddAsset = async () => {
     try {
       if (!boardId) {
-        const boardResp = await axios.post("http://localhost:5005/boards", {
-          userId: userId,
-        });
+        const storedToken = localStorage.getItem('authToken');
+        const boardResp = await axios.post("http://localhost:5005/boards", { userId: userId },
+					{ headers: { Authorization: `Bearer ${storedToken}` } });
         const newBoardId = boardResp.data._id;
         const assetResp = await axios.post("http://localhost:5005/assets", {
           ...newAsset,
