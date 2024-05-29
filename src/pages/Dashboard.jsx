@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { PopUpButtons, MediaForm, MediaItem, Marquee } from '@components';
+import { PopUpButtons, MediaForm, MediaItem, Marquee, Loading } from '@components';
 import { AuthContext } from '@context';
 import assetsService from '../services/assets.service';
 import usersService from '../services/users.service';
@@ -19,6 +19,7 @@ const Dashboard = () => {
 	const [assetType, setAssetType] = useState(null);
 	const [allAssets, setAllAssets] = useState([]);
 	const [addButton, setAddButton] = useState(false);
+	const [loading, setLoading] = useState(true);
 
 	const deleteAsset = (assetId) => {
 		assetsService
@@ -63,16 +64,22 @@ const Dashboard = () => {
 				if (res.data.length !== 0) {
 					setAllAssets(res.data[0].assets);
 					setBoardId(res.data[0]._id);
+					setLoading(false);
 					console.log('Existing board found. BoardID:', res.data[0]._id);
 				} else {
 					setAllAssets([]);
 					setBoardId(null);
+					setLoading(false);
 				}
 			});
 		}
 	}, [user]);
 
-	return (
+	return (loading ? (
+    <>
+      <Loading />
+    </>
+  ) : (
 		<section className={styles.dashboard}>
 			<Container fluid>
 				<Row>
@@ -154,7 +161,8 @@ const Dashboard = () => {
 				)}
 			</div>
 		</section>
-	);
+	));
 };
 
 export default Dashboard;
+
