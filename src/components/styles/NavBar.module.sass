@@ -1,0 +1,54 @@
+@import '/src/styles/_variables.sass'
+img
+	border: none !important
+.navbar
+	a.navlink, 
+	a.navlink:visited
+		background: $purple
+		font-weight: 600
+		padding: 6px 18px
+		color: $white
+		border-radius: 30px !important
+		margin: 0 4px
+		border-radius: 4px
+	&_show
+		opacity: 1
+		z-index: 8
+		transform: translateX(0)
+		transition: opacity 0.4s ease-in-out, transform 0.3s ease-in-out
+	&_hide
+		opacity: 0
+		transform: translateX(-30px)
+	&_top
+		@extend .navbar
+		position: fixed
+		width: 100%
+		display: flex
+		padding: 20px 0
+		justify-content: space-between
+		align-items: center
+	&_bottom
+		@extend .navbar
+		z-index: 999999
+		padding: 20px
+		position: fixed
+		bottom: 0
+		&_settings
+			display: flex
+			align-items: center
+			&_icon
+				z-index: 7
+				width: 40px
+				height: 40px
+				cursor: pointer
+				margin-right: 10px
+				&:hover,
+				&:focus,
+				&:active
+					animation: spin 1.8s linear infinite
+
+@keyframes spin
+	from
+		transform: rotate(0deg)
+	to
+		transform: rotate(360deg)

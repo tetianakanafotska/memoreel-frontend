@@ -1,0 +1,72 @@
+@import '/src/styles/_variables.sass'
+
+.btn
+	padding: 10px 20px
+	border-radius: 6px
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	width: fit-content
+	font-weight: 600
+	font-family: $font-family-sans-serif
+	white-space: nowrap
+	transition: all 0.2s ease-in-out
+	margin: 4px
+	&-primary
+		@extend .btn
+		background-color: $green
+		border: 2px solid $green
+		color: $indigo !important
+		&:hover,
+		&:focus,
+		&:active
+			background-color: lighten($green, 10%)
+			color: $indigo !important
+			border: 2px solid lighten($green, 10%)
+		&-outline
+			@extend .btn
+			background-color: transparent
+			color: $green !important
+			border: 2px solid $green
+			&:hover,
+			&:focus,
+			&:active
+				background-color: $green
+				color: $indigo !important
+				border: 2px solid $green
+	&-secondary
+		@extend .btn
+		background-color: $purple
+		border: 2px solid $purple
+		color: $white !important
+		&:hover,
+		&:focus,
+		&:active
+			background-color: lighten($purple, 10%)
+			color: $white !important
+			border: 2px solid lighten($purple, 10%)
+		&-outline
+			@extend .btn
+			background-color: transparent
+			color: $white !important
+			border: 2px solid $white
+			&:hover,
+			&:focus,
+			&:active
+				background-color: $white
+				color: $indigo !important
+				border: 2px solid $white
+	&.full-width
+		width: 100%
+	&.icon
+		svg
+			width: 25px
+			height: 25px
+		&-left
+			@extend .icon
+			svg
+				margin-right: 8px
+		&-right
+			@extend .icon
+			svg
+				margin-left: 8px

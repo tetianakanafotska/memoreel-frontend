@@ -1,0 +1,116 @@
+@import 'bootstrap/scss/bootstrap-grid.scss'
+@import '_variables.sass'
+@import '_font-chakra-petch.sass'
+@import '_font-roboto-mono.sass'
+
+body
+	background-color: $indigo
+	color: $green
+	margin: 0
+	padding: 0
+	font-weight: 400
+	font-size: 20px
+	min-height: 100vh
+
+	// use that for media queries
+	// sm, md, lg, xl
+	// border: 10px solid transparentize($color-1, 0.5) // remove this whenever you want
+	@include media-breakpoint-up(md)
+		// border: 10px solid transparentize($color-3, 0.5) // remove this whenever you want
+
+p
+	font-size: 1rem
+
+a, a:visited
+	font-weight: 600
+	text-decoration: inherit
+	color: $green
+	&:hover,
+	&:focus,
+	&:active
+		color: lighten($green, 20%)
+		outline: none
+
+h1
+	font-size: 2.8rem
+
+.App
+	display: flex
+	flex-direction: column
+	min-height: 100vh
+
+fieldset
+	border: none
+	margin-bottom: 20px
+
+label
+	display: block
+	margin-bottom: 4px
+	font-weight: 600
+
+input,
+textarea
+	font-family: $font-family-sans-serif
+	padding: 10px 18px
+	font-weight: 600
+	font-size: 1rem
+	border-radius: 6px
+	border: 2px solid darken($light-blue, 10%)
+	background-color: $indigo
+	color: $light-blue
+	resize: none
+
+button
+	font-family: $font-family-sans-serif
+	font-size: 1rem
+	padding: 10px 16px
+	border-radius: 6px
+	display: inline-flex
+	cursor: pointer
+	align-items: center
+	justify-content: center
+	width: fit-content
+	font-weight: 700
+	font-size: 1rem
+	white-space: nowrap
+	margin: 4px
+	background-color: $green
+	border: 2px solid $green
+	color: $indigo !important
+	&:hover,
+	&:focus,
+	&:active
+		background-color: darken($green, 10%)
+		color: $indigo !important
+		border: 2px solid darken($green, 10%)
+	&:disabled
+		background-color: darken($offwhite, 20%)
+		border: none
+
+.profilePic
+	display: block
+	border-radius: 50%
+	overflow: hidden
+	width: 80px
+	height: 80px
+	border: 2px solid $light-blue
+	img
+		width: 100%
+		height: 100%
+		object-fit: cover
+		padding: 0
+		margin: 0
+		border: none !important
+
+.closeBtn
+	display: block
+	position: fixed
+	z-index: 999
+	border-radius: 50%
+	svg
+		display: block
+		path
+			fill: $white
+	top: 20px
+	right: 20px
+	background-color: transparentize($green, 0.6)
