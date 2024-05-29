@@ -2,13 +2,17 @@
 img
 	border: none !important
 .navbar
-	z-index: 9999
-	a.navlink, 
+  z-index: 9999
+	a.navlink
+		background-color: $yellow
+		border-radius: 30px
+		border: 1px solid $dark
+		color: $dark
+		padding: 6px 18px
 	a.navlink:visited
-		background: $purple
 		font-weight: 600
 		padding: 6px 18px
-		color: $white
+		color: $dark
 		border-radius: 30px !important
 		margin: 0 4px
 		border-radius: 4px
@@ -25,7 +29,7 @@ img
 		position: fixed
 		width: 100%
 		display: flex
-		padding: 20px
+		padding: 40px
 		justify-content: space-between
 		align-items: center
 	&_bottom
