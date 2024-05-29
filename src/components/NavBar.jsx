@@ -3,7 +3,7 @@ import styles from "./styles/NavBar.module.sass";
 import { NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "@context";
 import settingsImg from "@img/settings-gear.svg";
-import { LogoSquare } from "@components/Logo";
+import { LogoFull } from "@components/Logo";
 
 function NavBar() {
   const { user, isLoggedIn, logOutUser } = useContext(AuthContext);
@@ -23,7 +23,7 @@ function NavBar() {
       <nav className={styles.navbar_top}>
         <div>
           <NavLink to="/">
-            <LogoSquare color="#fff" size="50px" />
+            <LogoFull color="#fff" size="300px" />
           </NavLink>
         </div>
 
