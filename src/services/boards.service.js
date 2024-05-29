@@ -14,6 +14,9 @@ class BoardsService {
       return config;
     });
   }
+  getPublished = () => {
+    return this.api.get("/boards");
+  };
 
   post = (requestBody) => {
     return this.api.post("/boards", requestBody);
@@ -22,6 +25,10 @@ class BoardsService {
   delete = (id) => {
     console.log("deleted used");
     return this.api.delete(`/boards/${id}`);
+  };
+
+  patch = (id, requestBody) => {
+    return this.api.patch(`/boards/${id}`, requestBody);
   };
 }
 

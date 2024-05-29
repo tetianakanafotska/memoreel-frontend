@@ -7,6 +7,7 @@ import {
   Signup,
   Dashboard,
   History,
+  Feed,
 } from "@pages";
 import { Routes, Route } from "react-router-dom";
 import IsPrivate from "./components/IsPrivate"; // <== IMPORT
@@ -35,6 +36,7 @@ function App() {
             </IsAnon>
           }
         />
+        <Route path="/feed" element={<Feed />} />
         <Route
           path="/dashboard"
           element={
