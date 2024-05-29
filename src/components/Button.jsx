@@ -2,23 +2,24 @@ import { Link } from 'react-router-dom';
 import styles from './styles/Button.module.sass';
 import classNames from 'classnames';
 
-export default function Button({ to, label, style = 'primary', fullWidth = false, iconRight, iconLeft, onClick, children, type }) {
+export default function Button({ to, label, style = '', fullWidth = false, iconRight, iconLeft, onClick, children, type }) {
     const typeStyles = {
-        primary: styles['btn-primary'],
-        secondary: styles['btn-secondary'],
-        tertiary: styles['btn-tertiary'],
-        'primary-outline': styles['btn-primary-outline'],
-        'secondary-outline': styles['btn-secondary-outline'],
-        'tertiary-outline': styles['btn-tertiary-outline'],
+        primary: 'button-primary',
+        secondary: 'button-secondary',
+        tertiary: 'button-tertiary',
+        'primary-outline': 'button-primary-outline',
+        'secondary-outline': 'button-secondary-outline',
+        'tertiary-outline': 'button-tertiary-outline',
     };
 
-    const buttonStyle = typeStyles[type] || typeStyles.primary;
+    const buttonStyle = type || typeStyles.primary;
 
     const buttonClasses = classNames(
+        'button',
         buttonStyle,
-        { [styles['full-width']]: fullWidth },
-        { [styles['icon-left']]: iconLeft },
-        { [styles['icon-right']]: iconRight }
+        { 'full-width': fullWidth },
+        { 'icon-left': iconLeft },
+        { 'icon-right': iconRight }
     );
 
     return (

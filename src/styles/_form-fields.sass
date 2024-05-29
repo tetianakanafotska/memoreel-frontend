@@ -1,0 +1,77 @@
+@import 'bootstrap/scss/bootstrap-grid.scss'
+@import '/src/styles/_variables.sass'
+
+fieldset
+	border: none
+	margin-bottom: 20px
+
+label
+	display: block
+	margin-bottom: 4px
+	font-weight: 600
+
+input,
+textarea
+	font-family: $font-family-sans-serif
+	padding: 10px 18px
+	font-weight: 600
+	font-size: 1rem
+	border-radius: 6px
+	border: 2px solid $dark
+	background-color: $indigo
+	color: $light-blue
+	resize: none
+
+button,
+.button
+	// font
+	font-family: $font-family-sans-serif
+	font-size: 1rem
+	font-weight: 500
+	color: $dark !important
+
+	// layout
+	display: inline-flex
+	align-items: center
+	justify-content: center
+
+	// spacing
+	width: fit-content
+	cursor: pointer
+	white-space: nowrap
+	padding: 10px 20px
+	margin: 0 4px
+
+	// looks
+	background-color: $lemon
+	border: 2px solid $dark
+	border-radius: 30px !important
+
+	&:hover,
+	&:focus,
+	&:active
+		background-color: $light-blue
+		color: $dark !important
+	&:disabled
+		background-color: darken($offwhite, 20%)
+		border: 2px solid darken($offwhite, 20%)
+
+	&-primary
+		@extend .button
+		background-color: $lemon
+		&:hover,
+		&:focus,
+		&:active
+			background-color: $light-blue
+			color: $dark
+		&-outline
+			@extend .button
+			background-color: transparent
+			color: $green !important
+			border: 2px solid $green
+			&:hover,
+			&:focus,
+			&:active
+				background-color: $green
+				color: $indigo !important
+				border: 2px solid $green
