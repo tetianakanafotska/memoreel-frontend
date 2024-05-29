@@ -1,8 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import PopUpButtons from '../components/PopUpButtons';
-import MediaForm from '../components/MediaForm';
-import MediaItem from '../components/MediaItem';
-import { Loading } from '@components';
+import { PopUpButtons, MediaForm, MediaItem, Marquee, Loading } from '@components';
 import { AuthContext } from '@context';
 import assetsService from '../services/assets.service';
 import usersService from '../services/users.service';
@@ -22,8 +19,27 @@ const Dashboard = () => {
 	const [assetType, setAssetType] = useState(null);
 	const [allAssets, setAllAssets] = useState([]);
 	const [addButton, setAddButton] = useState(false);
+	const { user } = useContext(AuthContext);
+	const [boardId, setBoardId] = useState(null);
+	const [openPopUp, setOpenPopUp] = useState(false);
+	const [openMediaForm, setOpenMediaForm] = useState(false);
+	const [assetType, setAssetType] = useState(null);
+	const [allAssets, setAllAssets] = useState([]);
+	const [addButton, setAddButton] = useState(false);
 	const [loading, setLoading] = useState(true);
 
+	const deleteAsset = (assetId) => {
+		assetsService
+			.delete(assetId)
+			.then((res) => {
+				setAllAssets((prevAssets) =>
+					prevAssets.filter((asset) => asset._id !== assetId)
+				);
+			})
+			.catch((err) => {
+				console.error('Error deleting asset', err);
+			});
+	};
 	const deleteAsset = (assetId) => {
 		assetsService
 			.delete(assetId)
@@ -54,6 +70,23 @@ const Dashboard = () => {
 				console.error('Error updating asset', err);
 			});
 	};
+	const editAsset = (assetId, editedContent) => {
+		assetsService
+			.put(assetId, {
+				content: editedContent,
+			})
+			.then((res) => {
+				const updatedAsset = res.data;
+				setAllAssets((prevAssets) =>
+					prevAssets.map((asset) =>
+						asset._id === assetId ? updatedAsset : asset
+					)
+				);
+			})
+			.catch((err) => {
+				console.error('Error updating asset', err);
+			});
+	};
 
 	const handleOpenPopUp = () => {
 		setOpenPopUp(!openPopUp);
@@ -66,7 +99,6 @@ const Dashboard = () => {
 			usersService.getCurrentBoard(user._id, currentDate).then((res) => {
 				if (res.data.length !== 0) {
 					setAllAssets(res.data[0].assets);
-					setLoading(false);
 					setBoardId(res.data[0]._id);
 					console.log('Existing board found. BoardID:', res.data[0]._id);
 				} else {
@@ -83,86 +115,89 @@ const Dashboard = () => {
 		</>
 	) : (
 		<>
-			<section className={styles.dashboard}>
-				<Container fluid>
-					<Row>
-						<Col className='d-flex flex-column align-items-center justify-content-center my-5'>
-							{user && (
-								<div className='profilePic mb-2'>
-									<img
-										src={user.profileImg || placeholder}
-										onError={(e) => {
-											e.target.src = placeholder;
-										}}
-										alt={user.name}
-									/>
-								</div>
-							)}
-							<h2>{user ? `Hello, ${user.name}!` : 'Hello!'}</h2>
-						</Col>
-					</Row>
-					<Row>
-						<Col>
-							<h3>What's on your mind today?</h3>
-						</Col>
-					</Row>
-
-					<Row>
-						<Col>
-							<div className={styles.dashboard_addContent}>
-								<button
-									onClick={handleOpenPopUp}
-									className={classNames(
-										popUpButtonStyles.popUpButton_addButton,
-										{
-											[popUpButtonStyles.popUpButton_addButton_on]: addButton,
-										}
-									)}>
-									{<PlusLg size='40' />}
-								</button>
-
-								{openPopUp && (
-									<PopUpButtons
-										setAssetType={setAssetType}
-										setOpenMediaForm={setOpenMediaForm}
-									/>
-								)}
-							</div>
-						</Col>
-					</Row>
-				</Container>
-
-				{openMediaForm && (
-					<MediaForm
-						assetType={assetType}
-						setOpenPopUp={setOpenPopUp}
-						setOpenMediaForm={setOpenMediaForm}
-						setAllAssets={setAllAssets}
-						deleteAsset={deleteAsset}
-						boardId={boardId}
-						userId={user._id}
-					/>
-				)}
-
-				<div className={boardStyles.board}>
-					{allAssets.length > 0 ? (
-						allAssets.reverse().map((asset) => (
-							<div key={asset._id}>
-								<MediaItem
-									asset={asset}
-									editAsset={editAsset}
-									deleteAsset={deleteAsset}
-									enableEditing={true}
+		<section className={styles.dashboard}>
+			<Container fluid>
+				<Row>
+					<Col className='d-flex flex-column align-items-center justify-content-center my-5'>
+						{user && (
+							<div className='profilePic mb-2'>
+								<img
+									src={user.profileImg || placeholder}
+									onError={(e) => {
+										e.target.src = placeholder;
+									}}
+									alt={user.name}
 								/>
 							</div>
-						))
-					) : (
-						<p>Create content for today</p>
-					)}
-				</div>
-			</section>
-		</>
-	);
+						)}
+						<h2>{user ? `Hello, ${user.name}!` : 'Hello!'}</h2>
+					</Col>
+				</Row>
+			</Container>
+			
+      <Marquee
+				phrases={[
+					'For days worth remembering',
+					"What's on your mind today?",
+					'What made you laugh today?',
+				]}
+				className='mt-3 mb-5'
+			/>
+
+			<Container fluid>
+				<Row>
+					<Col>
+						<div className={styles.dashboard_addContent}>
+							<button
+								onClick={handleOpenPopUp}
+								className={classNames(popUpButtonStyles.popUpButton_addButton, {
+									[popUpButtonStyles.popUpButton_addButton_on]: addButton,
+								})}>
+								{<PlusLg size='40' />}
+							</button>
+
+							{openPopUp && (
+								<PopUpButtons
+									setAssetType={setAssetType}
+									setOpenMediaForm={setOpenMediaForm}
+								/>
+							)}
+						</div>
+					</Col>
+				</Row>
+			</Container>
+
+			{openMediaForm && (
+				<MediaForm
+					assetType={assetType}
+					setOpenPopUp={setOpenPopUp}
+					setOpenMediaForm={setOpenMediaForm}
+					setAllAssets={setAllAssets}
+					deleteAsset={deleteAsset}
+					boardId={boardId}
+					userId={user._id}
+				/>
+			)}
+
+			<div className={boardStyles.board}>
+				{allAssets.length > 0 ? (
+					allAssets.reverse().map((asset) => (
+						<div key={asset._id}>
+							<MediaItem
+								asset={asset}
+								editAsset={editAsset}
+								deleteAsset={deleteAsset}
+								enableEditing={true}
+							/>
+						</div>
+					))
+				) : (
+					<p>Create content for today</p>
+				)}
+			</div>
+		</section>
+    </>
+	));
 };
 
 export default Dashboard;
