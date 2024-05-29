@@ -1,14 +1,16 @@
 @import 'bootstrap/scss/bootstrap-grid.scss'
 @import '_variables.sass'
-@import '_font-chakra-petch.sass'
+@import '_form-fields.sass'
+@import '_font-human-sans.sass'
 @import '_font-roboto-mono.sass'
 
 body
 	background-color: $maincolor-light
+	font-family: $font-family-sans-serif
 	color: $dark
 	margin: 0
 	padding: 0
-	font-weight: 400
+	font-weight: 500
 	font-size: 20px
 	min-height: 100vh
 
@@ -31,88 +33,15 @@ a, a:visited
 		color: lighten($green, 20%)
 		outline: none
 
-h1
-	font-size: 2.8rem
+h1, h2, h3, h4, h5, h6
+	line-height: 1.2
+	font-weight: 600
 
 .App
 	display: flex
 	flex-direction: column
 	min-height: 100vh
 
-fieldset
-	border: none
-	margin-bottom: 20px
-
-label
-	display: block
-	margin-bottom: 4px
-	font-weight: 600
-
-input,
-textarea
-	font-family: $font-family-sans-serif
-	padding: 10px 18px
-	font-weight: 600
-	font-size: 1rem
-	border-radius: 6px
-	border: 2px solid $dark
-	background-color: $indigo
-	color: $light-blue
-	resize: none
-
-button,
-.button
-	// font
-	font-family: $font-family-sans-serif
-	font-size: 1rem
-	font-weight: 700
-	color: $dark !important
-
-	// layout
-	display: inline-flex
-	align-items: center
-	justify-content: center
-
-	// spacing
-	width: fit-content
-	cursor: pointer
-	white-space: nowrap
-	padding: 8px 20px
-	margin: 0 4px
-
-	// looks
-	background-color: $lemon
-	border: 2px solid $dark
-	border-radius: 30px !important
-
-	&:hover,
-	&:focus,
-	&:active
-		background-color: $light-blue
-		color: $dark !important
-	&:disabled
-		background-color: darken($offwhite, 20%)
-		border: 2px solid darken($offwhite, 20%)
-
-	&-primary
-		@extend .button
-		background-color: $lemon
-		&:hover,
-		&:focus,
-		&:active
-			background-color: $light-blue
-			color: $dark
-		&-outline
-			@extend .button
-			background-color: transparent
-			color: $green !important
-			border: 2px solid $green
-			&:hover,
-			&:focus,
-			&:active
-				background-color: $green
-				color: $indigo !important
-				border: 2px solid $green
 .profilePic
 	display: block
 	border-radius: 50%
