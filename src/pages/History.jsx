@@ -10,11 +10,13 @@ import historyStyles from "./styles/History.module.sass";
 function History() {
   const { user } = useContext(AuthContext);
   const [allBoards, setAllboards] = useState([]);
+  const [loading, setLoading] = useState(true);
+
 
   const formatDate = (inputDate) => {
     const date = new Date(inputDate);
     const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // getMonth() is zero-based
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
     const formattedDate = `${day}.${month}.${year}`;
     return formattedDate;
@@ -27,6 +29,7 @@ function History() {
         .then((res) => {
           if (res.data.length !== 0) {
             setAllboards(res.data);
+            setLoading(false);
             console.log("allboards", res.data);
           }
         })
@@ -37,30 +40,38 @@ function History() {
   return (
     <div className={historyStyles.history}>
       <div className={historyStyles.dashboardBtn}>
-        <Button to={"/dashboard"}>Dashboard</Button>
+        <Button to="/dashboard">Dashboard</Button>
       </div>
-
-      {allBoards &&
-        allBoards.length >= 0 &&
+      {loading ? (
+        <Loading />
+      ) : (
+        allBoards &&
         (allBoards.length === 0
           ? "No board to show yet!"
-          : allBoards.reverse().map((board) => {
-              return (
-                <div key={board._id} className={historyStyles.reel}>
-                  <h2 className={historyStyles.date}>
-                    {formatDate(board.createdAt)}
-                  </h2>
-                  <div className={boardStyles.board}>
-                    {board.assets.length > 0 &&
-                      board.assets.reverse().map((asset) => (
-                        <div key={asset._id}>
-                          <MediaItem asset={asset} enableEditing={false} />
-                        </div>
-                      ))}
+          : allBoards
+              .slice()
+              .reverse()
+              .map((board) => {
+                return (
+                  <div key={board._id} className={historyStyles.reel}>
+                    <h2 className={historyStyles.date}>
+                      {formatDate(board.createdAt)}
+                    </h2>
+                    <div className={boardStyles.board}>
+                      {board.assets.length > 0 &&
+                        board.assets
+                          .slice()
+                          .reverse()
+                          .map((asset) => (
+                            <div key={asset._id}>
+                              <MediaItem asset={asset} enableEditing={false} />
+                            </div>
+                          ))}
+                    </div>
                   </div>
-                </div>
-              );
-            }))}
+                );
+              }))
+      )}
     </div>
   );
 }
