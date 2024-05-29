@@ -1,8 +1,9 @@
-import React, { useContext, useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
-import styles from "./styles/NavBar.module.sass";
-import { AuthContext } from "@context";
-import settingsImg from "@img/settings-gear.svg";
+import React, { useContext, useState } from 'react';
+import styles from './styles/NavBar.module.sass';
+import { NavLink, useLocation } from 'react-router-dom';
+import { AuthContext } from '@context';
+import settingsImg from '@img/settings-gear.svg';
+import { LogoSquare } from '@components/Logo'
 
 function NavBar() {
   const { user, isLoggedIn, logOutUser } = useContext(AuthContext);
@@ -20,9 +21,11 @@ function NavBar() {
   return (
     <>
       <nav className={styles.navbar_top}>
-        <div>
-          <NavLink to="/">Logo</NavLink>
-        </div>
+       <div>
+					<NavLink to='/'>
+						<LogoSquare color="#fff" size="50px" />
+					</NavLink>
+				</div>
 
         <div>
           {!isLoggedIn && (
@@ -41,6 +44,8 @@ function NavBar() {
           )}
         </div>
       </nav>
+	return (
+		<>
 
       {isLoggedIn && (
         <nav className={styles.navbar_bottom}>
