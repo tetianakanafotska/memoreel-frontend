@@ -19,13 +19,6 @@ const Dashboard = () => {
 	const [assetType, setAssetType] = useState(null);
 	const [allAssets, setAllAssets] = useState([]);
 	const [addButton, setAddButton] = useState(false);
-	const { user } = useContext(AuthContext);
-	const [boardId, setBoardId] = useState(null);
-	const [openPopUp, setOpenPopUp] = useState(false);
-	const [openMediaForm, setOpenMediaForm] = useState(false);
-	const [assetType, setAssetType] = useState(null);
-	const [allAssets, setAllAssets] = useState([]);
-	const [addButton, setAddButton] = useState(false);
 	const [loading, setLoading] = useState(true);
 
 	const deleteAsset = (assetId) => {
@@ -40,36 +33,7 @@ const Dashboard = () => {
 				console.error('Error deleting asset', err);
 			});
 	};
-	const deleteAsset = (assetId) => {
-		assetsService
-			.delete(assetId)
-			.then((res) => {
-				setAllAssets((prevAssets) =>
-					prevAssets.filter((asset) => asset._id !== assetId)
-				);
-			})
-			.catch((err) => {
-				console.error('Error deleting asset', err);
-			});
-	};
 
-	const editAsset = (assetId, editedContent) => {
-		assetsService
-			.put(assetId, {
-				content: editedContent,
-			})
-			.then((res) => {
-				const updatedAsset = res.data;
-				setAllAssets((prevAssets) =>
-					prevAssets.map((asset) =>
-						asset._id === assetId ? updatedAsset : asset
-					)
-				);
-			})
-			.catch((err) => {
-				console.error('Error updating asset', err);
-			});
-	};
 	const editAsset = (assetId, editedContent) => {
 		assetsService
 			.put(assetId, {
@@ -100,21 +64,22 @@ const Dashboard = () => {
 				if (res.data.length !== 0) {
 					setAllAssets(res.data[0].assets);
 					setBoardId(res.data[0]._id);
+					setLoading(false);
 					console.log('Existing board found. BoardID:', res.data[0]._id);
 				} else {
 					setAllAssets([]);
 					setBoardId(null);
+					setLoading(false);
 				}
 			});
 		}
 	}, [user]);
 
-	return loading ? (
-		<>
-			<Loading />
-		</>
-	) : (
-		<>
+	return (loading ? (
+    <>
+      <Loading />
+    </>
+  ) : (
 		<section className={styles.dashboard}>
 			<Container fluid>
 				<Row>
@@ -196,8 +161,8 @@ const Dashboard = () => {
 				)}
 			</div>
 		</section>
-    </>
 	));
 };
 
 export default Dashboard;
+
