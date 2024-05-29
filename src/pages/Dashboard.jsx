@@ -22,7 +22,7 @@ const Dashboard = () => {
   const [allAssets, setAllAssets] = useState([]);
   const [addButton, setAddButton] = useState(false);
 
-  const handleDeleteAsset = (assetId) => {
+  const deleteAsset = (assetId) => {
     assetsService
       .delete(assetId)
       .then((res) => {
@@ -35,8 +35,7 @@ const Dashboard = () => {
       });
   };
 
-  const handleEditAsset = (assetId, editedContent) => {
-    console.log("editedContent", editedContent);
+  const editAsset = (assetId, editedContent) => {
     assetsService
       .put(assetId, {
         content: editedContent,
@@ -54,9 +53,13 @@ const Dashboard = () => {
       });
   };
 
+  const handleOpenPopUp = () => {
+    setOpenPopUp(!openPopUp);
+    setAddButton((prev) => (!prev ? true : false));
+  };
+
   useEffect(() => {
     const currentDate = new Date().toISOString().slice(0, 10);
-    console.log("THE DATE", currentDate);
     if (user) {
       usersService.getCurrentBoard(user._id, currentDate).then((res) => {
         if (res.data.length !== 0) {
@@ -100,10 +103,7 @@ const Dashboard = () => {
           <Col>
             <div className={styles.dashboard_addContent}>
               <button
-                onClick={() => {
-                  setOpenPopUp(!openPopUp);
-                  setAddButton((prev) => (!prev ? true : false));
-                }}
+                onClick={handleOpenPopUp}
                 className={classNames(popUpButtonStyles.popUpButton_addButton, {
                   [popUpButtonStyles.popUpButton_addButton_on]: addButton,
                 })}
@@ -128,6 +128,7 @@ const Dashboard = () => {
           setOpenPopUp={setOpenPopUp}
           setOpenMediaForm={setOpenMediaForm}
           setAllAssets={setAllAssets}
+          deleteAsset={deleteAsset}
           boardId={boardId}
           userId={user._id}
         />
@@ -139,8 +140,9 @@ const Dashboard = () => {
             <div key={asset._id}>
               <MediaItem
                 asset={asset}
-                handleDeleteAsset={handleDeleteAsset}
-                handleEditAsset={handleEditAsset}
+                editAsset={editAsset}
+                deleteAsset={deleteAsset}
+                enableEditing={true}
               />
             </div>
           ))

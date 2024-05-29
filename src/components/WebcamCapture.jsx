@@ -30,15 +30,13 @@ function WebcamCapture({ handleUploadFile, loading, setLoading }) {
     <div className="main">
       <div className={dashboardStyles.editButtons_photoContainer}>
         {photoTaken ? (
-          <>
-            <ImagePreviewer
-              url={previewURL}
-              deleteImage={() => {
-                setPreviewURL("");
-                setPhotoTaken(false);
-              }}
-            />
-          </>
+          <ImagePreviewer
+            url={previewURL}
+            deleteImage={() => {
+              setPreviewURL("");
+              setPhotoTaken(false);
+            }}
+          />
         ) : (
           <>
             <div className={boardStyles.board_item_polaroid}>
