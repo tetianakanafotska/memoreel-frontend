@@ -5,7 +5,7 @@ import "./index.scss";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProviderWrapper } from "@context";
 
-window.name = "FunFolio";
+window.name = "MemoReel";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Router>
