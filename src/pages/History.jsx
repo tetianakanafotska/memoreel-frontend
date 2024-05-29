@@ -1,14 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@context";
-import { MediaItem, Button, Loading } from "@components";
+import { MediaItem, Button } from "@components";
 import boardStyles from "../components/styles/Board.module.sass";
 import usersService from "../services/users.service";
+import { X } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
 import historyStyles from "./styles/History.module.sass";
 
 function History() {
   const { user } = useContext(AuthContext);
   const [allBoards, setAllboards] = useState([]);
   const [loading, setLoading] = useState(true);
+
 
   const formatDate = (inputDate) => {
     const date = new Date(inputDate);
