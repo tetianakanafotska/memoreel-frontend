@@ -30,6 +30,9 @@ class UsersService {
   delete = (id) => {
     return this.api.delete(`/users/${id}`);
   };
+  get = (id) => {
+    return this.api.get(`/users/${id}`);
+  };
 }
 
 const usersService = new UsersService();
