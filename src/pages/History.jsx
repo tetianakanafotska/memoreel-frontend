@@ -42,7 +42,7 @@ function History() {
                     {board.assets.length > 0 &&
                       board.assets.reverse().map((asset) => (
                         <div key={asset._id}>
-                          <MediaItem asset={asset} />
+                          <MediaItem asset={asset} enableEditing={false} />
                         </div>
                       ))}
                   </div>

@@ -1,38 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import loadingGif from "../assets/images/loading.gif";
 import uploadService from "../services/file-upload.service";
-import WebcamCapture from "./WebcamCapture";
 import assetsService from "../services/assets.service";
 import boardsService from "../services/boards.service";
+import WebcamCapture from "./WebcamCapture";
 import AudioCapture from "./AudioRecorder";
 import dashboardStyles from "@pages/styles/Dashboard.module.sass";
-import { XLg, CheckLg } from "react-bootstrap-icons";
+import { XLg, CheckLg, Trash } from "react-bootstrap-icons";
 
 function MediaForm({
   assetType,
+  assetId,
+  initialContent,
+  saveEdit,
+  setIsEditing,
+  deleteAsset,
+  // Only needed for adding new assets
   setAllAssets,
   setOpenPopUp,
   setOpenMediaForm,
   boardId,
   userId,
 }) {
-  const [newAsset, setNewAsset] = useState({
-    type: assetType,
-    content: "",
-    userId: userId,
-    boardId: boardId,
-  });
-
+  const [newAssetContent, setNewAssetContent] = useState(initialContent || "");
   const [loading, setLoading] = useState(false);
   const [touched, setTouched] = useState(false);
 
-  const validateContent = (item) => {
-    if (!item.trim()) {
+  useEffect(() => {
+    setNewAssetContent(initialContent || "");
+  }, [initialContent]);
+
+  const validateContent = (content) => {
+    if (!content.trim()) {
       return false;
     } else if (assetType === "youtubeURL") {
       const youtubeUrlRegex =
         /^(http(s)??\:\/\/)?(www\.)?((youtube\.com\/watch\?v=)|(youtu.be\/))([a-zA-Z0-9\-_])+$/;
-      return youtubeUrlRegex.test(item);
+      return youtubeUrlRegex.test(content);
     } else return true;
   };
 
@@ -40,22 +44,41 @@ function MediaForm({
     try {
       setLoading(true);
       const fileUrl = await uploadService.uploadFile(file);
-      console.log("fileUrl", fileUrl);
-      setNewAsset((prevAsset) => ({ ...prevAsset, content: fileUrl }));
+      setNewAssetContent(fileUrl);
       setLoading(false);
       return fileUrl;
     } catch (error) {
-      console.error(error);
+      console.error("Error uploading file:", error);
       setLoading(false);
     }
   };
 
-  const handleAddAsset = async () => {
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleUploadFile(file);
+    }
+  };
+
+  const handleSave = () => {
+    if (saveEdit) {
+      saveEdit(newAssetContent);
+    } else {
+      addNewAsset();
+    }
+  };
+
+  const addNewAsset = async () => {
     try {
+      const newAsset = {
+        type: assetType,
+        content: newAssetContent,
+        userId: userId,
+        boardId: boardId,
+      };
+
       if (!boardId) {
-        const boardResp = await boardsService.post({
-          userId: userId,
-        });
+        const boardResp = await boardsService.post({ userId });
         const newBoardId = boardResp.data._id;
         const assetResp = await assetsService.post({
           ...newAsset,
@@ -68,32 +91,13 @@ function MediaForm({
         const createdAsset = response.data;
         setAllAssets((prevAssets) => [...prevAssets, createdAsset]);
       }
-      setNewAsset({
-        type: "",
-        content: "",
-        userId: "",
-        boardId: "",
-      });
+
+      setNewAssetContent("");
       setOpenPopUp(false);
       setOpenMediaForm(false);
     } catch (error) {
       console.error("Error adding asset:", error);
     }
-  };
-
-  const handleAddImage = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      handleUploadFile(file);
-    }
-  };
-
-  const handleOnChange = (e) => {
-    setNewAsset((prevAsset) => ({
-      ...prevAsset,
-      content: e.target.value,
-    }));
-    setTouched(true);
   };
 
   return (
@@ -102,8 +106,11 @@ function MediaForm({
         <textarea
           type="text"
           placeholder="What's on your mind today?"
-          onChange={handleOnChange}
-          value={newAsset.content}
+          onChange={(e) => {
+            setNewAssetContent(e.target.value);
+            setTouched(true);
+          }}
+          value={newAssetContent}
           className={dashboardStyles.editButtons_input}
         />
       )}
@@ -111,15 +118,18 @@ function MediaForm({
         <input
           type="file"
           accept="image/*"
-          onChange={handleAddImage}
+          onChange={handleFileChange}
           className={dashboardStyles.editButtons_input}
         />
       )}
       {assetType === "youtubeURL" && (
         <input
           type="text"
-          onChange={handleOnChange}
-          value={newAsset.content}
+          onChange={(e) => {
+            setNewAssetContent(e.target.value);
+            setTouched(true);
+          }}
+          value={newAssetContent}
           placeholder="Paste Youtube URL here"
           className={dashboardStyles.editButtons_input}
         />
@@ -146,19 +156,25 @@ function MediaForm({
       ) : (
         <div>
           <button
-            onClick={handleAddAsset}
-            disabled={!validateContent(newAsset.content)}
+            onClick={handleSave}
+            disabled={!validateContent(newAssetContent)}
             className={dashboardStyles.editButtons_button}
           >
             <CheckLg size="20" />
           </button>
           <button
-            onClick={() => setOpenMediaForm(false)}
+            onClick={() => setIsEditing(false)}
             className={dashboardStyles.editButtons_button}
           >
             <XLg />
           </button>
-          {touched && !validateContent(newAsset.content) && (
+          <button
+            onClick={() => deleteAsset(assetId)}
+            className={dashboardStyles.editButtons_button}
+          >
+            <Trash />
+          </button>
+          {touched && !validateContent(newAssetContent) && (
             <p>Invalid content</p>
           )}
         </div>
@@ -168,4 +184,3 @@ function MediaForm({
 }
 
 export default MediaForm;
-
