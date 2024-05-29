@@ -7,10 +7,11 @@ import {
   Signup,
   Dashboard,
   History,
+  UserProfilePage,
 } from "@pages";
 import { Routes, Route } from "react-router-dom";
-import IsPrivate from "./components/IsPrivate"; // <== IMPORT
-import IsAnon from "./components/IsAnon"; // <== IMPORT
+import IsPrivate from "./components/IsPrivate";
+import IsAnon from "./components/IsAnon";
 
 function App() {
   return (
@@ -33,6 +34,14 @@ function App() {
             <IsAnon>
               <Signup />
             </IsAnon>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <IsPrivate>
+              <UserProfilePage />
+            </IsPrivate>
           }
         />
         <Route
