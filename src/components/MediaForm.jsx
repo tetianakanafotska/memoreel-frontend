@@ -156,30 +156,31 @@ function MediaForm({
           style={{ width: "30px", height: "30px" }}
         />
       ) : (
-        <div>
-          <button
-            onClick={handleSave}
-            disabled={!validateContent(newAssetContent)}
-            className={dashboardStyles.editButtons_button}
-          >
-            <CheckLg size="20" />
-          </button>
-          <button
-            onClick={() => setIsEditing(false)}
-            className={dashboardStyles.editButtons_button}
-          >
-            <XLg />
-          </button>
-          <button
-            onClick={() => deleteAsset(assetId)}
-            className={dashboardStyles.editButtons_button}
-          >
-            <Trash />
-          </button>
-          {touched && !validateContent(newAssetContent) && (
-            <p>Invalid content</p>
-          )}
-        </div>
+        <></>
+        // <div>
+        //   <button
+        //     onClick={handleSave}
+        //     disabled={!validateContent(newAssetContent)}
+        //     className={dashboardStyles.editButtons_button}
+        //   >
+        //     <CheckLg size="20" />
+        //   </button>
+        //   <button
+        //     onClick={() => setIsEditing(false)}
+        //     className={dashboardStyles.editButtons_button}
+        //   >
+        //     <XLg />
+        //   </button>
+        //   <button
+        //     onClick={() => deleteAsset(assetId)}
+        //     className={dashboardStyles.editButtons_button}
+        //   >
+        //     <Trash />
+        //   </button>
+        //   {touched && !validateContent(newAssetContent) && (
+        //     <p>Invalid content</p>
+        //   )}
+        // </div>
       )}
     </div>
   );

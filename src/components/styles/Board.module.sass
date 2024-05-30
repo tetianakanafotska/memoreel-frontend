@@ -10,7 +10,7 @@
     padding: 30px 0
     &_item
         position: relative
-        margin: 0 20px
+        // margin: 0 20px
         height: 100%
         display: flex
         flex-direction: column
@@ -25,25 +25,9 @@
         .editButtons
             &_container
                 position: absolute
-                z-index: 999
-                top: 30px
-                left: 10px
-                opacity: 0
-            &_button
-                border-radius: 50%
-                height: 50px
-                width: 50px
-                padding: 0
-                background-color: darken($indigo, 40%)
-                border: 0
-                svg path
-                    fill: $white
-            &_input
-                position: absolute
+                z-index: 888
                 bottom: 30px
-                width: 60%
-                background-color: $white
-                color: $indigo
+                left: 10px
         &_body
             display: flex
             flex-direction: column
@@ -73,7 +57,6 @@
                 transform: rotateZ(357deg)
                 width: 100%
                 height: 100%
-                font-weight: 400
                 background-color: $light-blue
                 padding: 20px
                 font-family: $font-family-monospace
