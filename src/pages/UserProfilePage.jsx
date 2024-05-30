@@ -14,6 +14,7 @@ function UserProfilePage() {
   const { user, handleDeleteAccount } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const fileInputRef = useRef(null);
+  console.log(profileImg);
 
   useEffect(() => {
     const getUser = async () => {
@@ -46,8 +47,10 @@ function UserProfilePage() {
           email: emailInput,
           profileImg: profileImg,
         });
+        console.log(response.data);
         if (response.status === 200) {
           setUserProfile(response.data);
+          setProfileImg(response.data.profileImg);
         }
       }
     } catch (error) {
