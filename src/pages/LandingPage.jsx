@@ -1,80 +1,91 @@
-import styles from "./styles/LandingPage.module.sass";
-import "./styles/LandingPage.scss";
-import { AuthContext } from "@context";
-import Button from "../components/Button.jsx";
-import { Heart, EmojiSmile } from "react-bootstrap-icons"; // see https://icons.getbootstrap.com/
-import { Container, Row, Col } from "react-bootstrap";
-import landingslide1 from "../assets/images/landingslide1.png";
-import landingslide2 from "../assets/images/landingslide2.png";
-import landingslide3 from "../assets/images/landingslide3.png";
-import landingslide4 from "../assets/images/landingslide4.png";
-import landingslide5 from "../assets/images/landingslide5.png";
-import landingslide6 from "../assets/images/landingslide6.png";
-import { Link } from "react-router-dom";
-import React, { useContext } from "react";
+import styles from './styles/LandingPage.module.sass';
+import { AuthContext } from '@context';
+import Button from '../components/Button.jsx';
+import { Container, Row, Col } from 'react-bootstrap';
+import landingslide1 from '@img/landingpage-slideshow/landingslide1.jpg';
+import landingslide2 from '@img/landingpage-slideshow/landingslide2.jpg';
+import landingslide3 from '@img/landingpage-slideshow/landingslide3.jpg';
+import landingslide4 from '@img/landingpage-slideshow/landingslide4.jpg';
+import landingslide5 from '@img/landingpage-slideshow/landingslide5.jpg';
+import landingslide6 from '@img/landingpage-slideshow/landingslide6.jpg';
+import landingslide7 from '@img/landingpage-slideshow/landingslide7.jpg';
+import { Marquee } from '@components';
+import React, { useContext } from 'react';
 
 export default function LandingPage() {
-  const { user, isLoggedIn } = useContext(AuthContext);
+	const { user, isLoggedIn } = useContext(AuthContext);
 
-  return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div className="slider">
-        <div className="slide-track">
-          <div className="slide">
-            <img src={landingslide6} alt="Slide 6" />
-          </div>
-          <div className="slide">
-            <img src={landingslide1} alt="Slide 1" />
-          </div>
-          <div className="slide">
-            <img src={landingslide2} alt="Slide 2" />
-          </div>
-          <div className="slide">
-            <img src={landingslide4} alt="Slide 4" />
-          </div>
-          <div className="slide">
-            <img src={landingslide5} alt="Slide 5" />
-          </div>
-          <div className="slide">
-            <img src={landingslide3} alt="Slide 3" />
-          </div>
+	const images = [];
+	for (let i = 1; i <= 6; i++) {
+		images.push(
+			import(
+				`@img/landingpage-slideshow/landingpage-slideshow/landingslide${i}.png`
+			)
+		);
+	}
 
-          {/* Duplicate slides for continuous effect */}
-          <div className="slide">
-            <img src={landingslide6} alt="Duplicate Slide 6" />
+	return (
+		<section className={styles.landingPage}>
+			<div className={styles.landingPage_slideshow}>
+				<Marquee
+					phrases={[
+						'For days worth remembering',
+						"What's on your mind today?",
+						'What made you laugh today?',
+					]}
+					className={styles.marquee1}
+				/>
+
+				<div className={styles.landingPage_slideshow_track}>
+					<div className={styles.landingPage_slideshow_item}>
+						<img
+							src={landingslide1}
+							alt='MemoReel'
+						/>
+					</div>
+					<div className={styles.landingPage_slideshow_item}>
+						<img
+							src={landingslide3}
+							alt='MemoReel'
+						/>
+					</div>
+					<div className={styles.landingPage_slideshow_item}>
+						<img
+							src={landingslide4}
+							alt='MemoReel'
+						/>
+					</div>
+					<div className={styles.landingPage_slideshow_item}>
+						<img
+							src={landingslide6}
+							alt='MemoReel'
+						/>
+					</div>
+					<div className={styles.landingPage_slideshow_item}>
+						<img
+							src={landingslide6}
+							alt='MemoReel'
+						/>
+					</div>
+				</div>
+
+				<Marquee
+					phrases={[
+						'What made you laugh today?',
+						'For days worth remembering',
+						"What's on your mind today?",
+					]}
+					className={styles.marquee2}
+				/>
+
+        <Container fluid>
+          <div className={styles.landingPage_cta}>
+            <Button to={isLoggedIn ? '/dashboard' : '/login'}>
+              Highlight Your Day!
+            </Button>
           </div>
-          <div className="slide">
-            <img src={landingslide1} alt="Duplicate Slide 1" />
-          </div>
-          <div className="slide">
-            <img src={landingslide2} alt="Duplicate Slide 2" />
-          </div>
-          <div className="slide">
-            <img src={landingslide4} alt="Duplicate Slide 4" />
-          </div>
-          <div className="slide">
-            <img src={landingslide5} alt="Duplicate Slide 5" />
-          </div>
-          <div className="slide">
-            <img src={landingslide3} alt="Duplicate Slide 3" />
-          </div>
-        </div>
-      </div>
-      <Row className="mb-5">
-        <Col className="my-5">
-          <Button to={isLoggedIn ? "/dashboard" : "/login"}>
-            Highlight Your Day!
-          </Button>
-        </Col>
-      </Row>
-    </div>
-  );
+        </Container>
+			</div>
+		</section>
+	);
 }
