@@ -13,9 +13,7 @@ function NavBar() {
 
   const renderLogo = () => {
     let size = "300px";
-    if (location.pathname === "/dashboard") {
-      size = "550px";
-    }
+    if (location.pathname === "/dashboard") size = "600px";
     if (location.pathname === "/") size = "800px";
 
     return (
@@ -42,17 +40,13 @@ function NavBar() {
 
   return (
     <div>
-      <div
-        className={
-          location.pathname === "/dashboard" ? styles.centerLogo : styles.navbar
-        }
-      >
+      <div className={styles.navbar}>
         <div>{renderLogo()}</div>
         <div>{!isLoggedIn && renderAuthLinks()}</div>
         {isLoggedIn && (
-          <div className={styles.navbarButtons}>
+          <div className={styles.navbar}>
             <Button to="/" className={styles.navlink} onClick={logOutUser}>
-              <BoxArrowRight size="20" />
+              {<BoxArrowRight size="40" />}
             </Button>
             {location.pathname === "/dashboard/history" && (
               <Button to="/dashboard" className={styles.navlink}>
@@ -66,7 +60,7 @@ function NavBar() {
         <div className={styles.navbar_bottom}>
           <div>
             {user && (
-              <div className="user-picture">
+              <NavLink to='/profile' className="user-picture">
                 <img
                   src={user.profileImg || placeholder}
                   onError={(e) => {
@@ -75,7 +69,7 @@ function NavBar() {
                   alt={user.name}
                   className={styles.navbar_userProfile}
                 />
-              </div>
+              </NavLink>
             )}
           </div>
           <div>
