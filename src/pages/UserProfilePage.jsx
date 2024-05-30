@@ -5,6 +5,7 @@ import usersService from "../services/users.service.js";
 import uploadService from "../services/file-upload.service";
 import userProfilePageStyle from "./styles/UserProfilePage.module.sass";
 import { Pen } from "react-bootstrap-icons";
+import { Loading } from "@components";
 
 function UserProfilePage() {
   const [userProfile, setUserProfile] = useState(null);
@@ -15,7 +16,6 @@ function UserProfilePage() {
   const { user, handleDeleteAccount } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const fileInputRef = useRef(null);
-  console.log(profileImg);
 
   useEffect(() => {
     const getUser = async () => {
@@ -67,7 +67,6 @@ function UserProfilePage() {
         const fileUrl = await uploadService.uploadFile(file);
         setProfileImg(fileUrl);
         setLoading(false);
-        console.log("file upload");
       } catch (error) {
         console.error("Error uploading file:", error);
         setLoading(false);
@@ -81,7 +80,7 @@ function UserProfilePage() {
 
   if (errorMessage) return <div>{errorMessage}</div>;
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
 
   return (
     <div className={userProfilePageStyle.userProfile}>

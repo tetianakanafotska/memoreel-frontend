@@ -18,7 +18,6 @@ import classNames from "classnames";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
-  const [boardId, setBoardId] = useState(null);
   const [openPopUp, setOpenPopUp] = useState(false);
   const [openMediaForm, setOpenMediaForm] = useState(false);
   const [assetType, setAssetType] = useState(null);
@@ -66,13 +65,8 @@ const Dashboard = () => {
       usersService.getCurrentBoard(user._id, currentDate).then((res) => {
         if (res.data.length !== 0) {
           setAllAssets(res.data[0].assets);
-          setBoardId(res.data[0]._id);
           setLoading(false);
-          console.log("Existing board found. BoardID:", res.data[0]._id);
         } else {
-          console.log("No current board found");
-          setAllAssets([]);
-          setBoardId(null);
           setLoading(false);
         }
       });
@@ -139,7 +133,7 @@ const Dashboard = () => {
                   setOpenMediaForm={setOpenMediaForm}
                   setAllAssets={setAllAssets}
                   deleteAsset={deleteAsset}
-                  boardId={boardId}
+                  //boardId={boardId}
                   userId={user._id}
                 />
               </div>
