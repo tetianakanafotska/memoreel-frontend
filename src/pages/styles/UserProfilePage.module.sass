@@ -1,0 +1,53 @@
+@import 'bootstrap/scss/bootstrap-grid.scss'
+@import '/src/styles/_variables.sass'
+
+.userProfile
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  height: 100vh
+  text-align: center
+
+  .deleteAccountButton
+    position: absolute
+    bottom: 20px
+    width: 100%
+    text-align: center
+
+  .profilePicContainer
+    display: flex
+    flex-direction: column
+    align-items: center
+    margin-bottom: 20px
+    
+
+  .profile-img
+    border-radius: 50%
+    width: 120px
+    height: 120px
+    object-fit: cover
+    border: 2px solid $gray-300
+    margin-bottom: 20px
+
+  .formContainer
+    display: flex
+    flex-direction: column
+    align-items: center
+    width: 100%
+    max-width: 400px
+
+    label
+      width: 100%
+      text-align: left
+      margin-bottom: 10px
+
+    input
+      width: 100%
+      margin-bottom: 10px
+      border: 1px solid $dark
+      background-color: lighten($indigo, 4%)
+
+    button
+      display: block
+      margin: 20px auto 0 auto
