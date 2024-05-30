@@ -1,5 +1,41 @@
 @import 'bootstrap/scss/bootstrap-grid.scss'
 @import '/src/styles/_variables.sass'
 
-.landingpage
-	// !
+.landingPage
+	margin-bottom: 100px
+	border-bottom: 2px solid transparent
+	&_cta
+		text-align: center
+		display: block
+		margin: 50px auto 100px
+	&_slideshow
+		position: relative
+		margin-top: 20px
+		margin-bottom: 100px
+		overflow-x: visible !important
+		width: 100vw
+		white-space: nowrap
+		&_track
+			border: 1px solid $dark
+			background-color: $maincolor-medium
+			display: flex
+			flex-wrap: nowrap
+			flex-direction: row
+			padding: 20px 0
+			margin-left: -100px
+			div 
+				flex: 0 0 auto
+				height: 300px
+				margin: 0 10px
+
+	.marquee
+		pointer-events: none
+		position: absolute
+		&1
+			@extend .marquee
+			top: -40px
+			transform: rotate(2deg) !important
+		&2
+			@extend .marquee
+			bottom: -80px
+			transform: rotate(-1deg) !important
