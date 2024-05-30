@@ -6,7 +6,6 @@ import MediaForm from "./MediaForm";
 
 function MediaItem({ asset, editAsset, deleteAsset, enableEditing }) {
   const [isEditing, setIsEditing] = useState(false);
-  //for rerendering mediaitem if edited
   const [assetContent, setAssetContent] = useState(asset.content);
 
   const saveEdit = (newContent) => {

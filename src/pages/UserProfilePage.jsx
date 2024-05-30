@@ -1,161 +1,141 @@
-import { useEffect, useState, useContext } from "react";
-import axios from "axios";
+import { useEffect, useState, useContext, useRef } from "react";
 import placeholder from "@img/placeholder.jpg";
 import { AuthContext } from "../context/AuthContext";
 import usersService from "../services/users.service.js";
-import { Link, useNavigate } from "react-router-dom";
-
-// const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5005";
+import uploadService from "../services/file-upload.service";
+import userProfilePageStyle from "./styles/UserProfilePage.module.sass";
 
 function UserProfilePage() {
   const [userProfile, setUserProfile] = useState(null);
   const [nameInput, setNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
-
+  const [profileImg, setProfileImg] = useState("");
   const [loading, setLoading] = useState(true);
   const { user, handleDeleteAccount } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
-  //   const [isDeleted, setIsDeleted] = useState(false);
-  //   const navigate = useNavigate();
+  const fileInputRef = useRef(null);
 
-  const token = localStorage.getItem("authToken");
-
-  useEffect(
-    () => {
-      const getUser = () => {
-        if (user) {
-          usersService
-            .get(user._id)
-            .then((response) => {
-              setUserProfile(response.data);
-              setNameInput(response.data.name);
-              setEmailInput(response.data.email);
-              setLoading(false);
-            })
-            .catch((error) => {
-              const errorDescription = error.response.data.message;
-              setErrorMessage(errorDescription);
-            });
-        } else {
-          setErrorMessage("User not logged in");
+  useEffect(() => {
+    const getUser = async () => {
+      if (user) {
+        try {
+          const response = await usersService.get(user._id);
+          setUserProfile(response.data);
+          setNameInput(response.data.name);
+          setEmailInput(response.data.email);
+          setProfileImg(response.data.profileImg);
+          setLoading(false);
+        } catch (error) {
+          const errorDescription = error.response.data.message;
+          setErrorMessage(errorDescription);
         }
-      };
-      getUser();
-    },
-    [user],
-    nameInput
-  );
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    const updateUser = async () => {
-      try {
-        if (user) {
-          const response = await usersService.put(user._id, {
-            name: nameInput,
-            email: emailInput,
-          });
-          console.log(response);
-          if (response.status === 200) {
-            setNameInput(response.data.name);
-            setEmailInput(response.data.email);
-            setUserProfile(response.data);
-          }
-        }
-      } catch (error) {
-        console.log(error);
+      } else {
+        setErrorMessage("User not logged in");
       }
     };
-    updateUser();
-    console.log("form submitted");
+    getUser();
+  }, [user]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (user) {
+        const response = await usersService.put(user._id, {
+          name: nameInput,
+          email: emailInput,
+          profileImg: profileImg,
+        });
+        if (response.status === 200) {
+          setUserProfile(response.data);
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  //   const handleDeleteAccount = () => {
-  //     usersService
-  //       .delete(user._id)
-  //       .then((response) => {
-  //         console.log(response);
-  //         if (response.status === 200) {
-  //         }
+  const handleFileChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      try {
+        setLoading(true);
+        const fileUrl = await uploadService.uploadFile(file);
+        setProfileImg(fileUrl);
+        setLoading(false);
+        console.log("file upload");
+      } catch (error) {
+        console.error("Error uploading file:", error);
+        setLoading(false);
+      }
+    }
+  };
 
-  //         setIsDeleted(true);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error deleting account:", error);
-  //       });
-  //   };
+  const triggerFileInput = () => {
+    fileInputRef.current.click();
+  };
 
   if (errorMessage) return <div>{errorMessage}</div>;
 
   if (loading) return <div>Loading...</div>;
 
-  //   if (isDeleted) {
-  //     localStorage.removeItem("authToken");
-  //     return (
-  //       <div>
-  //         <p>User has been successfully deleted.</p>
-  //         <Link to="/signup">
-  //           <button>Go to Signup Page</button>
-  //         </Link>
-  //       </div>
-  //     );
-  //   }
-
   return (
-    <div className="StudentDetailsPage bg-gray-100 py-6 px-4">
-      <div className="bg-white p-8 rounded-lg shadow-md mb-6">
-        {userProfile && (
-          <>
-            <img
-              referrerPolicy="no-referrer"
-              src={userProfile.profileImg || placeholder}
-              alt="profile-photo"
-              className="rounded-full w-32 h-32 object-cover border-2 border-gray-300"
-            />
-            <h1 className="text-2xl mt-4 font-bold">{userProfile.name}</h1>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-24 mb-4 border-b pb-4">
-              <p className="text-left mb-2 border-b pb-2">
-                <strong>Email:</strong> {userProfile.email}
-              </p>
-            </div>
-          </>
-        )}
-      </div>
-      <p>
-        <a onClick={handleDeleteAccount}>Delete my account</a>
-      </p>
+    <div className={userProfilePageStyle.userProfile}>
       <form
-        onSubmit={(e) => {
-          handleSubmit(e);
-        }}
+        onSubmit={handleSubmit}
+        className={userProfilePageStyle.formContainer}
       >
+        <div className={userProfilePageStyle.profilePicContainer}>
+          {userProfile && (
+            <>
+              <img
+                referrerPolicy="no-referrer"
+                src={profileImg || placeholder}
+                alt="profile-photo"
+                className={userProfilePageStyle.profileImg}
+              />
+            </>
+          )}
+          <button
+            type="submit"
+            onClick={triggerFileInput}
+            className={userProfilePageStyle.changePicLink}
+          >
+            edit
+          </button>
+        </div>
+        <h2>
+          {userProfile.name} {userProfile.email}
+        </h2>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          ref={fileInputRef}
+          style={{ display: "none" }}
+        />
         <label htmlFor="username">
           Username
           <input
             type="text"
             name="username"
             value={nameInput}
-            onChange={(e) => {
-              setNameInput(e.target.value);
-            }}
+            onChange={(e) => setNameInput(e.target.value)}
           />
         </label>
-        <label htmlFor="username">
+        <label htmlFor="email">
           Email
           <input
             type="email"
             name="email"
             value={emailInput}
-            onChange={(e) => {
-              setEmailInput(e.target.value);
-            }}
+            onChange={(e) => setEmailInput(e.target.value)}
           />
         </label>
-        <button style={{ marginLeft: "20rem" }} type="submit">
-          Save
-        </button>
+        <button type="submit">Save</button>
+        <p className={userProfilePageStyle.deleteAccountButton}>
+          <a onClick={handleDeleteAccount}>Delete my account</a>
+        </p>
       </form>
     </div>
   );
