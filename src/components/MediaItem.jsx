@@ -50,7 +50,12 @@ function MediaItem({ asset, editAsset, deleteAsset, enableEditing }) {
           </div>
         );
       case "audio":
-        return <audio controls src={assetContent} />;
+        return (
+          <div className={boardStyles.board_item_audio}>
+            <p>Voice note</p>
+            <audio controls src={assetContent} />
+          </div>
+        );
       default:
         return null;
     }
