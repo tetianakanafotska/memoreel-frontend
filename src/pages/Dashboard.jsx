@@ -16,6 +16,7 @@ import boardStyles from "../components/styles/Board.module.sass";
 import popUpButtonStyles from "@components/PopUpButtons/PopUpButtons.module.sass";
 import { PlusLg } from "react-bootstrap-icons";
 import classNames from "classnames";
+import { CSSTransition } from 'react-transition-group';
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
