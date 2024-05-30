@@ -17,8 +17,6 @@
 		align-items: center
 	&_mediaForm
 		margin: 30px auto
-		max-width: 700px
-		width: 100%
 		background-color: $lemon
 		border: 2px solid $dark
 		text-align: center
@@ -66,3 +64,22 @@
 				&_webcamBtn
 					display: flex
 					align-items: center
+.editButtons
+	cursor: pointer
+	display: flex
+	flex-direction: column
+	justify-content: center
+	align-items: center
+	&_button
+		border-radius: 50%
+		height: 50px
+		width: 50px
+		padding: 0
+		border: 2px solid $dark
+		svg path
+			fill: $dark
+		background-color: $light-blue
+		&:hover,
+		&:focus,
+		&:active
+			background-color: darken($light-blue, 10%)

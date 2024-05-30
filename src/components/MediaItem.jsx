@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import ReactPlayer from "react-player/youtube";
 import boardStyles from "./styles/Board.module.sass";
 import { Pen, XLg, Trash, CheckLg } from "react-bootstrap-icons";
+import dashboardStyles from "@pages/styles/Dashboard.module.sass";
 import MediaForm from "./MediaForm";
+import classNames from 'classnames'
 
 function MediaItem({ asset, editAsset, deleteAsset, enableEditing }) {
   const [isEditing, setIsEditing] = useState(false);
   const [assetContent, setAssetContent] = useState(asset.content);
+  const [show, setShow] = useState(false);
 
   const saveEdit = (newContent) => {
     editAsset(asset._id, newContent);
@@ -57,23 +60,29 @@ function MediaItem({ asset, editAsset, deleteAsset, enableEditing }) {
     return (
       <div className={boardStyles.editButtons_container}>
         <button
-          onClick={() => setIsEditing((prev) => !prev)}
-          className={boardStyles.editButtons_button}
+          onClick={() => {
+            setIsEditing((prev) => !prev)
+            setShow(true)
+          }}
+          className={dashboardStyles.editButtons_button}
         >
-          {!isEditing ? <XLg size="20" /> : <Pen />}
+          {isEditing ? <XLg size="20" /> : <Pen />}
         </button>
 
-        {isEditing && (
+        {isEditing && show && (
           <>
             <button
               onClick={() => saveEdit(assetContent)}
-              className={boardStyles.editButtons_button}
+              className={classNames(
+                dashboardStyles.editButtons_button,
+                {'show': show}
+              )}
             >
               <CheckLg size="20" />
             </button>
             <button
               onClick={() => deleteAsset(asset._id)}
-              className={boardStyles.editButtons_button}
+              className={dashboardStyles.editButtons_button}
             >
               <Trash />
             </button>
@@ -88,9 +97,10 @@ function MediaItem({ asset, editAsset, deleteAsset, enableEditing }) {
       {isEditing ? (
         <MediaForm
           assetType={asset.type}
-          initialContent={assetContent}
+          assetContent={assetContent}
           saveEdit={saveEdit}
           setIsEditing={setIsEditing}
+          isEditing={isEditing}
           assetId={asset._id}
           deleteAsset={deleteAsset}
         />

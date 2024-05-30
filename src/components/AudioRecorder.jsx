@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { AudioRecorder } from "react-audio-voice-recorder";
+import "./AudioCapture.css";
+import boardStyles from "./styles/Board.module.sass";
 
 function AudioCapture({ handleUploadFile, setLoading }) {
   const [audioURL, setAudioURL] = useState("");
@@ -17,7 +19,7 @@ function AudioCapture({ handleUploadFile, setLoading }) {
   };
 
   return (
-    <div>
+    <div className={boardStyles.board_item_audio}>
       <AudioRecorder
         onRecordingComplete={uploadAudio}
         audioTrackConstraints={{
@@ -32,11 +34,16 @@ function AudioCapture({ handleUploadFile, setLoading }) {
         }}
       />
       {audioURL && (
-        <div>
-          <audio controls>
-            <source src={audioURL} type="audio/webm" />
-            Your browser does not support the audio element.
-          </audio>
+        <div className="audio-player-container">
+          <div className="overlay-text">Voice Note</div>
+          <div className="audio-player-wrapper">
+            <div className="board_item_audio">
+              <audio controls className="audio-player">
+                <source src={audioURL} type="audio/webm" />
+                Your browser does not support the audio element.
+              </audio>
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -6,7 +6,6 @@
 	background-color: $lemon
 	color: $dark
 	height: 2.6rem
-	transition: all .2s ease-in-out
 	&:hover,
 	&:focus,
 	&:active
@@ -22,26 +21,32 @@
 	&_assetTypeButton
 		@extend .popUpButton	
 		opacity: 1
-		animation: slideInFromLeft 0.4s ease-out 0s 1
-		transition: all 0.7s ease-in-out
 		display: flex
 		padding: 10px 20px
+		animation: slideInFromLeft 0.5s
 		&:hover,
 		&:focus,
 		&:active
+			transition: all 0.2s ease-in-out
 			span
-				display: block !important
-				opacity: 1 !important
+				transition: all 0.5s ease-in-out
+				opacity: 1
+				width: fit-content
+				margin-left: 12px
 		span
-			transition: all 0.7s ease-in-out
-			display: none
+			pointer-events: none
+			transition: all 0.2s ease-in-out
+			width: 0
 			opacity: 0
-			margin-left: 12px
+			margin-left: 0
 
 @keyframes slideInFromLeft
 	0%
-		transform: translateX(100%)
 		opacity: 0
+		width: 0
+		margin-left: 0
+		transition: all 0.2s ease-in-out
 	100%
-		transform: translateX(0)
 		opacity: 1
+		width: fit-content
+		margin-left: 12px
