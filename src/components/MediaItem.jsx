@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import ReactPlayer from 'react-player/youtube';
-import boardStyles from './styles/Board.module.sass';
-import { Pen, XLg, Trash, CheckLg } from 'react-bootstrap-icons';
-import dashboardStyles from '@pages/styles/Dashboard.module.sass';
-import MediaForm from './MediaForm';
-import classNames from 'classnames';
+import React, { useState } from "react";
+import ReactPlayer from "react-player/youtube";
+import boardStyles from "./styles/Board.module.sass";
+import { Pen, XLg, Trash, CheckLg } from "react-bootstrap-icons";
+import dashboardStyles from "@pages/styles/Dashboard.module.sass";
+import MediaForm from "./MediaForm";
+import classNames from "classnames";
 
 function MediaItem({ asset, editAsset, deleteAsset, enableEditing }) {
 	const [isEditing, setIsEditing] = useState(false);
@@ -85,10 +85,9 @@ function MediaItem({ asset, editAsset, deleteAsset, enableEditing }) {
           <>
             <button
               onClick={() => saveEdit(assetContent)}
-              className={classNames(
-                dashboardStyles.editButtons_button,
-                {'show': show}
-              )}
+              className={classNames(dashboardStyles.editButtons_button, {
+                show: show,
+              })}
             >
               <CheckLg size="20" />
             </button>

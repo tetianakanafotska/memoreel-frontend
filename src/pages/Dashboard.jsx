@@ -9,7 +9,6 @@ import {
 import { AuthContext } from "@context";
 import assetsService from "../services/assets.service";
 import usersService from "../services/users.service";
-import placeholder from "@img/placeholder.jpg";
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "./styles/Dashboard.module.sass";
 import boardStyles from "../components/styles/Board.module.sass";
@@ -24,7 +23,6 @@ const Dashboard = () => {
   const [openMediaForm, setOpenMediaForm] = useState(false);
   const [assetType, setAssetType] = useState(null);
   const [allAssets, setAllAssets] = useState([]);
-  const [addButton, setAddButton] = useState(false);
   const [loading, setLoading] = useState(true);
 
   const deleteAsset = (assetId) => {
@@ -60,7 +58,6 @@ const Dashboard = () => {
 
   const handleOpenPopUp = () => {
     setOpenPopUp(!openPopUp);
-    setAddButton((prev) => (!prev ? true : false));
   };
 
   useEffect(() => {
@@ -106,10 +103,18 @@ const Dashboard = () => {
               <button
                 onClick={handleOpenPopUp}
                 className={classNames(popUpButtonStyles.popUpButton_addButton, {
-                  [popUpButtonStyles.popUpButton_addButton_on]: addButton,
+                  [popUpButtonStyles.popUpButton_addButton_on]: openPopUp,
                 })}
               >
-                {<PlusLg size="40" />}
+                <PlusLg size="20" />
+                <span
+                  className={classNames("", {
+                    [popUpButtonStyles.hideText]: openPopUp,
+                  })}
+                >
+                  {" "}
+                  Add Media
+                </span>
               </button>
 
               {openPopUp && (
@@ -145,16 +150,19 @@ const Dashboard = () => {
 
       <div className={boardStyles.board}>
         {allAssets.length > 0 ? (
-          allAssets.reverse().map((asset) => (
-            <div key={asset._id}>
-              <MediaItem
-                asset={asset}
-                editAsset={editAsset}
-                deleteAsset={deleteAsset}
-                enableEditing={true}
-              />
-            </div>
-          ))
+          allAssets
+            .slice()
+            .reverse()
+            .map((asset) => (
+              <div key={asset._id}>
+                <MediaItem
+                  asset={asset}
+                  editAsset={editAsset}
+                  deleteAsset={deleteAsset}
+                  enableEditing={true}
+                />
+              </div>
+            ))
         ) : (
           <div className="d-flex align-center justify-content-center flex-row">
             <p className="d-block mx-auto text-center">
