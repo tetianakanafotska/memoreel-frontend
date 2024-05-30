@@ -10,9 +10,10 @@
 	padding: 30px 0
 	&_item
 		position: relative
-		// margin: 0 20px
+		margin: 0 20px
 		height: 100%
 		display: flex
+		align-items: center
 		flex-direction: column
 		justify-content: space-between
 		&:hover,
@@ -24,10 +25,11 @@
 					transition: all .2s ease-in-out
 		.editButtons
 			&_container
+				opacity: 0
 				position: absolute
 				z-index: 888
-				bottom: 30px
-				left: 10px
+				top: 50px
+				left: 0
 		&_body
 			display: flex
 			flex-direction: column
@@ -51,7 +53,7 @@
 			width: 350px
 			height: 350px
 			display: block
-			background-color: darken($indigo, 30%)
+			background-color: $dark
 			z-index: 0
 			& > div
 				// transform: rotateZ(357deg)

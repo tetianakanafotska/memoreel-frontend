@@ -6,19 +6,29 @@
 	padding: 20px
 	justify-content: space-between
 	align-items: center
-	&_bottom
-		z-index: 999999
-		position: fixed
-		bottom: 20px
-		left: 20px
-		right: 20px
-		padding: 20px
-		display: flex
-		justify-content: space-between
-		align-items: flex-end
-	&_userProfile
-		width: 60px
-		height: 60px
-		border: 1px solid $dark
-		border-radius: 30px
+.centerLogo
+	@extend .navbar
+	justify-content: center
 
+.navbarButtons
+	display: flex
+	position: absolute
+	top: 20px
+	right: 20px
+
+.navbar_bottom
+	z-index: 999999
+	position: fixed
+	bottom: 20px
+	left: 20px
+	right: 20px
+	padding: 20px
+	display: flex
+	justify-content: space-between
+	align-items: flex-end
+
+.navbar_userProfile
+	width: 60px
+	height: 60px
+	border: 1px solid $dark
+	border-radius: 30px

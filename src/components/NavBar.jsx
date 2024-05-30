@@ -60,7 +60,7 @@ function NavBar() {
         <div className={styles.navbar_bottom}>
           <div>
             {user && (
-              <div className="user-picture">
+              <NavLink to='/profile' className="user-picture">
                 <img
                   src={user.profileImg || placeholder}
                   onError={(e) => {
@@ -69,7 +69,7 @@ function NavBar() {
                   alt={user.name}
                   className={styles.navbar_userProfile}
                 />
-              </div>
+              </NavLink>
             )}
           </div>
           <div>
