@@ -7,7 +7,7 @@ import placeholder from '@img/placeholder.jpg';
 import { Container, Row, Col } from 'react-bootstrap';
 import styles from './styles/Dashboard.module.sass';
 import boardStyles from '../components/styles/Board.module.sass';
-import popUpButtonStyles from '@components/styles/PopUpButtons.module.sass';
+import popUpButtonStyles from '@components/PopUpButtons/PopUpButtons.module.sass';
 import { PlusLg } from 'react-bootstrap-icons';
 import classNames from 'classnames';
 
@@ -20,7 +20,6 @@ const Dashboard = () => {
 	const [allAssets, setAllAssets] = useState([]);
 	const [addButton, setAddButton] = useState(false);
 	const [loading, setLoading] = useState(true);
-
 	const deleteAsset = (assetId) => {
 		assetsService
 			.delete(assetId)
