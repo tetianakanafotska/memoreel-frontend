@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "@context";
 import { LogoFull } from "@components/Logo";
@@ -6,10 +6,26 @@ import styles from "./styles/NavBar.module.sass";
 import placeholder from "@img/placeholder.jpg";
 import { BoxArrowRight } from "react-bootstrap-icons";
 import Button from "./Button";
+import usersService from "../services/users.service";
 
 function NavBar() {
   const { isLoggedIn, logOutUser, user } = useContext(AuthContext);
+  const [profileImg, setProfileImg] = useState("");
   const location = useLocation();
+
+  useEffect(() => {
+    const getUser = async () => {
+      if (user) {
+        try {
+          const response = await usersService.get(user._id);
+          setProfileImg(response.data.profileImg);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+    getUser();
+  }, [user]);
 
   const renderLogo = () => {
     let size = "300px";
@@ -66,7 +82,7 @@ function NavBar() {
             {user && (
               <NavLink to="/profile" className="user-picture">
                 <img
-                  src={user.profileImg || placeholder}
+                  src={profileImg || placeholder}
                   onError={(e) => {
                     e.target.src = placeholder;
                   }}
