@@ -26,6 +26,7 @@ const Dashboard = () => {
   const [allAssets, setAllAssets] = useState([]);
   const [addButton, setAddButton] = useState(false);
   const [loading, setLoading] = useState(true);
+
   const deleteAsset = (assetId) => {
     assetsService
       .delete(assetId)
@@ -87,29 +88,12 @@ const Dashboard = () => {
     </>
   ) : (
     <section className={styles.dashboard}>
-      <Container fluid>
-        <Row>
-          <Col className="d-flex flex-column align-items-center justify-content-center my-5">
-            {user && (
-              <div className="profilePic mb-2">
-                <img
-                  src={user.profileImg || placeholder}
-                  onError={(e) => {
-                    e.target.src = placeholder;
-                  }}
-                  alt={user.name}
-                />
-              </div>
-            )}
-            <h2>{user ? `Hello, ${user.name}!` : "Hello!"}</h2>
-          </Col>
-        </Row>
-      </Container>
-
       <Marquee
         phrases={[
           "For days worth remembering",
-          "What's on your mind today?",
+          user.name
+            ? `What's on your mind today, ${user.name} ?`
+            : "What's on your mind today?",
           "What made you laugh today?",
         ]}
         className="mt-3 mb-5"
@@ -167,6 +151,18 @@ const Dashboard = () => {
           <p>Create content for today</p>
         )}
       </div>
+
+      {user && (
+        <div className="profilePic mb-2">
+          <img
+            src={user.profileImg || placeholder}
+            onError={(e) => {
+              e.target.src = placeholder;
+            }}
+            alt={user.name}
+          />
+        </div>
+      )}
     </section>
   );
 };
