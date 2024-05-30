@@ -4,6 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import usersService from "../services/users.service.js";
 import uploadService from "../services/file-upload.service";
 import userProfilePageStyle from "./styles/UserProfilePage.module.sass";
+import { Pen } from "react-bootstrap-icons";
 
 function UserProfilePage() {
   const [userProfile, setUserProfile] = useState(null);
@@ -95,16 +96,23 @@ function UserProfilePage() {
                 referrerPolicy="no-referrer"
                 src={profileImg || placeholder}
                 alt="profile-photo"
+                style={{
+                  height: "150px",
+                  width: "150px",
+                  borderRadius: "50%",
+                  objectFit: "cover",
+                  outline: "1px solid black",
+                }}
                 className={userProfilePageStyle.profileImg}
               />
             </>
           )}
           <button
-            type="submit"
+            type="edit"
             onClick={triggerFileInput}
             className={userProfilePageStyle.changePicLink}
           >
-            edit
+            <Pen className={userProfilePageStyle.pen} />
           </button>
         </div>
         <h2>
