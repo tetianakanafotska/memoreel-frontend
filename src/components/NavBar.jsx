@@ -14,7 +14,7 @@ function NavBar() {
   const renderLogo = () => {
     let size = "300px";
     if (location.pathname === "/dashboard") size = "550px";
-    if (location.pathname === "/") size = "800px";
+    if (location.pathname === "/") size = "400px";
 
     return (
       <NavLink to="/">
