@@ -1,17 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "@context";
 import { LogoFull } from "@components/Logo";
-import settingsImg from "@img/settings-gear.svg";
 import styles from "./styles/NavBar.module.sass";
+import placeholder from "@img/placeholder.jpg";
+import { BoxArrowRight } from "react-bootstrap-icons";
+import Button from "./Button";
 
 function NavBar() {
-  const { user, isLoggedIn, logOutUser } = useContext(AuthContext);
-  const [showSettings, setShowSettings] = useState(false);
+  const { isLoggedIn, logOutUser, user } = useContext(AuthContext);
   const location = useLocation();
-
-  const handleMouseEnter = () => setShowSettings(true);
-  const handleMouseLeave = () => setShowSettings(false);
 
   const renderLogo = () => {
     let size = "300px";
@@ -28,54 +26,68 @@ function NavBar() {
   const renderAuthLinks = () => (
     <>
       {location.pathname !== "/login" && (
-        <NavLink to="/login" className={styles.navlink}>
+        <Button to="/login" className={styles.navlink}>
           Login
-        </NavLink>
+        </Button>
       )}
       {location.pathname !== "/signup" && (
-        <NavLink to="/signup" className={styles.navlink}>
+        <Button to="/signup" className={styles.navlink}>
           Signup
-        </NavLink>
+        </Button>
       )}
     </>
-  );
-
-  const renderSettingsMenu = () => (
-    <div
-      className={styles.navbar_bottom_settings}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <NavLink className="d-flex">
-        <img
-          src={settingsImg}
-          width="40px"
-          height="40px"
-          alt="Settings"
-          className={styles.navbar_bottom_settings_icon}
-        />
-      </NavLink>
-      <div className={showSettings ? styles.navbar_show : styles.navbar_hide}>
-        <NavLink to="/dashboard/history" className={styles.navlink}>
-          History
-        </NavLink>
-        <NavLink to="/" className={styles.navlink} onClick={logOutUser}>
-          Logout
-        </NavLink>
-      </div>
-    </div>
   );
 
   return (
-    <>
-      <nav className={styles.navbar_top}>
+    <div>
+      <div className={styles.navbar}>
         <div>{renderLogo()}</div>
         <div>{!isLoggedIn && renderAuthLinks()}</div>
-      </nav>
+        {isLoggedIn && (
+          <div className={styles.navbar}>
+            <Button to="/" className={styles.navlink} onClick={logOutUser}>
+              {<BoxArrowRight size="40" />}
+            </Button>
+            {location.pathname === "/dashboard/history" && (
+              <Button to="/dashboard" className={styles.navlink}>
+                Dashboard
+              </Button>
+            )}
+          </div>
+        )}
+      </div>
       {isLoggedIn && (
-        <nav className={styles.navbar_bottom}>{renderSettingsMenu()}</nav>
+        <div className={styles.navbar_bottom}>
+          <div>
+            {user && (
+              <div className="user-picture">
+                <img
+                  src={user.profileImg || placeholder}
+                  onError={(e) => {
+                    e.target.src = placeholder;
+                  }}
+                  alt={user.name}
+                  className={styles.navbar_userProfile}
+                />
+              </div>
+            )}
+          </div>
+          <div>
+            {location.pathname === "/dashboard" && (
+              <div className="history-button">
+                <Button
+                  to="/dashboard/history"
+                  type="primary"
+                  className={styles.navlink}
+                >
+                  History
+                </Button>
+              </div>
+            )}
+          </div>
+        </div>
       )}
-    </>
+    </div>
   );
 }
 

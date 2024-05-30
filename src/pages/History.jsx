@@ -36,9 +36,6 @@ function History() {
 
   return (
     <div className={historyStyles.history}>
-      <div className={historyStyles.dashboardBtn}>
-        <Button to="/dashboard">Dashboard</Button>
-      </div>
       {loading ? (
         <Loading />
       ) : (

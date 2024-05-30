@@ -5,11 +5,11 @@ import {
   MediaItem,
   Marquee,
   Loading,
+  Button,
 } from "@components";
 import { AuthContext } from "@context";
 import assetsService from "../services/assets.service";
 import usersService from "../services/users.service";
-import placeholder from "@img/placeholder.jpg";
 import { Container, Row, Col } from "react-bootstrap";
 import styles from "./styles/Dashboard.module.sass";
 import boardStyles from "../components/styles/Board.module.sass";
@@ -124,17 +124,17 @@ const Dashboard = () => {
       </Container>
 
       {openMediaForm && (
-				<div className={styles.dashboard_mediaForm}>
-	        <MediaForm
-	          assetType={assetType}
-	          setOpenPopUp={setOpenPopUp}
-	          setOpenMediaForm={setOpenMediaForm}
-	          setAllAssets={setAllAssets}
-	          deleteAsset={deleteAsset}
-	          boardId={boardId}
-	          userId={user._id}
-	        />
-				</div>
+        <div className={styles.dashboard_mediaForm}>
+          <MediaForm
+            assetType={assetType}
+            setOpenPopUp={setOpenPopUp}
+            setOpenMediaForm={setOpenMediaForm}
+            setAllAssets={setAllAssets}
+            deleteAsset={deleteAsset}
+            boardId={boardId}
+            userId={user._id}
+          />
+        </div>
       )}
 
       <div className={boardStyles.board}>
@@ -153,18 +153,6 @@ const Dashboard = () => {
           <p>Create content for today</p>
         )}
       </div>
-
-      {user && (
-        <div className="profilePic mb-2">
-          <img
-            src={user.profileImg || placeholder}
-            onError={(e) => {
-              e.target.src = placeholder;
-            }}
-            alt={user.name}
-          />
-        </div>
-      )}
     </section>
   );
 };
