@@ -46,7 +46,7 @@ function NavBar() {
         {isLoggedIn && (
           <div className={styles.navbar}>
             <Button to="/" className={styles.navlink} onClick={logOutUser}>
-              {<BoxArrowRight size="40" />}
+              {<BoxArrowRight size="20" />}
             </Button>
             {location.pathname === "/dashboard/history" && (
               <Button to="/dashboard" className={styles.navlink}>
@@ -60,7 +60,7 @@ function NavBar() {
         <div className={styles.navbar_bottom}>
           <div>
             {user && (
-              <NavLink to='/profile' className="user-picture">
+              <NavLink to="/profile" className="user-picture">
                 <img
                   src={user.profileImg || placeholder}
                   onError={(e) => {
