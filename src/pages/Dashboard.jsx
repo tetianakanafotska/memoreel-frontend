@@ -1,5 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { PopUpButtons, MediaForm, MediaItem, Marquee, Loading } from '@components';
+import {
+	PopUpButtons,
+	MediaForm,
+	MediaItem,
+	Marquee,
+	Loading,
+} from '@components';
 import { AuthContext } from '@context';
 import assetsService from '../services/assets.service';
 import usersService from '../services/users.service';
@@ -74,11 +80,11 @@ const Dashboard = () => {
 		}
 	}, [user]);
 
-	return (loading ? (
-    <>
-      <Loading />
-    </>
-  ) : (
+	return loading ? (
+		<>
+			<Loading />
+		</>
+	) : (
 		<section className={styles.dashboard}>
 			<Container fluid>
 				<Row>
@@ -98,8 +104,8 @@ const Dashboard = () => {
 					</Col>
 				</Row>
 			</Container>
-			
-      <Marquee
+
+			<Marquee
 				phrases={[
 					'For days worth remembering',
 					"What's on your mind today?",
@@ -132,15 +138,17 @@ const Dashboard = () => {
 			</Container>
 
 			{openMediaForm && (
-				<MediaForm
-					assetType={assetType}
-					setOpenPopUp={setOpenPopUp}
-					setOpenMediaForm={setOpenMediaForm}
-					setAllAssets={setAllAssets}
-					deleteAsset={deleteAsset}
-					boardId={boardId}
-					userId={user._id}
-				/>
+				<div className={styles.dashboard_mediaForm}>
+					<MediaForm
+						assetType={assetType}
+						setOpenPopUp={setOpenPopUp}
+						setOpenMediaForm={setOpenMediaForm}
+						setAllAssets={setAllAssets}
+						deleteAsset={deleteAsset}
+						boardId={boardId}
+						userId={user._id}
+					/>
+				</div>
 			)}
 
 			<div className={boardStyles.board}>
@@ -160,8 +168,7 @@ const Dashboard = () => {
 				)}
 			</div>
 		</section>
-	));
+	);
 };
 
 export default Dashboard;
-
