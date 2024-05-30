@@ -124,15 +124,17 @@ const Dashboard = () => {
       </Container>
 
       {openMediaForm && (
-        <MediaForm
-          assetType={assetType}
-          setOpenPopUp={setOpenPopUp}
-          setOpenMediaForm={setOpenMediaForm}
-          setAllAssets={setAllAssets}
-          deleteAsset={deleteAsset}
-          boardId={boardId}
-          userId={user._id}
-        />
+				<div className={styles.dashboard_mediaForm}>
+	        <MediaForm
+	          assetType={assetType}
+	          setOpenPopUp={setOpenPopUp}
+	          setOpenMediaForm={setOpenMediaForm}
+	          setAllAssets={setAllAssets}
+	          deleteAsset={deleteAsset}
+	          boardId={boardId}
+	          userId={user._id}
+	        />
+				</div>
       )}
 
       <div className={boardStyles.board}>
