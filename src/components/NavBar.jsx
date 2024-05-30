@@ -23,7 +23,7 @@ function NavBar() {
       <nav className={styles.navbar_top}>
         <div>
           <NavLink to="/">
-            <LogoFull color="#fff" size="300px" />
+            <LogoFull color="#D6F487" size="350px" />
           </NavLink>
         </div>
 

@@ -78,8 +78,10 @@ function MediaForm({
       };
 
       if (!boardId) {
+        console.log("there is no board id, new board will be created");
         const boardResp = await boardsService.post({ userId });
         const newBoardId = boardResp.data._id;
+        console.log("New board created, this id:", newBoardId);
         const assetResp = await assetsService.post({
           ...newAsset,
           boardId: newBoardId,
