@@ -116,7 +116,8 @@ function UserProfilePage() {
           </button>
         </div>
         <h2>
-          {userProfile.name} {userProfile.email}
+          {userProfile.name} <span> | </span>
+          {userProfile.email}
         </h2>
         <input
           type="file"
