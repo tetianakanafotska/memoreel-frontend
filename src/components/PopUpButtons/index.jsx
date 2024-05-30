@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./PopUpButtons.module.sass";
-import { ImageFill, Youtube, Camera, Stickies } from "react-bootstrap-icons";
+import { ImageFill, Youtube, Camera, Stickies, Mic } from "react-bootstrap-icons";
 
 export default function PopUpButtons({ setAssetType, setOpenMediaForm }) {
   return (
@@ -50,8 +50,10 @@ export default function PopUpButtons({ setAssetType, setOpenMediaForm }) {
           setAssetType("audio");
           setOpenMediaForm(true);
         }}
+        className={styles.popUpButton_assetTypeButton}
       >
-        add audio
+        <Mic size="28" />
+        <span>add audio</span>
       </button>
     </>
   );
