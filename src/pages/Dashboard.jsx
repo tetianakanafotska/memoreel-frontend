@@ -4,6 +4,7 @@ import {
 	MediaForm,
 	MediaItem,
 	Marquee,
+  Loading,
 	Loading,
 } from '@components';
 import { AuthContext } from '@context';
@@ -162,18 +163,6 @@ const Dashboard = () => {
 					</div>
 				)}
 			</div>
-
-			{user && (
-				<div className='profilePic mb-2'>
-					<img
-						src={user.profileImg || placeholder}
-						onError={(e) => {
-							e.target.src = placeholder;
-						}}
-						alt={user.name}
-					/>
-				</div>
-			)}
 		</section>
 	);
 };

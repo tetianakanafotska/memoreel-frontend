@@ -1,59 +1,24 @@
 @import '/src/styles/_variables.sass'
-img
-	border: none !important
+
 .navbar
 	z-index: 888
-	a.navlink
-		background-color: $yellow
-		border-radius: 30px
-		border: 1px solid $dark
-		color: $dark
-		padding: 6px 18px
-	a.navlink:visited
-		font-weight: 600
-		padding: 6px 18px
-		color: $dark
-		border-radius: 30px !important
-		margin: 0 4px
-		border-radius: 4px
-	&_show
-		opacity: 1
-		z-index: 8
-		transform: translateX(0)
-		transition: opacity 0.4s ease-in-out, transform 0.3s ease-in-out
-	&_hide
-		opacity: 0
-		transform: translateX(-30px)
-	&_top
-		@extend .navbar
-		//position: fixed
-		width: 100%
-		display: flex
-		padding: 40px
-		justify-content: space-between
-		align-items: center
+	display: flex
+	padding: 20px
+	justify-content: space-between
+	align-items: center
 	&_bottom
-		@extend .navbar
 		z-index: 999999
-		padding: 20px
 		position: fixed
-		bottom: 0
-		&_settings
-			display: flex
-			align-items: center
-			&_icon
-				z-index: 7
-				width: 40px
-				height: 40px
-				cursor: pointer
-				margin-right: 10px
-				&:hover,
-				&:focus,
-				&:active
-					animation: spin 1.8s linear infinite
+		bottom: 20px
+		left: 20px
+		right: 20px
+		padding: 20px
+		display: flex
+		justify-content: space-between
+		align-items: flex-end
+	&_userProfile
+		width: 60px
+		height: 60px
+		border: 1px solid $dark
+		border-radius: 30px
 
-@keyframes spin
-	from
-		transform: rotate(0deg)
-	to
-		transform: rotate(360deg)
