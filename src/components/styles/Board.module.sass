@@ -1,132 +1,134 @@
 @import '/src/styles/_variables.sass'
 
 .board
-    width: 100vw
-    display: flex
-    flex-direction: row
-    overflow-x: scroll
-    overflow-y: hidden
-    margin-bottom: 50px
-    padding: 30px 0
-    &_item
-        position: relative
-        // margin: 0 20px
-        height: 100%
-        display: flex
-        flex-direction: column
-        justify-content: space-between
-        &:hover,
-        &:focus,
-        &:active
-            .editButtons
-                &_container
-                    opacity: 1
-                    transition: all .2s ease-in-out
-        .editButtons
-            &_container
-                position: absolute
-                z-index: 888
-                bottom: 30px
-                left: 10px
-        &_body
-            display: flex
-            flex-direction: column
-            align-items: center
-            justify-content: center
-            // border: 1px solid red
-            flex: 1
-            *
-                max-height: 400px
-        &_buttons
-            // border: 1px solid yellow
-        &_image
-            width: 500px
-            img
-                width: 100%
-                border-radius: 30px
-                object-fit: cover
-        &_note
-            position: relative
-            margin: 20px 40px
-            width: 350px
-            height: 350px
-            display: block
-            background-color: darken($indigo, 30%)
-            z-index: 0
-            & > div
-                transform: rotateZ(357deg)
-                width: 100%
-                height: 100%
-                background-color: $light-blue
-                padding: 20px
-                font-family: $font-family-monospace
-                color: $dark
-                display: flex
-                align-items: center
-                justify-content: center
-                z-index: 1111
-                position: absolute
-        &_polaroid
-            width: fit-content
-            padding: 10px
-            background-color: $white
-            box-shadow: 0 0.2rem 1.2rem rgba(0,0,0,0.2)
-            transform: rotate(3deg) scale(0.9, 0.9)
-            transition: all 0.35s
-            animation: rotate-in 0.5s ease-in-out
-            width: 400px
-            > img,
-            > video
-                max-width: 100%
-                height: auto
-                border: 0
-                object-fit: cover
-                border-radius: 0
-                padding-bottom: 70px
-            &:before
-                content: ''
-                position: absolute
-                z-index: -1
-                transition: all 0.35s
-        &_video
-            iframe
-                border-radius: 30px
-                box-shadow: 0 10px 20px transparentize($dark, 0.8)
-                background-color: lighten($indigo, 10%)
-                background-image: url(/src/assets/images/flower.svg)
-                background-position: center center
-                background-size: 60px 60px
-                background-repeat: no-repeat
-                outline: 2px solid white
-                // outline: 10px dotted $green
-        &_audio
-            ::-webkit-media-controls-panel
-                background-color: white
-            ::-webkit-media-controls-mute-button
-                background-color: white
-            ::-webkit-media-controls-play-button
-                background-color: white
-            ::-webkit-media-controls-timeline-container
-                background-color: white
-            ::-webkit-media-controls-current-time-display
-                background-color: white
-            ::-webkit-media-controls-time-remaining-display
-                background-color: white
-            ::-webkit-media-controls-timeline
-                background-color: white
-            ::-webkit-media-controls-volume-slider-container
-                background-color: white
-            ::-webkit-media-controls-volume-slider
-                background-color: white
-            ::-webkit-media-controls-seek-back-button
-                background-color: white
-            ::-webkit-media-controls-seek-forward-button
-                background-color: white
-            ::-webkit-media-controls-fullscreen-button
-                background-color: white
-            ::-webkit-media-controls-rewind-button
-                background-color: white
-            ::-webkit-media-controls-return-to-realtime-button
-                background-color: white
-            ::-webkit-media-controls-toggle-closed-captions-button
-                background-color: white
+	width: 100vw
+	display: flex
+	flex-direction: row
+	overflow-x: scroll
+	overflow-y: hidden
+	margin-bottom: 50px
+	padding: 30px 0
+	&_item
+		position: relative
+		// margin: 0 20px
+		height: 100%
+		display: flex
+		flex-direction: column
+		justify-content: space-between
+		&:hover,
+		&:focus,
+		&:active
+			.editButtons
+				&_container
+					opacity: 1
+					transition: all .2s ease-in-out
+		.editButtons
+			&_container
+				position: absolute
+				z-index: 888
+				bottom: 30px
+				left: 10px
+		&_body
+			display: flex
+			flex-direction: column
+			align-items: center
+			justify-content: center
+			// border: 1px solid red
+			flex: 1
+			*
+				max-height: 400px
+		&_buttons
+			// border: 1px solid yellow
+		&_image
+			width: 500px
+			img
+				width: 100%
+				border-radius: 30px
+				object-fit: cover
+		&_note
+			position: relative
+			margin: 20px 40px
+			width: 350px
+			height: 350px
+			display: block
+			background-color: darken($indigo, 30%)
+			z-index: 0
+			& > div
+				transform: rotateZ(357deg)
+				width: 100%
+				height: 100%
+				background-color: $light-blue
+				padding: 20px
+				font-family: $font-family-monospace
+				color: $dark
+				display: flex
+				align-items: center
+				justify-content: center
+				z-index: 1111
+				position: absolute
+		&_polaroid
+			width: fit-content
+			padding: 10px
+			background-color: $white
+			box-shadow: 0 0.2rem 1.2rem rgba(0,0,0,0.2)
+			transform: rotate(3deg) scale(0.9, 0.9)
+			transition: all 0.35s
+			animation: rotate-in 0.5s ease-in-out
+			width: 400px
+			> img,
+			> video
+				max-width: 100%
+				height: auto
+				border: 0
+				object-fit: cover
+				border-radius: 0
+				padding-bottom: 70px
+			&:before
+				content: ''
+				position: absolute
+				z-index: -1
+				transition: all 0.35s
+		&_video
+			iframe
+				border-radius: 30px
+				box-shadow: 0 10px 20px transparentize($dark, 0.8)
+				background-color: lighten($indigo, 10%)
+				background-image: url(/src/assets/images/flower.svg)
+				background-position: center center
+				background-size: 60px 60px
+				background-repeat: no-repeat
+				outline: 2px solid white
+		&_audio
+			width: 300px
+			outline: 2px solid $dark
+			background-color: $white
+			height: 300px
+			padding: 20px
+			margin: 0 auto 20px
+			display: flex
+			flex-direction: column
+			align-items: center
+			justify-content: center
+			p
+				font-size: 1.8rem
+				margin: 0 0 20px
+				transform: rotate(-3deg)
+			audio
+				padding: 0 10px
+				margin: 10px 0
+				&::-webkit-media-controls-panel
+					display: flex
+					flex-direction: row
+					overflow: visible
+					background-color: $white !important
+				&::-webkit-media-controls-play-button
+					background-color: $purple
+					border-radius: 20px
+				&::-webkit-media-controls-current-time-display
+					font-size: 1rem
+				&::-webkit-media-controls-time-remaining-display
+					font-size: 1rem
+				&::-webkit-media-controls-timeline
+					border-radius: 30px
+					padding: 0 10px
+				

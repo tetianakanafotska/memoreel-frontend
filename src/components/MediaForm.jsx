@@ -4,7 +4,7 @@ import uploadService from '../services/file-upload.service';
 import assetsService from '../services/assets.service';
 import boardsService from '../services/boards.service';
 import WebcamCapture from './WebcamCapture';
-import AudioCapture from './AudioRecorder';
+import AudioCapture from './AudioCapture/AudioCapture';
 import dashboardStyles from '@pages/styles/Dashboard.module.sass';
 import { XLg, CheckLg, Trash } from 'react-bootstrap-icons';
 
