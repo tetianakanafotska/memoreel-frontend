@@ -24,29 +24,28 @@
 		display: flex
 		padding: 10px 20px
 		animation: slideInFromLeft 0.5s
-		transition: all 0.5s ease-in-out
 		&:hover,
 		&:focus,
 		&:active
-			transition: all 0.5s ease-in-out
+			transition: all 0.2s ease-in-out
 			span
 				transition: all 0.5s ease-in-out
-				// animation: slideInFromLeft 0.5s
-				width: fit-content
 				opacity: 1
+				width: fit-content
 				margin-left: 12px
 		span
-			transition: all 0.5s ease-in-out
+			pointer-events: none
+			transition: all 0.2s ease-in-out
 			width: 0
 			opacity: 0
 			margin-left: 0
-
 
 @keyframes slideInFromLeft
 	0%
 		opacity: 0
 		width: 0
 		margin-left: 0
+		transition: all 0.2s ease-in-out
 	100%
 		opacity: 1
 		width: fit-content
