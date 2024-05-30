@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./styles/PopUpButtons.module.sass";
+import styles from "./PopUpButtons.module.sass";
 import { ImageFill, Youtube, Camera, Stickies } from "react-bootstrap-icons";
 
 export default function PopUpButtons({ setAssetType, setOpenMediaForm }) {
