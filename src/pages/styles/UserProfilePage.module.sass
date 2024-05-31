@@ -1,0 +1,93 @@
+@import 'bootstrap/scss/bootstrap-grid.scss'
+@import '/src/styles/_variables.sass'
+
+.userProfile
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  text-align: center
+  .pen
+    position: relative
+    width: 30px
+    height: 30px
+    bottom: 20px
+    left: 30px
+    background-color: $green
+    border-radius: 50% !important
+    padding: 5px
+    margin: 0 !important
+
+  .icon
+    font-size: 4rem
+    width: 120px
+    height: 120px
+    border-radius: 50% !important
+
+  .deleteAccountButton
+    width: 100%
+    text-align: center
+    font-size: 18px
+    font-weight: 100
+    cursor: pointer
+
+
+  .profilePicContainer
+    display: flex
+    flex-direction: column
+    align-items: center
+    margin-bottom: 20px
+    position: relative
+    margin-bottom: 20px
+    min-width: 120px
+
+  .profile-img
+    border-radius: 50%
+    object-fit: cover
+    position: absolute
+    margin-bottom: 0
+
+  form
+    display: flex
+    flex-direction: column
+    align-items: center
+    width: 100%
+    max-width: 400px
+
+    label
+      width: 100%
+      text-align: left
+      margin-bottom: 10px
+
+    input
+      width: 100%
+      margin-bottom: 10px
+      border: 1px solid $dark
+      background-color: lighten($lilac, 5%)
+      color: $dark
+      border-radius: 0px !important
+
+
+    button
+      display: block
+      margin: 20px auto 0 auto
+
+
+  .changePicLink
+    display: inline-block
+    border-radius: 50%
+    width: 40px
+    height: 40px
+    display: flex
+    align-items: center
+    justify-content: center
+    border: 1px solid black
+    cursor: pointer
+    position: absolute
+    bottom: -5px
+    right:20px
+
+
+
+
+

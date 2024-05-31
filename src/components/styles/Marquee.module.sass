@@ -1,0 +1,37 @@
+@import '/src/styles/_variables.sass'
+
+$gap: 30px
+
+@keyframes scroll
+    from
+        transform: translateX(0)
+    to
+        transform: translateX(calc(-100% - $gap))
+
+.marquee
+    overflow: hidden
+    margin-left: 0
+    margin-right: 0
+    width: 100vw
+    //transform: rotate(0.8deg)
+    background: $maincolor-medium
+    border-top: 1px solid $dark
+    border-bottom: 1px solid $dark
+    &_content
+        width: 11vw
+        display: block
+        animation: scroll 8s linear infinite
+        display: flex
+        flex-direction: row
+    &_item
+        flex: 0 0 auto
+        flex-direction: row
+        color: $dark
+        margin: 0
+        text-transform: uppercase
+        padding: 4px 0 1px
+        letter-spacing: 1px
+        font-size: 1.3rem
+        .asterisk
+            display: inline
+            margin: 0 $gap

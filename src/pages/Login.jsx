@@ -1,10 +1,9 @@
 import React, { useState, useContext } from 'react';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '@context';
-import { Button } from '@components';
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5005';
-import authService from "../services/auth.service";
+import authService from '../services/auth.service';
+import loginStyles from './styles/Login.module.sass';
+import { Container, Row, Col } from 'react-bootstrap';
 
 function Login() {
 	const [email, setEmail] = useState('');
@@ -39,63 +38,60 @@ function Login() {
 
 	return (
 		<>
-			<div>
-				<h1>Login</h1>
-				
-				ron.swanson@pawnee.gov <br />
-				AJ.@Ehenjk":!123 <br />
+			<Container>
+				<Row>
+					<Col>
+						<div className={loginStyles.login}>
+							<form onSubmit={handleLoginSubmit}>
+								<fieldset>
+									<label
+										htmlFor='email'
+										className=''>
+										E-mail
+									</label>
+									<input
+										type='text'
+										name='email'
+										id='email'
+										value={email}
+										onChange={handleEmail}
+										className=''
+										autoComplete='off'
+									/>
+								</fieldset>
 
-				<form
-					onSubmit={handleLoginSubmit}
-					className=''>
-                    <fieldset>
-						<label
-							htmlFor='email'
-							className=''>
-							Email
-						</label>
-						<input
-							type='text'
-							name='email'
-							id='email'
-							value={email}
-							onChange={handleEmail}
-							className=''
-							autoComplete='off'
-						/>
-					</fieldset>
+								<fieldset>
+									<label
+										htmlFor='password'
+										className=''>
+										Password
+									</label>
+									<input
+										type='password'
+										name='password'
+										id='password'
+										value={password}
+										onChange={handlePassword}
+										className=''
+										autoComplete='off'
+									/>
+								</fieldset>
 
-                    <fieldset>
-						<label
-							htmlFor='password'
-							className=''>
-							Password
-						</label>
-						<input
-							type='password'
-							name='password'
-							id='password'
-							value={password}
-							onChange={handlePassword}
-							className=''
-							autoComplete='off'
-						/>
-                    </fieldset>
-
-					<button
-						type='submit'
-						className=''>
-						Log In
-					</button>
-				</form>
-
-				{errorMessage && (
-					<p className='error-message'>{errorMessage}</p>
-				)}
-
-				<p className=''>Don&apos;t have an account yet?</p>
-				<Link to={'/signup'}> Sign Up</Link>
-			</div>
+								<button
+									type='submit'
+									className=''>
+									Login
+								</button>
+							</form>
+							{errorMessage && <p className='error-message'>{errorMessage}</p>}
+							<p className=''>
+								Don&apos;t have an account yet?{' '}
+								<Link to={'/signup'}> Sign Up</Link>
+							</p>
+						</div>
+					</Col>
+				</Row>
+			</Container>
 		</>
 	);
 }

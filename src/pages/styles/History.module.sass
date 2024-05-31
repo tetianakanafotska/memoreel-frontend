@@ -1,0 +1,41 @@
+@import 'bootstrap/scss/bootstrap-grid.scss'
+@import '/src/styles/_variables.sass'
+
+.reel
+    background-color: $maincolor-medium
+    border: 1px solid $dark
+    margin-bottom: 30px
+    display: flex
+    &:hover
+        ::-webkit-scrollbar-thumb
+            background: transparentize($maincolor-dark, 0.2)
+    ::-webkit-scrollbar
+        background-color: $maincolor-light
+        border-radius: 30px
+        height: 10px
+    ::-webkit-scrollbar-piece
+        background: #4f1111
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb
+        background: transparentize($maincolor-dark, 0.5)
+        border-radius: 20px
+        cursor: pointer
+
+.date
+    writing-mode: vertical-rl
+    transform: rotate(180deg)
+    text-align: end
+    display: inline-block
+    background-color: #A9AEDD
+    padding: 0px 10px 30px 10px
+    margin: 0
+    margin-right: 15px
+    border-left: 1px solid $dark
+    font-family: $font-family-monospace
+
+.dashboardBtn
+    position: absolute
+    right: 35px
+    top: 25px
+    z-index: 999

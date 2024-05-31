@@ -3,8 +3,9 @@ import loadingGif from "../assets/images/loading.gif";
 import uploadService from "../services/file-upload.service";
 import assetsService from "../services/assets.service";
 import boardsService from "../services/boards.service";
+import usersService from "../services/users.service";
 import WebcamCapture from "./WebcamCapture";
-import AudioCapture from "./AudioRecorder";
+import AudioCapture from "./AudioCapture/AudioCapture";
 import dashboardStyles from "@pages/styles/Dashboard.module.sass";
 import { XLg, CheckLg, Trash } from "react-bootstrap-icons";
 
@@ -15,20 +16,42 @@ function MediaForm({
   saveEdit,
   setIsEditing,
   deleteAsset,
-  // Only needed for adding new assets
   setAllAssets,
   setOpenPopUp,
   setOpenMediaForm,
-  boardId,
   userId,
 }) {
   const [newAssetContent, setNewAssetContent] = useState(initialContent || "");
   const [loading, setLoading] = useState(false);
   const [touched, setTouched] = useState(false);
+  const [currentBoardId, setCurrentBoardId] = useState("");
 
   useEffect(() => {
     setNewAssetContent(initialContent || "");
   }, [initialContent]);
+
+  useEffect(() => {
+    const fetchCurrentBoard = async () => {
+      const currentDate = new Date().toISOString().slice(0, 10);
+      if (userId) {
+        try {
+          const res = await usersService.getCurrentBoard(userId, currentDate);
+          if (res.data.length !== 0) {
+            setCurrentBoardId(res.data[0]._id);
+            console.log("Existing board found. BoardID:", res.data[0]._id);
+          } else {
+            console.log("No current board found");
+            setCurrentBoardId(null);
+          }
+        } catch (error) {
+          console.error("Error fetching current board:", error);
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+    fetchCurrentBoard();
+  }, [userId]);
 
   const validateContent = (content) => {
     if (!content.trim()) {
@@ -37,7 +60,8 @@ function MediaForm({
       const youtubeUrlRegex =
         /^(http(s)??\:\/\/)?(www\.)?((youtube\.com\/watch\?v=)|(youtu.be\/))([a-zA-Z0-9\-_])+$/;
       return youtubeUrlRegex.test(content);
-    } else return true;
+    }
+    return true;
   };
 
   const handleUploadFile = async (file) => {
@@ -45,10 +69,10 @@ function MediaForm({
       setLoading(true);
       const fileUrl = await uploadService.uploadFile(file);
       setNewAssetContent(fileUrl);
-      setLoading(false);
       return fileUrl;
     } catch (error) {
       console.error("Error uploading file:", error);
+    } finally {
       setLoading(false);
     }
   };
@@ -61,15 +85,22 @@ function MediaForm({
   };
 
   const handleSave = () => {
-    if (saveEdit) {
-      saveEdit(newAssetContent);
-    } else {
-      addNewAsset();
-    }
+    saveEdit ? saveEdit(newAssetContent) : addNewAsset();
   };
 
   const addNewAsset = async () => {
+    console.log("current id", currentBoardId);
     try {
+      let boardId = currentBoardId;
+
+      if (!boardId) {
+        console.log("there is no board id, new board will be created");
+        const boardResp = await boardsService.post({ userId });
+        boardId = boardResp.data._id;
+        setCurrentBoardId(boardId);
+        console.log("New board created, this id:", boardId);
+      }
+
       const newAsset = {
         type: assetType,
         content: newAssetContent,
@@ -77,21 +108,11 @@ function MediaForm({
         boardId: boardId,
       };
 
-      if (!boardId) {
-        const boardResp = await boardsService.post({ userId });
-        const newBoardId = boardResp.data._id;
-        const assetResp = await assetsService.post({
-          ...newAsset,
-          boardId: newBoardId,
-        });
-        const createdAsset = assetResp.data;
-        setAllAssets((prevAssets) => [...prevAssets, createdAsset]);
-      } else {
-        const response = await assetsService.post(newAsset);
-        const createdAsset = response.data;
-        setAllAssets((prevAssets) => [...prevAssets, createdAsset]);
-      }
+      console.log("to this board the asset will be added", boardId);
 
+      const response = await assetsService.post(newAsset);
+      const createdAsset = response.data;
+      setAllAssets((prevAssets) => [...prevAssets, createdAsset]);
       setNewAssetContent("");
       setOpenPopUp(false);
       setOpenMediaForm(false);
@@ -104,7 +125,6 @@ function MediaForm({
     <div className={dashboardStyles.dashboard_mediaForm_inputs}>
       {assetType === "text" && (
         <textarea
-          type="text"
           placeholder="What's on your mind today?"
           onChange={(e) => {
             setNewAssetContent(e.target.value);

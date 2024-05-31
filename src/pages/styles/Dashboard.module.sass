@@ -8,18 +8,23 @@
 		font-size: 1rem
 		font-weight: 400
 	h3
-		font-size: 1.6rem
+		font-size: 2rem
+		@include media-breakpoint-up(md)
+			font-size: 2.4rem
 	&_addContent
 		display: flex
 		justify-content: center
 		align-items: center
 	&_mediaForm
-		margin: 30px 0
-		background-color: lighten($indigo, 8%)
-		border-radius: 10px
+		margin: 30px auto
+		background-color: #A9AEDD
+		border: 1px solid $dark
+		text-align: center
+		// border-radius: 10px
 		padding: 30px 40px
 		&_inputs
 			.editButtons
+				cursor: pointer
 				display: flex
 				flex-direction: column
 				justify-content: center
@@ -28,24 +33,29 @@
 					border-radius: 50%
 					height: 50px
 					width: 50px
-					border: none
 					padding: 0
+					border: 1px solid $dark
 					svg path
-						fill: $indigo
-					background-color: transparentize($green, 0.3)
+						fill: $dark
+					background-color: $light-blue
 					&:hover,
 					&:focus,
 					&:active
-						background-color: transparentize($green, 0.1)
-						border: none
+						background-color: darken($light-blue, 10%)
 				&_input
+					&:is(textarea)
+						height: 250px
 					margin-bottom: 18px
 					width: 350px
-					height: 350px
 					margin-right: 12px
 					background-color: $white
-					border: 0
+					border: 1px solid $dark
+					padding: 20px 30px
 					color: $indigo
+					&::placeholder
+						color: lighten($dark, 60%)
+						font-style: italic
+				
 				&_photoContainer
 					display: flex
 					flex-direction: column
@@ -54,3 +64,22 @@
 				&_webcamBtn
 					display: flex
 					align-items: center
+.editButtons
+	cursor: pointer
+	display: flex
+	flex-direction: column
+	justify-content: center
+	align-items: center
+	&_button
+		border-radius: 50%
+		height: 50px
+		width: 50px
+		padding: 0
+		border: 1px solid $dark
+		svg path
+			fill: $dark
+		background-color: $light-blue
+		&:hover,
+		&:focus,
+		&:active
+			background-color: darken($light-blue, 10%)
