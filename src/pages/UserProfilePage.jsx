@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext, useRef } from "react";
-import placeholder from "@img/placeholder.jpg";
 import { AuthContext } from "../context/AuthContext";
 import usersService from "../services/users.service.js";
 import uploadService from "../services/file-upload.service";
 import userProfilePageStyle from "./styles/UserProfilePage.module.sass";
 import { Pen } from "react-bootstrap-icons";
 import { Loading } from "@components";
+import Button from "../components/Button.jsx";
 
 function UserProfilePage() {
   const [userProfile, setUserProfile] = useState(null);
@@ -89,29 +89,27 @@ function UserProfilePage() {
         className={userProfilePageStyle.formContainer}
       >
         <div className={userProfilePageStyle.profilePicContainer}>
-          {userProfile && (
-            <>
-              <img
-                referrerPolicy="no-referrer"
-                src={profileImg || placeholder}
-                alt="profile-photo"
-                style={{
-                  height: "150px",
-                  width: "150px",
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  outline: "1px solid black",
-                }}
-                className={userProfilePageStyle.profileImg}
-              />
-            </>
+          {userProfile && profileImg ? (
+            <img
+              referrerPolicy="no-referrer"
+              src={profileImg}
+              alt="profile-photo"
+              style={{
+                height: "150px",
+                width: "150px",
+                borderRadius: "50%",
+                objectFit: "cover",
+                outline: "1px solid black",
+              }}
+              className={userProfilePageStyle.profileImg}
+            />
+          ) : (
+            <button className={userProfilePageStyle.icon}>
+              {nameInput.trim().charAt(0)}
+            </button>
           )}
-          <button
-            type="edit"
-            onClick={triggerFileInput}
-            className={userProfilePageStyle.changePicLink}
-          >
-            <Pen className={userProfilePageStyle.pen} />
+          <button className={userProfilePageStyle.pen}>
+            <Pen onClick={triggerFileInput} width="17" />
           </button>
         </div>
         <h2>

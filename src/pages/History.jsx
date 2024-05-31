@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@context";
-import { MediaItem, Button, Loading } from "@components";
+import { MediaItem, Loading } from "@components";
 import boardStyles from "../components/styles/Board.module.sass";
 import usersService from "../services/users.service";
 import historyStyles from "./styles/History.module.sass";
@@ -24,11 +24,9 @@ function History() {
       usersService
         .getAllBoards(user._id)
         .then((res) => {
-          if (res.data.length !== 0) {
-            setAllboards(res.data);
-            setLoading(false);
-            console.log("allboards", res.data);
-          }
+          setAllboards(res.data);
+          setLoading(false);
+          console.log("allboards", res.data);
         })
         .catch((error) => console.log("Error fetching boards" + error));
     }
@@ -40,31 +38,33 @@ function History() {
         <Loading />
       ) : (
         allBoards &&
-        (allBoards.length === 0
-          ? "No board to show yet!"
-          : allBoards
-              .slice()
-              .reverse()
-              .map((board) => {
-                return (
-                  <div key={board._id} className={historyStyles.reel}>
-                    <h2 className={historyStyles.date}>
-                      {formatDate(board.createdAt)}
-                    </h2>
-                    <div className={boardStyles.board}>
-                      {board.assets.length > 0 &&
-                        board.assets
-                          .slice()
-                          .reverse()
-                          .map((asset) => (
-                            <div key={asset._id}>
-                              <MediaItem asset={asset} enableEditing={false} />
-                            </div>
-                          ))}
-                    </div>
+        (allBoards.length === 0 ? (
+          <div id="errorMessage">No boards created yet!</div>
+        ) : (
+          allBoards
+            .slice()
+            .reverse()
+            .map((board) => {
+              return (
+                <div key={board._id} className={historyStyles.reel}>
+                  <h2 className={historyStyles.date}>
+                    {formatDate(board.createdAt)}
+                  </h2>
+                  <div className={boardStyles.board}>
+                    {board.assets.length > 0 &&
+                      board.assets
+                        .slice()
+                        .reverse()
+                        .map((asset) => (
+                          <div key={asset._id}>
+                            <MediaItem asset={asset} enableEditing={false} />
+                          </div>
+                        ))}
                   </div>
-                );
-              }))
+                </div>
+              );
+            })
+        ))
       )}
     </div>
   );

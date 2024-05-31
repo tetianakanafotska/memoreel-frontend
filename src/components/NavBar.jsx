@@ -68,21 +68,22 @@ function NavBar() {
             <Button to="/" className={styles.navlink} onClick={logOutUser}>
               {<BoxArrowRight size="20" />}
             </Button>
-            {location.pathname === "/dashboard/history" && (
-              <Button to="/dashboard" className={styles.navlink}>
-                Dashboard
-              </Button>
-            )}
+            {location.pathname === "/dashboard/history" ||
+              (location.pathname === "/profile" && (
+                <Button to="/dashboard" className={styles.navlink}>
+                  Dashboard
+                </Button>
+              ))}
           </div>
         )}
       </div>
       {isLoggedIn && (
         <div className={styles.navbar_bottom}>
           <div>
-            {user && (
+            {user && profileImg ? (
               <NavLink to="/profile" className="user-picture">
                 <img
-                  src={profileImg || placeholder}
+                  src={profileImg}
                   onError={(e) => {
                     e.target.src = placeholder;
                   }}
@@ -90,6 +91,8 @@ function NavBar() {
                   className={styles.navbar_userProfile}
                 />
               </NavLink>
+            ) : (
+              <Button to="/profile">{user.name.trim().charAt(0)}</Button>
             )}
           </div>
           <div>

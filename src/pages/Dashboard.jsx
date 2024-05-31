@@ -23,6 +23,21 @@ const Dashboard = () => {
   const [assetType, setAssetType] = useState(null);
   const [allAssets, setAllAssets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [recentUserName, setRecentUserName] = useState("");
+
+  useEffect(() => {
+    const getUser = async () => {
+      if (user) {
+        try {
+          const response = await usersService.get(user._id);
+          setRecentUserName(response.data.name);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+    getUser();
+  }, [user]);
 
   const deleteAsset = (assetId) => {
     assetsService
@@ -82,8 +97,8 @@ const Dashboard = () => {
       <Marquee
         phrases={[
           "For days worth remembering",
-          user.name
-            ? `What's on your mind today, ${user.name} ?`
+          recentUserName
+            ? `What's on your mind today, ${recentUserName} ?`
             : "What's on your mind today?",
           "What made you laugh today?",
         ]}
@@ -133,7 +148,6 @@ const Dashboard = () => {
                   setOpenMediaForm={setOpenMediaForm}
                   setAllAssets={setAllAssets}
                   deleteAsset={deleteAsset}
-                  //boardId={boardId}
                   userId={user._id}
                 />
               </div>
@@ -142,9 +156,9 @@ const Dashboard = () => {
         </Container>
       )}
 
-      <div className={boardStyles.board}>
-        {allAssets.length > 0 ? (
-          allAssets
+      {allAssets.length > 0 ? (
+        <div className={boardStyles.board}>
+          {allAssets
             .slice()
             .reverse()
             .map((asset) => (
@@ -156,15 +170,11 @@ const Dashboard = () => {
                   enableEditing={true}
                 />
               </div>
-            ))
-        ) : (
-          <div className="d-flex align-center justify-content-center flex-row">
-            <p className="d-block mx-auto text-center">
-              Create content for today
-            </p>
-          </div>
-        )}
-      </div>
+            ))}
+        </div>
+      ) : (
+        <div id="errorMessage">Create content for today</div>
+      )}
     </section>
   );
 };
