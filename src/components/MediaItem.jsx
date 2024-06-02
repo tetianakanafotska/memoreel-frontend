@@ -51,7 +51,9 @@ function MediaItem({ asset, editAsset, deleteAsset, enableEditing }) {
       case "audio":
         return (
           <div className={boardStyles.board_item_audio}>
-            <p>Voice note</p>
+            <p>
+              voice <br /> note
+            </p>
             <audio controls src={assetContent} />
           </div>
         );
@@ -65,7 +67,7 @@ function MediaItem({ asset, editAsset, deleteAsset, enableEditing }) {
       {isEditing ? (
         <MediaForm
           assetType={asset.type}
-          assetContent={assetContent}
+          initialContent={assetContent}
           saveEdit={saveEdit}
           setIsEditing={setIsEditing}
           isEditing={isEditing}

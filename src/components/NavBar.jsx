@@ -65,15 +65,15 @@ function NavBar() {
         <div>{!isLoggedIn && renderAuthLinks()}</div>
         {isLoggedIn && (
           <div className={styles.navbarButtons}>
+            {(location.pathname === "/dashboard/history" ||
+              location.pathname === "/profile") && (
+              <Button to="/dashboard" className={styles.navlink}>
+                Dashboard
+              </Button>
+            )}
             <Button to="/" className={styles.navlink} onClick={logOutUser}>
               {<BoxArrowRight size="20" />}
             </Button>
-            {location.pathname === "/dashboard/history" ||
-              (location.pathname === "/profile" && (
-                <Button to="/dashboard" className={styles.navlink}>
-                  Dashboard
-                </Button>
-              ))}
           </div>
         )}
       </div>
