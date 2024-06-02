@@ -7,12 +7,13 @@
   align-items: center
   justify-content: center
   text-align: center
+
   .pen
     position: relative
     width: 30px
     height: 30px
-    bottom: 20px
-    left: 30px
+    bottom: 25px
+    left: 40px
     background-color: $green
     border-radius: 50% !important
     padding: 5px
@@ -30,7 +31,6 @@
     font-size: 18px
     font-weight: 100
     cursor: pointer
-
 
   .profilePicContainer
     display: flex
@@ -67,25 +67,22 @@
       color: $dark
       border-radius: 0px !important
 
-
     button
       display: block
       margin: 20px auto 0 auto
 
-
-  .changePicLink
-    display: inline-block
-    border-radius: 50%
-    width: 40px
-    height: 40px
+.infoMessage
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  margin: 100px auto 0
+  width: 450px
+  color: $indigo
+  padding-bottom: 200px
+  &_buttons
+    padding-top: 50px
     display: flex
-    align-items: center
-    justify-content: center
-    border: 1px solid black
-    cursor: pointer
-    position: absolute
-    bottom: -5px
-    right:20px
 
 
 

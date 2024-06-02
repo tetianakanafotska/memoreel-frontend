@@ -5,42 +5,28 @@ import uploadService from "../services/file-upload.service";
 import userProfilePageStyle from "./styles/UserProfilePage.module.sass";
 import { Pen } from "react-bootstrap-icons";
 import { Loading } from "@components";
-import Button from "../components/Button.jsx";
+import InfoMessage from "../components/InfoMessage.jsx";
 
 function UserProfilePage() {
-  const [userProfile, setUserProfile] = useState(null);
   const [nameInput, setNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [profileImg, setProfileImg] = useState("");
-  const [loading, setLoading] = useState(true);
-  const { user, handleDeleteAccount } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const { user, handleDeleteAccount, logOutUser } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const [infoMessage, setInfoMessage] = useState(undefined);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
-    const getUser = async () => {
-      if (user) {
-        try {
-          const response = await usersService.get(user._id);
-          setUserProfile(response.data);
-          setNameInput(response.data.name);
-          setEmailInput(response.data.email);
-          setProfileImg(response.data.profileImg);
-          setLoading(false);
-        } catch (error) {
-          const errorDescription = error.response.data.message;
-          setErrorMessage(errorDescription);
-        }
-      } else {
-        setErrorMessage("User not logged in");
-      }
-    };
-    getUser();
+    if (user) {
+      setNameInput(user.name);
+      setEmailInput(user.email);
+      setProfileImg(user.profileImg);
+    }
   }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       if (user) {
         const response = await usersService.put(user._id, {
@@ -48,13 +34,14 @@ function UserProfilePage() {
           email: emailInput,
           profileImg: profileImg,
         });
-        console.log(response.data);
         if (response.status === 200) {
-          setUserProfile(response.data);
-          setProfileImg(response.data.profileImg);
+          setInfoMessage(true);
         }
+      } else {
+        setErrorMessage("User not logged in");
       }
     } catch (error) {
+      setErrorMessage(error.response.data.message);
       console.log(error);
     }
   };
@@ -79,6 +66,7 @@ function UserProfilePage() {
   };
 
   if (errorMessage) return <div>{errorMessage}</div>;
+  if (infoMessage) return <InfoMessage />;
 
   if (loading) return <Loading />;
 
@@ -89,7 +77,7 @@ function UserProfilePage() {
         className={userProfilePageStyle.formContainer}
       >
         <div className={userProfilePageStyle.profilePicContainer}>
-          {userProfile && profileImg ? (
+          {user && profileImg ? (
             <img
               referrerPolicy="no-referrer"
               src={profileImg}
@@ -109,13 +97,16 @@ function UserProfilePage() {
             </button>
           )}
           <button className={userProfilePageStyle.pen}>
-            <Pen onClick={triggerFileInput} width="17" />
+            <Pen
+              onClick={(e) => {
+                e.preventDefault();
+                triggerFileInput();
+              }}
+              width="17"
+            />
           </button>
         </div>
-        <h2>
-          {userProfile.name} <span> | </span>
-          {userProfile.email}
-        </h2>
+        <h2>{`${user.name} | ${user.email}`}</h2>
         <input
           type="file"
           accept="image/*"

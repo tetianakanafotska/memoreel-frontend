@@ -23,21 +23,6 @@ const Dashboard = () => {
   const [assetType, setAssetType] = useState(null);
   const [allAssets, setAllAssets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [recentUserName, setRecentUserName] = useState("");
-
-  useEffect(() => {
-    const getUser = async () => {
-      if (user) {
-        try {
-          const response = await usersService.get(user._id);
-          setRecentUserName(response.data.name);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
-    getUser();
-  }, [user]);
 
   const deleteAsset = (assetId) => {
     assetsService
@@ -110,8 +95,8 @@ const Dashboard = () => {
         <Marquee
           phrases={[
             "For days worth remembering",
-            recentUserName
-              ? `What's on your mind today, ${recentUserName} ?`
+            user
+              ? `What's on your mind today, ${user.name} ?`
               : "What's on your mind today?",
             "What made you laugh today?",
           ]}

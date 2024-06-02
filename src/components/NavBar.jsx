@@ -6,26 +6,10 @@ import styles from "./styles/NavBar.module.sass";
 import placeholder from "@img/placeholder.jpg";
 import { BoxArrowRight } from "react-bootstrap-icons";
 import Button from "./Button";
-import usersService from "../services/users.service";
 
 function NavBar() {
   const { isLoggedIn, logOutUser, user } = useContext(AuthContext);
-  const [profileImg, setProfileImg] = useState("");
   const location = useLocation();
-
-  useEffect(() => {
-    const getUser = async () => {
-      if (user) {
-        try {
-          const response = await usersService.get(user._id);
-          setProfileImg(response.data.profileImg);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
-    getUser();
-  }, [user]);
 
   const renderLogo = () => {
     let size = "300px";
@@ -41,16 +25,8 @@ function NavBar() {
 
   const renderAuthLinks = () => (
     <>
-      {location.pathname !== "/login" && (
-        <Button to="/login" className={styles.navlink}>
-          Login
-        </Button>
-      )}
-      {location.pathname !== "/signup" && (
-        <Button to="/signup" className={styles.navlink}>
-          Signup
-        </Button>
-      )}
+      {location.pathname !== "/login" && <Button to="/login">Login</Button>}
+      {location.pathname !== "/signup" && <Button to="/signup">Signup</Button>}
     </>
   );
 
@@ -67,11 +43,9 @@ function NavBar() {
           <div className={styles.navbarButtons}>
             {(location.pathname === "/dashboard/history" ||
               location.pathname === "/profile") && (
-              <Button to="/dashboard" className={styles.navlink}>
-                Dashboard
-              </Button>
+              <Button to="/dashboard">Dashboard</Button>
             )}
-            <Button to="/" className={styles.navlink} onClick={logOutUser}>
+            <Button to="/" onClick={logOutUser}>
               {<BoxArrowRight size="20" />}
             </Button>
           </div>
@@ -80,10 +54,10 @@ function NavBar() {
       {isLoggedIn && (
         <div className={styles.navbar_bottom}>
           <div>
-            {user && profileImg ? (
+            {user ? (
               <NavLink to="/profile" className="user-picture">
                 <img
-                  src={profileImg}
+                  src={user.profileImg}
                   onError={(e) => {
                     e.target.src = placeholder;
                   }}
