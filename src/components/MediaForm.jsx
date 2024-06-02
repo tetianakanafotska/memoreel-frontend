@@ -86,6 +86,7 @@ function MediaForm({
 
   const handleSave = () => {
     saveEdit ? saveEdit(newAssetContent) : addNewAsset();
+    setIsEditing ? setIsEditing(false) : setOpenMediaForm(false);
   };
 
   const addNewAsset = async () => {
@@ -174,7 +175,7 @@ function MediaForm({
           style={{ width: "30px", height: "30px" }}
         />
       ) : (
-        <div>
+        <div className={dashboardStyles.editButtons}>
           <button
             onClick={handleSave}
             disabled={!validateContent(newAssetContent)}
@@ -183,13 +184,17 @@ function MediaForm({
             <CheckLg size="20" />
           </button>
           <button
-            onClick={() => setIsEditing(false)}
+            onClick={() => {
+              setIsEditing ? setIsEditing(false) : setOpenMediaForm(false);
+            }}
             className={dashboardStyles.editButtons_button}
           >
             <XLg />
           </button>
           <button
-            onClick={() => deleteAsset(assetId)}
+            onClick={() =>
+              assetId ? deleteAsset(assetId) : setOpenMediaForm(false)
+            }
             className={dashboardStyles.editButtons_button}
           >
             <Trash />
