@@ -149,14 +149,13 @@ const Dashboard = () => {
               .slice()
               .reverse()
               .map((asset) => (
-                <div key={asset._id}>
-                  <MediaItem
-                    asset={asset}
-                    editAsset={editAsset}
-                    deleteAsset={deleteAsset}
-                    enableEditing={true}
-                  />
-                </div>
+                <MediaItem
+                  key={asset._id}
+                  asset={asset}
+                  editAsset={editAsset}
+                  deleteAsset={deleteAsset}
+                  enableEditing={true}
+                />
               ))}
           </div>
         ) : (

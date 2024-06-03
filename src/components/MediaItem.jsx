@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import ReactPlayer from "react-player/youtube";
 import boardStyles from "./styles/Board.module.sass";
-import { Pen, XLg, Trash, CheckLg } from "react-bootstrap-icons";
-import dashboardStyles from "@pages/styles/Dashboard.module.sass";
+import { Pen } from "react-bootstrap-icons";
 import MediaForm from "./MediaForm";
 import classNames from "classnames";
 
@@ -35,7 +34,7 @@ function MediaItem({ asset, editAsset, deleteAsset, enableEditing }) {
       case "youtubeURL":
         return (
           <div className={boardStyles.board_item_video}>
-            <ReactPlayer url={assetContent} controls />
+            <ReactPlayer url={assetContent} width={550} height={350} controls />
           </div>
         );
       case "camImage":
@@ -78,7 +77,10 @@ function MediaItem({ asset, editAsset, deleteAsset, enableEditing }) {
         <div className={boardStyles.board_item_body}>{renderContent()}</div>
       )}
       {enableEditing && (
-        <div className={boardStyles.editButtons}>
+        <div
+          className={boardStyles.editButtons}
+          style={{ display: isEditing ? "none" : "flex" }}
+        >
           <button
             onClick={() => {
               setIsEditing((prev) => !prev);
