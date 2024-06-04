@@ -12,6 +12,21 @@
 		font-size: 2rem
 		@include media-breakpoint-up(md)
 			font-size: 2.4rem
+	&:hover
+		::-webkit-scrollbar-thumb
+			background: transparentize($maincolor-dark, 0.2)
+	::-webkit-scrollbar
+		background-color: $maincolor-light
+		border-radius: 30px
+		height: 7px
+		width: 7px
+	::-webkit-scrollbar-piece
+		background: #4f1111
+	/* Handle */
+	::-webkit-scrollbar-thumb
+		background: transparentize($maincolor-dark, 0.5)
+		border-radius: 20px
+		padding-bottom: 200px
 	&_addContent
 		display: flex
 		justify-content: center
