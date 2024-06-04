@@ -159,7 +159,7 @@ const Dashboard = () => {
               ))}
           </div>
         ) : (
-          <div id="errorMessage">Create content for today</div>
+          <div id="errorMessage">Create content for today!</div>
         )}
       </section>
     </>
