@@ -6,36 +6,15 @@ import landingslide1 from "@img/landingpage-slideshow/landingslide1.png";
 import landingslide2 from "@img/landingpage-slideshow/landingslide2.png";
 import { Marquee } from "@components";
 import React, { useContext, useState, useEffect } from "react";
-import usersService from "../services/users.service.js";
 
 export default function LandingPage() {
   const { user, isLoggedIn } = useContext(AuthContext);
-  const [recentUserName, setRecentUserName] = useState("");
 
-  useEffect(() => {
-    const getUser = async () => {
-      if (user) {
-        try {
-          const response = await usersService.get(user._id);
-          setRecentUserName(response.data.name);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
-    getUser();
-  }, [user]);
   return (
     <section className={styles.landingPage}>
       <div className={styles.landingPage_slideshow}>
         <Marquee
-          phrases={[
-            "For days worth remembering",
-            recentUserName
-              ? `What's on your mind today, ${recentUserName} ?`
-              : "What's on your mind today?",
-            "What made you laugh today?",
-          ]}
+          phrases={["For days worth remembering"]}
           className={styles.marquee1}
         />
 
@@ -48,9 +27,9 @@ export default function LandingPage() {
 
         <Marquee
           phrases={[
-            "For days worth remembering",
+            "Do you have a song in mind?",
             "What's on your mind today?",
-            "What made you laugh today?",
+            "What made you laugh?",
           ]}
           className={styles.marquee2}
         />

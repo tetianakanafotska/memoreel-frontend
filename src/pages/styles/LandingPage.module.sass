@@ -13,39 +13,33 @@
 		display: block
 		margin: 50px auto 100px
 		z-index: 9999
-	
+
 	&_slideshow
 		position: relative
-		margin-top: 20px
+		top: 20px
 		margin-bottom: 100px
 		overflow-x: visible !important
 		width: 100vw
 		white-space: nowrap
 
 	&_slideshow_item_front
-		// object-fit: scale-down
-		width: 130vw
-		z-index: -2
-		// left: -130
-		margin-top: 30px
 		@include media-breakpoint-up(sm)
-			margin-top: 50px
-			margin-bottom: -116px
+			margin-top: 100px
+			margin-bottom: -50px
 		@include media-breakpoint-up(md)
-			margin-top: 0
 			margin-bottom: -116px
 
 		// zooming in on mobile
 		transform: rotate(-4deg) scale(2)
 		@include media-breakpoint-up(sm)
+			margin-top: 20px
 			transform: rotate(-4deg) scale(1.4)
 		@include media-breakpoint-up(md)
 			transform: rotate(-4deg) scale(1)
 	
 	&_slideshow_item_back
-		// object-fit: scale-down
 		width: 130vw
-		margin-top: 10px
+		margin-top: 30px
 		z-index: 99 !important
 
 		// zooming in on mobile
@@ -54,18 +48,27 @@
 			transform: scale(1.4)
 		@include media-breakpoint-up(md)
 			transform: scale(1)
-		
 
 .marquee
 	pointer-events: none
-	// position: absolute
 
 	&1
 		@extend .marquee
-		top: -30px
 		transform: rotate(-2deg) !important
-
+		position: absolute
+		top:-20px
+		z-index: 999
+		font-size: 1.1rem
+		@include media-breakpoint-up(sm)
+			font-size: 1.3rem
+		@include media-breakpoint-up(lg)
+			font-size: 1.8rem
 	&2
 		@extend .marquee
 		bottom: 30px
+		font-size: 0.7rem
 		transform: rotate(1deg) !important
+		@include media-breakpoint-up(sm)
+			font-size: 0.9rem
+		@include media-breakpoint-up(lg)
+			font-size: 1.2rem

@@ -20,10 +20,14 @@
     ::-webkit-scrollbar-thumb
         background: transparentize($maincolor-dark, 0.5)
         border-radius: 20px
-        cursor: pointer
+        padding-bottom: 200px
 
 .date
-    font-size: 1.6rem
+    font-size: 1rem
+    @include media-breakpoint-up(sm)
+        font-size: 1.2rem
+    @include media-breakpoint-up(md)
+        font-size: 1.6rem
     font-weight: 400
     writing-mode: vertical-rl
     transform: rotate(180deg)
