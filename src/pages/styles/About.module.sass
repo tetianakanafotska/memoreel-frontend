@@ -1,0 +1,43 @@
+@import 'bootstrap/scss/bootstrap-grid.scss'
+@import '/src/styles/_variables.sass'
+
+.about
+	margin-top: 50px
+	&_project
+		margin: 40px auto 50px
+		text-align: center
+		font-size: 1.2rem
+
+.social
+	border: 1px solid $dark
+	margin-bottom: 20px
+	&_person
+		display: flex
+		align-items: center
+		padding: 24px 24px
+		&_image
+			width: 35px
+			height: 35px
+			fit-content: cover
+			overflow: hidden
+			border: 1px solid $dark
+			border-radius: 50%
+			margin-right: 14px
+		&_name
+			padding: 0
+			margin: 0
+	&_links
+		background: $white
+		display: flex
+		flex-direction: row
+		a
+			width: 50%
+			display: flex
+			justify-content: center
+			align-items: center
+			border-top: 1px solid $dark
+			padding: 24px
+			&:hover
+				background-color: $offwhite
+			&:first-of-type
+				border-right: 1px solid $dark
