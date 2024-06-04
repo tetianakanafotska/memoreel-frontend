@@ -12,7 +12,7 @@ export function LogoSquare({ size = "100px", color = "#fff" }) {
   return (
     <div
       className={classNames(styles.logo, size)}
-      style={{ maxWidth: size, height: size }}
+      style={{ maxWidth: size, maxHeight: size }}
     >
       <LogoSquareSvg color={color} />
     </div>
