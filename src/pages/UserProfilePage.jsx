@@ -81,13 +81,6 @@ function UserProfilePage() {
 							referrerPolicy='no-referrer'
 							src={profileImg}
 							alt='profile-photo'
-							style={{
-								height: '150px',
-								width: '150px',
-								borderRadius: '50%',
-								objectFit: 'cover',
-								outline: '1px solid black',
-							}}
 							className={userProfilePageStyle.profileImg}
 						/>
 					) : (
@@ -95,13 +88,13 @@ function UserProfilePage() {
 							{nameInput.trim().charAt(0)}
 						</button>
 					)}
-					<button className={userProfilePageStyle.pen}>
+					<button className={userProfilePageStyle.profileImg_pen}>
 						<Pen
 							onClick={(e) => {
 								e.preventDefault();
 								triggerFileInput();
 							}}
-							width='17'
+							width='18'
 						/>
 					</button>
 				</div>
