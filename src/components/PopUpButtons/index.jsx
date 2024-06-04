@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./PopUpButtons.module.sass";
-import {
-  ImageFill,
-  Youtube,
-  Camera,
-  Stickies,
-  Mic,
-} from "react-bootstrap-icons";
+import { Images, PlayBtn, Camera, Stickies, Mic } from "react-bootstrap-icons";
 
 export default function PopUpButtons({
   assetType,
@@ -42,7 +36,7 @@ export default function PopUpButtons({
           activeButton === "image" ? styles.active : ""
         }`}
       >
-        <ImageFill size="30" />
+        <Images size="30" />
         <span>add image</span>
       </button>
       <button
@@ -60,7 +54,7 @@ export default function PopUpButtons({
           activeButton === "youtubeURL" ? styles.active : ""
         }`}
       >
-        <Youtube size="30" />
+        <PlayBtn size="30" />
         <span>add Youtube video</span>
       </button>
       <button

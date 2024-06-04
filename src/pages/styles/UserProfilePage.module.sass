@@ -36,12 +36,15 @@
     position: relative
     margin-bottom: 20px
     min-width: 120px
+    &:hover
+      .profileImg_pen
+        opacity: 1
 
   .profileImg
     border-radius: 50%
-    object-fit: cover
     position: relative
     height: 150px
+    object-fit: cover
     width: 150px
     outline: 1px solid black
     &_pen
@@ -51,12 +54,13 @@
       height: 40px
       bottom: 0
       right: 4px
-      //border: 1px solid $dark
       background-color: $green
       border-radius: 50%
       display: flex
       align-items: center
       justify-content: center
+      opacity: 0
+      transition: opacity 0.2s
 
   form
     display: flex
