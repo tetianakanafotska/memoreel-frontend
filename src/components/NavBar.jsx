@@ -18,7 +18,7 @@ function NavBar() {
 
     return (
       <NavLink to="/">
-        <LogoFull color="#D6F487" size={size} />
+        <LogoFull color="#B087F4" size={size} />
       </NavLink>
     );
   };
