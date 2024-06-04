@@ -21,11 +21,9 @@ function NavBar() {
     return (
       <NavLink to="/">
         {mobileViewport ? (
-        <LogoSquare color="#D6F487" size={60} />
-
+          <LogoSquare color="#B087F4" size={60} />
         ) : (
-
-        <LogoFull color="#D6F487" size={size} />
+          <LogoFull color="#B087F4" size={size} />
         )}
       </NavLink>
     );

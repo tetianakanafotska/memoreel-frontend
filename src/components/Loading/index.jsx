@@ -1,15 +1,18 @@
-import React from 'react'
-import styles from './Loading.module.sass';
-import flower from '@img/flower.svg'
-import classNames from 'classnames'
+import React from "react";
+import styles from "./Loading.module.sass";
+import brandmark from "@img/brandmark.svg";
+import classNames from "classnames";
 
 function Loading() {
   return (
     <div className={styles.loading}>
-      <img src={flower} alt="Loading..." className={classNames(styles.loading_image, 'mb-3')} />
-      Loading...
+      <img
+        src={brandmark}
+        alt="Loading..."
+        className={classNames(styles.loading_image, "mb-3")}
+      />
     </div>
-  )
+  );
 }
 
-export default Loading
+export default Loading;
