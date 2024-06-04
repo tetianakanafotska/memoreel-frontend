@@ -106,7 +106,9 @@ function UserProfilePage() {
             />
           </button>
         </div>
-        <h2>{`${user.name} | ${user.email}`}</h2>
+        <h2>{`${user.name}`}
+          <span>{`${user.email}`}</span>
+        </h2>
         <input
           type="file"
           accept="image/*"
