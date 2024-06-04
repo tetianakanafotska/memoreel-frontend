@@ -1,9 +1,9 @@
-import styles from "./Logo.module.sass";
+import styles from "./index.module.sass";
 import classNames from "classnames";
 
 export function LogoFull({ size = "250px", color = "#fff" }) {
   return (
-    <div className={classNames(styles.logo, size)} style={{ width: size }}>
+    <div className={classNames(styles.logo, size)} style={{ maxWidth: size }}>
       <LogoFullSvg color={color} />
     </div>
   );
@@ -12,7 +12,7 @@ export function LogoSquare({ size = "100px", color = "#fff" }) {
   return (
     <div
       className={classNames(styles.logo, size)}
-      style={{ width: size, height: size }}
+      style={{ maxWidth: size, height: size }}
     >
       <LogoSquareSvg color={color} />
     </div>
