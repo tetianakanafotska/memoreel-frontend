@@ -1,3 +1,4 @@
+@import 'bootstrap/scss/bootstrap-grid.scss'
 @import '/src/styles/_variables.sass'
 
 $gap: 30px
@@ -31,7 +32,11 @@ $gap: 30px
         text-transform: uppercase
         padding: 4px 0 1px
         letter-spacing: 1px
-        font-size: 1.3rem
+        font-size: 0.9rem
+        @include media-breakpoint-up(sm)
+            font-size: 1.1rem
+        @include media-breakpoint-up(lg)
+            font-size: 1.3rem
         .asterisk
             display: inline
             margin: 0 $gap

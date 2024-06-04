@@ -1,15 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "@context";
-import { LogoFull } from "@components/Logo";
-import styles from "./styles/NavBar.module.sass";
+import { LogoFull, LogoSquare } from "@components/Logo";
+import styles from "./index.module.sass";
 import placeholder from "@img/placeholder.jpg";
 import { BoxArrowRight } from "react-bootstrap-icons";
-import Button from "./Button";
+import Button from "../Button";
+import { useMediaPredicate } from "react-media-hook";
 
 function NavBar() {
   const { isLoggedIn, logOutUser, user } = useContext(AuthContext);
   const location = useLocation();
+  const mobileViewport = useMediaPredicate("(max-width: 578px)");
 
   const renderLogo = () => {
     let size = "300px";
@@ -18,7 +20,13 @@ function NavBar() {
 
     return (
       <NavLink to="/">
+        {mobileViewport ? (
+        <LogoSquare color="#D6F487" size={60} />
+
+        ) : (
+
         <LogoFull color="#D6F487" size={size} />
+        )}
       </NavLink>
     );
   };

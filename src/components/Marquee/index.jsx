@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./styles/Marquee.module.sass";
+import styles from "./index.module.sass";
 import { Asterisk } from "react-bootstrap-icons";
 import classNames from "classnames";
 

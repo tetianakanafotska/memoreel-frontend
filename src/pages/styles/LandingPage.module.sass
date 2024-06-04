@@ -21,21 +21,39 @@
 		overflow-x: visible !important
 		width: 100vw
 		white-space: nowrap
+
+	&_slideshow_item_front
+		// object-fit: scale-down
+		width: 130vw
+		z-index: -2
+		// left: -130
+		margin-top: 30px
+		@include media-breakpoint-up(sm)
+			margin-top: 50px
+			margin-bottom: -116px
+		@include media-breakpoint-up(md)
+			margin-top: 0
+			margin-bottom: -116px
+
+		// zooming in on mobile
+		transform: rotate(-4deg) scale(2)
+		@include media-breakpoint-up(sm)
+			transform: rotate(-4deg) scale(1.4)
+		@include media-breakpoint-up(md)
+			transform: rotate(-4deg) scale(1)
 	
-	
-	&_slideshow_item1
-		object-fit: scale-down
+	&_slideshow_item_back
+		// object-fit: scale-down
 		width: 130vw
 		margin-top: 10px
 		z-index: 99 !important
 
-	&_slideshow_item2
-		object-fit: scale-down
-		width: 130vw
-		margin-top: -160px
-		z-index: -2
-		left: -130
-		transform: rotate(-4deg) !important
+		// zooming in on mobile
+		transform: scale(2)
+		@include media-breakpoint-up(sm)
+			transform: scale(1.4)
+		@include media-breakpoint-up(md)
+			transform: scale(1)
 		
 
 .marquee

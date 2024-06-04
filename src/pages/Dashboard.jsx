@@ -119,13 +119,12 @@ const Dashboard = () => {
                     }
                   )}
                 >
-                  <PlusLg size="20" />
+                  <PlusLg size="20" className="mx-1" />
                   <span
-                    className={classNames("", {
+                    className={classNames("mx-1", {
                       [popUpButtonStyles.hideText]: openPopUp,
                     })}
                   >
-                    {" "}
                     Add Media
                   </span>
                 </button>
@@ -159,7 +158,7 @@ const Dashboard = () => {
               ))}
           </div>
         ) : (
-          <div id="errorMessage">Create content for today</div>
+          <div id="errorMessage">Create content for today!</div>
         )}
       </section>
     </>

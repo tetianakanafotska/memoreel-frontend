@@ -39,10 +39,10 @@ export default function LandingPage() {
           className={styles.marquee1}
         />
 
-        <div className={styles.landingPage_slideshow_item1}>
+        <div className={styles.landingPage_slideshow_item_front}>
           <img src={landingslide1} alt="MemoReel" />
         </div>
-        <div className={styles.landingPage_slideshow_item2}>
+        <div className={styles.landingPage_slideshow_item_back}>
           <img src={landingslide2} alt="MemoReel" />
         </div>
 
