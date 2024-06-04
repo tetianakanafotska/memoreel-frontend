@@ -41,6 +41,7 @@
 			flex: 1
 			*
 				max-height: 420px
+				word-break: break-word
 		&_image
 			width: 500px
 			img
@@ -66,6 +67,7 @@
 				z-index: 1111
 				border: 1px solid black
 				position: absolute
+				overflow: scroll
 		&_polaroid
 			width: fit-content
 			padding: 10px
@@ -109,11 +111,11 @@
 			align-items: center
 			justify-content: center
 			p
-				font-size: 2.5rem
+				font-size: 2.9rem
+				font-family: $font-family-handwriting
 				text-align: center
 				line-height: 1.2
 				margin: 40px 0 25px 0
-				font-weight: 400
 				transform: rotate(-3deg)
 			audio
 				padding: 0 25px
@@ -135,3 +137,7 @@
 				&::-webkit-media-controls-enclosure
 					border-radius: 0
 					background-color: $white
+.marquee
+	margin-top: 20px
+	margin-bottom: 30px
+	font-size: 1.2rem

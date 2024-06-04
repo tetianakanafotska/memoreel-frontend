@@ -96,11 +96,11 @@ const Dashboard = () => {
           phrases={[
             "For days worth remembering",
             user
-              ? `What's on your mind today, ${user.name} ?`
-              : "What's on your mind today?",
+              ? `What's on your mind, ${user.name} ?`
+              : "What's on your mind?",
             "What made you laugh today?",
           ]}
-          className="mt-3 mb-5"
+          className={boardStyles.marquee}
         />
 
         <Container fluid>
