@@ -2,11 +2,11 @@
 
 Memoreel is a full-stack journal app developed for daily note-taking. It allows users to create notes in various formats including text, YouTube URLs, images, camera images, and audio.
 
+![Memoreel | For days worth remembering](https://github.com/laurasinclair/memoreel-frontend/blob/c24e4fbe7f076088ac5fb42c9e39f3baacb9d193/public/images/memoreel_screenshot.jpg)
+
 ## Live demo
 
 [Memoreel | For days worth remembering](https://memoreel-app.netlify.app/)
-
-![Memoreel | For days worth remembering](https://github.com/laurasinclair/memoreel-frontend/blob/c24e4fbe7f076088ac5fb42c9e39f3baacb9d193/public/images/memoreel_screenshot.jpg)
 
 ## Features
 
