@@ -23,21 +23,6 @@ const Dashboard = () => {
   const [assetType, setAssetType] = useState(null);
   const [allAssets, setAllAssets] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [recentUserName, setRecentUserName] = useState("");
-
-  useEffect(() => {
-    const getUser = async () => {
-      if (user) {
-        try {
-          const response = await usersService.get(user._id);
-          setRecentUserName(response.data.name);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
-    getUser();
-  }, [user]);
 
   const deleteAsset = (assetId) => {
     assetsService
@@ -89,93 +74,94 @@ const Dashboard = () => {
   }, [user]);
 
   return loading ? (
-    <>
-      <Loading />
-    </>
+    <Loading />
   ) : (
-    <section className={styles.dashboard}>
-      <Marquee
-        phrases={[
-          "For days worth remembering",
-          recentUserName
-            ? `What's on your mind today, ${recentUserName} ?`
-            : "What's on your mind today?",
-          "What made you laugh today?",
-        ]}
-        className="mt-3 mb-5"
-      />
-
-      <Container fluid>
-        <Row>
-          <Col>
-            <div className={styles.dashboard_addContent}>
-              <button
-                onClick={handleOpenPopUp}
-                className={classNames(popUpButtonStyles.popUpButton_addButton, {
-                  [popUpButtonStyles.popUpButton_addButton_on]: openPopUp,
-                })}
-              >
-                <PlusLg size="20" />
-                <span
-                  className={classNames("", {
-                    [popUpButtonStyles.hideText]: openPopUp,
-                  })}
-                >
-                  {" "}
-                  Add Media
-                </span>
-              </button>
-
-              {openPopUp && (
-                <PopUpButtons
-                  setAssetType={setAssetType}
-                  setOpenMediaForm={setOpenMediaForm}
-                />
-              )}
-            </div>
-          </Col>
-        </Row>
-      </Container>
-
+    <>
       {openMediaForm && (
+        <div className={styles.dashboard_mediaForm}>
+          <div className={styles.dashboard_mediaForm_bgr}>
+            <MediaForm
+              assetType={assetType}
+              setOpenPopUp={setOpenPopUp}
+              setOpenMediaForm={setOpenMediaForm}
+              setAllAssets={setAllAssets}
+              deleteAsset={deleteAsset}
+              userId={user._id}
+            />
+          </div>
+        </div>
+      )}
+      <section className={styles.dashboard}>
+        <Marquee
+          phrases={[
+            "For days worth remembering",
+            user
+              ? `What's on your mind, ${user.name} ?`
+              : "What's on your mind?",
+            "What made you laugh today?",
+          ]}
+          className={boardStyles.marquee}
+        />
+
         <Container fluid>
           <Row>
-            <Col md="8" lg="6" className="mx-auto mt-3">
-              <div className={styles.dashboard_mediaForm}>
-                <MediaForm
-                  assetType={assetType}
-                  setOpenPopUp={setOpenPopUp}
-                  setOpenMediaForm={setOpenMediaForm}
-                  setAllAssets={setAllAssets}
-                  deleteAsset={deleteAsset}
-                  userId={user._id}
-                />
+            <Col>
+              <div className={styles.dashboard_addContent}>
+                <button
+                  onClick={() => {
+                    handleOpenPopUp();
+                    setOpenMediaForm((prev) => (prev ? false : false));
+                  }}
+                  className={classNames(
+                    popUpButtonStyles.popUpButton_addButton,
+                    {
+                      [popUpButtonStyles.popUpButton_addButton_on]: openPopUp,
+                    }
+                  )}
+                >
+                  <PlusLg size="20" className="mx-1" />
+                  <span
+                    className={classNames("mx-1", {
+                      [popUpButtonStyles.hideText]: openPopUp,
+                    })}
+                  >
+                    Add Media
+                  </span>
+                </button>
+
+                {openPopUp && (
+                  <PopUpButtons
+                    assetType={assetType}
+                    setAssetType={setAssetType}
+                    setOpenMediaForm={setOpenMediaForm}
+                    openMediaForm={openMediaForm}
+                  />
+                )}
               </div>
             </Col>
           </Row>
         </Container>
-      )}
 
-      {allAssets.length > 0 ? (
-        <div className={boardStyles.board}>
-          {allAssets
-            .slice()
-            .reverse()
-            .map((asset) => (
-              <div key={asset._id}>
+        {allAssets.length > 0 ? (
+          <div className={boardStyles.board}>
+            {allAssets
+              .slice()
+              .reverse()
+              .map((asset) => (
                 <MediaItem
+                  key={asset._id}
                   asset={asset}
                   editAsset={editAsset}
                   deleteAsset={deleteAsset}
                   enableEditing={true}
                 />
-              </div>
-            ))}
-        </div>
-      ) : (
-        <div id="errorMessage">Create content for today</div>
-      )}
-    </section>
+              ))}
+          </div>
+        ) : (
+          <div id="errorMessage">Create content for today!</div>
+        )}
+      </section>
+    </>
   );
 };
 

@@ -1,3 +1,4 @@
+@import 'bootstrap/scss/bootstrap-grid.scss'
 @import '/src/styles/_variables.sass'
 
 .navbar
@@ -6,6 +7,7 @@
 	padding: 20px
 	justify-content: space-between
 	align-items: center
+
 .centerLogo
 	@extend .navbar
 	justify-content: center
@@ -19,16 +21,22 @@
 .navbar_bottom
 	z-index: 999
 	position: fixed
+	//pointer-events: none
 	bottom: 20px
 	left: 20px
 	right: 20px
-	padding: 20px
+	padding: 0
+	@include media-breakpoint-up(md)
+		padding: 0px 20px 0 20px
 	display: flex
 	justify-content: space-between
-	align-items: flex-end
 
 .navbar_userProfile
-	width: 60px
-	height: 60px
-	border: 1px solid $dark
-	border-radius: 30px
+	pointer-events: fill
+	width: 50px
+	height: 50px
+	@include media-breakpoint-up(md)
+		width: 60px
+		height: 60px
+	//border: 1px solid $dark
+	border-radius: 50%

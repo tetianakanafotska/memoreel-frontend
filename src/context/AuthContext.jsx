@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import authService from "../services/auth.service";
 import usersService from "../services/users.service.js";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = React.createContext();
 
@@ -9,6 +10,7 @@ function AuthProviderWrapper(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [authError, setAuthError] = useState(null);
+  const navigate = useNavigate();
 
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
@@ -20,11 +22,10 @@ function AuthProviderWrapper(props) {
     if (storedToken) {
       authService
         .verify()
-        .then((response) => {
-          const user = response.data;
+        .then((res) => {
           setIsLoggedIn(true);
           setIsLoading(false);
-          setUser(user);
+          setUser(res.data);
         })
         .catch((error) => {
           if (error) {
@@ -62,6 +63,7 @@ function AuthProviderWrapper(props) {
         setIsLoggedIn(false);
         setIsLoading(false);
         setUser(null);
+        navigate("/login");
       })
       .catch((error) => {
         console.error("Error deleting account:", error);

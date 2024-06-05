@@ -2,6 +2,7 @@ import "@styles/App.sass";
 import { NavBar } from "@components";
 import {
   LandingPage,
+  About,
   NotFound,
   Login,
   Signup,
@@ -25,6 +26,14 @@ function App() {
           element={
             <IsAnon>
               <Login />
+            </IsAnon>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <IsAnon>
+              <About />
             </IsAnon>
           }
         />

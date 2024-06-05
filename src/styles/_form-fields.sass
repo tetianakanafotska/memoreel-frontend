@@ -13,13 +13,13 @@ label
 input,
 textarea
 	font-family: $font-family-sans-serif
-	padding: 10px 18px
+	padding: 13px 18px
 	font-weight: 600
 	font-size: 1rem
 	border-radius: 6px
 	border: 1px solid $dark
 	background-color: $indigo
-	color: $light-blue
+	color: $green
 	resize: none
 	&:focus
 		outline: 1px solid $purple
@@ -31,6 +31,7 @@ button,
 	font-size: 1rem
 	font-weight: 500
 	color: $dark !important
+	border:0
 
 	// layout
 	display: inline-flex
@@ -46,13 +47,13 @@ button,
 
 	// looks
 	background-color: $lemon
-	border: 1px solid $dark
+	//border: 1px solid $dark
 	border-radius: 30px !important
 
 	&:hover,
 	&:focus,
 	&:active
-		background-color: $light-blue
+		background-color: $green
 		color: $dark !important
 	&:disabled
 		background-color: darken($offwhite, 20%)
@@ -64,7 +65,7 @@ button,
 		&:hover,
 		&:focus,
 		&:active
-			background-color: $light-blue
+			background-color: $green
 			color: $dark
 		&-outline
 			@extend .button

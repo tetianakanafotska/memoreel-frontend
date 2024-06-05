@@ -4,10 +4,27 @@
 	width: 100vw
 	display: flex
 	flex-direction: row
+	align-items: center
 	overflow-x: scroll
 	overflow-y: hidden
-	margin-bottom: 50px
 	padding: 30px 0
+	margin: 0 12px 12px 0
+	&:hover
+		::-webkit-scrollbar-thumb
+			background: transparentize($maincolor-dark, 0.5)
+		::-webkit-scrollbar
+			background-color: $maincolor-light
+		::-webkit-scrollbar-thumb:hover
+			background: transparentize($maincolor-dark, 0.2)
+	::-webkit-scrollbar
+		background-color: transparent
+		border-radius: 30px
+		height: 7px
+		width: 7px
+	::-webkit-scrollbar-thumb
+		background: transparent
+		border-radius: 20px
+		padding-bottom: 200px
 	&_item
 		position: relative
 		margin: 0 20px
@@ -20,25 +37,27 @@
 		&:focus,
 		&:active
 			.editButtons
-				&_container
+				transition: all .2s ease-in-out
+				button
 					opacity: 1
-					transition: all .2s ease-in-out
+					padding: 15px
 		.editButtons
-			&_container
+			position: absolute
+			z-index: 888
+			top: 5px
+			right: 15px
+			button
 				opacity: 0
-				position: absolute
-				z-index: 888
-				top: 50px
-				left: 0
+
 		&_body
 			display: flex
 			flex-direction: column
 			align-items: center
 			justify-content: center
-			// border: 1px solid red
 			flex: 1
 			*
-				max-height: 400px
+				max-height: 420px
+				word-break: break-word
 		&_image
 			width: 500px
 			img
@@ -46,7 +65,6 @@
 				object-fit: cover
 		&_note
 			position: relative
-			margin: 20px 40px
 			width: 350px
 			height: 350px
 			display: block
@@ -65,6 +83,9 @@
 				z-index: 1111
 				border: 1px solid black
 				position: absolute
+				overflow-y: scroll
+				overflow: auto
+
 		&_polaroid
 			width: fit-content
 			padding: 10px
@@ -73,7 +94,7 @@
 			transform: rotate(3deg) scale(0.9, 0.9)
 			transition: all 0.35s
 			animation: rotate-in 0.5s ease-in-out
-			width: 400px
+			width: 380px
 			> img,
 			> video
 				max-width: 100%
@@ -90,7 +111,7 @@
 		&_video
 			iframe
 				border-radius: none
-				box-shadow: 0 10px 20px transparentize($dark, 0.8)
+				//box-shadow: 0 10px 20px transparentize($dark, 0.8)
 				background-color: lighten($indigo, 10%)
 				background-image: url(/src/assets/images/flower.svg)
 				background-position: center center
@@ -98,28 +119,29 @@
 				background-repeat: no-repeat
 				outline: 1px solid black
 		&_audio
-			width: 300px
+			width: 350px
 			outline: 1px solid $dark
 			background-color: $white
-			height: 300px
+			height: 350px
 			padding: 20px
-			margin: 0 auto 20px
 			display: flex
 			flex-direction: column
 			align-items: center
 			justify-content: center
 			p
-				font-size: 1.8rem
-				margin: 0 0 20px
+				font-size: 2.9rem
+				font-family: $font-family-handwriting
+				text-align: center
+				line-height: 1.2
+				margin: 40px 0 25px 0
 				transform: rotate(-3deg)
 			audio
-				padding: 0 10px
+				padding: 0 25px
 				margin: 10px 0
 				&::-webkit-media-controls-panel
 					display: flex
 					flex-direction: row
 					overflow: visible
-					background-color: $white !important
 				&::-webkit-media-controls-play-button
 					background-color: $purple
 					border-radius: 20px
@@ -130,4 +152,10 @@
 				&::-webkit-media-controls-timeline
 					border-radius: 30px
 					padding: 0 10px
-				
+				&::-webkit-media-controls-enclosure
+					border-radius: 0
+					background-color: $white
+.marquee
+	margin-top: 20px
+	margin-bottom: 30px
+	font-size: 1.2rem

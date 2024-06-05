@@ -46,22 +46,24 @@ function History() {
             .reverse()
             .map((board) => {
               return (
-                <div key={board._id} className={historyStyles.reel}>
-                  <h2 className={historyStyles.date}>
-                    {formatDate(board.createdAt)}
-                  </h2>
-                  <div className={boardStyles.board}>
-                    {board.assets.length > 0 &&
-                      board.assets
-                        .slice()
-                        .reverse()
-                        .map((asset) => (
-                          <div key={asset._id}>
-                            <MediaItem asset={asset} enableEditing={false} />
-                          </div>
-                        ))}
+                board.assets.length !== 0 && (
+                  <div key={board._id} className={historyStyles.reel}>
+                    <p className={historyStyles.date}>
+                      {formatDate(board.createdAt)}
+                    </p>
+                    <div className={boardStyles.board}>
+                      {board.assets.length > 0 &&
+                        board.assets
+                          .slice()
+                          .reverse()
+                          .map((asset) => (
+                            <div key={asset._id}>
+                              <MediaItem asset={asset} enableEditing={false} />
+                            </div>
+                          ))}
+                    </div>
                   </div>
-                </div>
+                )
               );
             })
         ))

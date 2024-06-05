@@ -6,23 +6,32 @@
     border: 1px solid $dark
     margin-bottom: 30px
     display: flex
+    overflow: auto
     &:hover
         ::-webkit-scrollbar-thumb
+            background: transparentize($maincolor-dark, 0.5)
+        ::-webkit-scrollbar
+            background-color: $maincolor-light
+        ::-webkit-scrollbar-thumb:hover
             background: transparentize($maincolor-dark, 0.2)
     ::-webkit-scrollbar
-        background-color: $maincolor-light
+        background-color: transparent
         border-radius: 30px
-        height: 10px
-    ::-webkit-scrollbar-piece
-        background: #4f1111
-
+        height: 7px
+        width: 7px
     /* Handle */
     ::-webkit-scrollbar-thumb
-        background: transparentize($maincolor-dark, 0.5)
+        background: transparent
         border-radius: 20px
-        cursor: pointer
+        padding-bottom: 200px
 
 .date
+    font-size: 1rem
+    @include media-breakpoint-up(sm)
+        font-size: 1.2rem
+    @include media-breakpoint-up(md)
+        font-size: 1.6rem
+    font-weight: 400
     writing-mode: vertical-rl
     transform: rotate(180deg)
     text-align: end

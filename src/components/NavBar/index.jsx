@@ -1,31 +1,17 @@
 import React, { useContext, useState, useEffect } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "@context";
-import { LogoFull } from "@components/Logo";
-import styles from "./styles/NavBar.module.sass";
+import { LogoFull, LogoSquare } from "@components/Logo";
+import styles from "./index.module.sass";
 import placeholder from "@img/placeholder.jpg";
 import { BoxArrowRight } from "react-bootstrap-icons";
-import Button from "./Button";
-import usersService from "../services/users.service";
+import Button from "../Button";
+import { useMediaPredicate } from "react-media-hook";
 
 function NavBar() {
   const { isLoggedIn, logOutUser, user } = useContext(AuthContext);
-  const [profileImg, setProfileImg] = useState("");
   const location = useLocation();
-
-  useEffect(() => {
-    const getUser = async () => {
-      if (user) {
-        try {
-          const response = await usersService.get(user._id);
-          setProfileImg(response.data.profileImg);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    };
-    getUser();
-  }, [user]);
+  const mobileViewport = useMediaPredicate("(max-width: 578px)");
 
   const renderLogo = () => {
     let size = "300px";
@@ -34,23 +20,19 @@ function NavBar() {
 
     return (
       <NavLink to="/">
-        <LogoFull color="#D6F487" size={size} />
+        {mobileViewport ? (
+          <LogoSquare color="#B087F4" size={60} />
+        ) : (
+          <LogoFull color="#B087F4" size={size} />
+        )}
       </NavLink>
     );
   };
 
   const renderAuthLinks = () => (
     <>
-      {location.pathname !== "/login" && (
-        <Button to="/login" className={styles.navlink}>
-          Login
-        </Button>
-      )}
-      {location.pathname !== "/signup" && (
-        <Button to="/signup" className={styles.navlink}>
-          Signup
-        </Button>
-      )}
+      {location.pathname !== "/login" && <Button to="/login">Login</Button>}
+      {location.pathname !== "/signup" && <Button to="/signup">Signup</Button>}
     </>
   );
 
@@ -65,25 +47,23 @@ function NavBar() {
         <div>{!isLoggedIn && renderAuthLinks()}</div>
         {isLoggedIn && (
           <div className={styles.navbarButtons}>
-            <Button to="/" className={styles.navlink} onClick={logOutUser}>
+            {(location.pathname === "/dashboard/history" ||
+              location.pathname === "/profile") && (
+              <Button to="/dashboard">Dashboard</Button>
+            )}
+            <Button to="/" onClick={logOutUser}>
               {<BoxArrowRight size="20" />}
             </Button>
-            {location.pathname === "/dashboard/history" ||
-              (location.pathname === "/profile" && (
-                <Button to="/dashboard" className={styles.navlink}>
-                  Dashboard
-                </Button>
-              ))}
           </div>
         )}
       </div>
       {isLoggedIn && (
         <div className={styles.navbar_bottom}>
           <div>
-            {user && profileImg ? (
+            {user ? (
               <NavLink to="/profile" className="user-picture">
                 <img
-                  src={profileImg}
+                  src={user.profileImg}
                   onError={(e) => {
                     e.target.src = placeholder;
                   }}

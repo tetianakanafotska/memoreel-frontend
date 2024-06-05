@@ -5,42 +5,34 @@ import uploadService from "../services/file-upload.service";
 import userProfilePageStyle from "./styles/UserProfilePage.module.sass";
 import { Pen } from "react-bootstrap-icons";
 import { Loading } from "@components";
-import Button from "../components/Button.jsx";
+import InfoMessage from "../components/InfoMessage.jsx";
 
 function UserProfilePage() {
-  const [userProfile, setUserProfile] = useState(null);
   const [nameInput, setNameInput] = useState("");
   const [emailInput, setEmailInput] = useState("");
   const [profileImg, setProfileImg] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [initialName, setInitialName] = useState("");
+  const [initialEmail, setInitialEmail] = useState("");
+  const [initialProfileImg, setInitialProfileImg] = useState("");
+  const [loading, setLoading] = useState(false);
   const { user, handleDeleteAccount } = useContext(AuthContext);
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const [infoMessage, setInfoMessage] = useState(undefined);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
-    const getUser = async () => {
-      if (user) {
-        try {
-          const response = await usersService.get(user._id);
-          setUserProfile(response.data);
-          setNameInput(response.data.name);
-          setEmailInput(response.data.email);
-          setProfileImg(response.data.profileImg);
-          setLoading(false);
-        } catch (error) {
-          const errorDescription = error.response.data.message;
-          setErrorMessage(errorDescription);
-        }
-      } else {
-        setErrorMessage("User not logged in");
-      }
-    };
-    getUser();
+    if (user) {
+      setNameInput(user.name);
+      setEmailInput(user.email);
+      setProfileImg(user.profileImg);
+      setInitialName(user.name);
+      setInitialEmail(user.email);
+      setInitialProfileImg(user.profileImg);
+    }
   }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       if (user) {
         const response = await usersService.put(user._id, {
@@ -48,13 +40,17 @@ function UserProfilePage() {
           email: emailInput,
           profileImg: profileImg,
         });
-        console.log(response.data);
         if (response.status === 200) {
-          setUserProfile(response.data);
-          setProfileImg(response.data.profileImg);
+          setInfoMessage(true);
+          setInitialName(nameInput);
+          setInitialEmail(emailInput);
+          setInitialProfileImg(profileImg);
         }
+      } else {
+        setErrorMessage("User not logged in");
       }
     } catch (error) {
+      setErrorMessage(error.response.data.message);
       console.log(error);
     }
   };
@@ -78,7 +74,16 @@ function UserProfilePage() {
     fileInputRef.current.click();
   };
 
+  const hasChanges = () => {
+    return (
+      nameInput !== initialName ||
+      emailInput !== initialEmail ||
+      profileImg !== initialProfileImg
+    );
+  };
+
   if (errorMessage) return <div>{errorMessage}</div>;
+  if (infoMessage) return <InfoMessage />;
 
   if (loading) return <Loading />;
 
@@ -89,18 +94,11 @@ function UserProfilePage() {
         className={userProfilePageStyle.formContainer}
       >
         <div className={userProfilePageStyle.profilePicContainer}>
-          {userProfile && profileImg ? (
+          {user && profileImg ? (
             <img
               referrerPolicy="no-referrer"
               src={profileImg}
               alt="profile-photo"
-              style={{
-                height: "150px",
-                width: "150px",
-                borderRadius: "50%",
-                objectFit: "cover",
-                outline: "1px solid black",
-              }}
               className={userProfilePageStyle.profileImg}
             />
           ) : (
@@ -108,14 +106,21 @@ function UserProfilePage() {
               {nameInput.trim().charAt(0)}
             </button>
           )}
-          <button className={userProfilePageStyle.pen}>
-            <Pen onClick={triggerFileInput} width="17" />
+          <button className={userProfilePageStyle.profileImg_pen}>
+            <Pen
+              onClick={(e) => {
+                e.preventDefault();
+                triggerFileInput();
+              }}
+              width="18"
+            />
           </button>
         </div>
         <h2>
-          {userProfile.name} <span> | </span>
-          {userProfile.email}
+          {`${user.name}`}
+          <span>{`${user.email}`}</span>
         </h2>
+
         <input
           type="file"
           accept="image/*"
@@ -123,25 +128,30 @@ function UserProfilePage() {
           ref={fileInputRef}
           style={{ display: "none" }}
         />
-        <label htmlFor="username">
-          Username
+
+        <fieldset>
+          <label htmlFor="username">Username</label>
           <input
             type="text"
             name="username"
             value={nameInput}
             onChange={(e) => setNameInput(e.target.value)}
           />
-        </label>
-        <label htmlFor="email">
-          Email
+        </fieldset>
+
+        <fieldset>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             name="email"
             value={emailInput}
             onChange={(e) => setEmailInput(e.target.value)}
           />
-        </label>
-        <button type="submit">Save</button>
+        </fieldset>
+
+        <button type="submit" disabled={!hasChanges()}>
+          Save
+        </button>
         <p className={userProfilePageStyle.deleteAccountButton}>
           <a onClick={handleDeleteAccount}>Delete my account</a>
         </p>

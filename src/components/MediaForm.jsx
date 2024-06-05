@@ -8,12 +8,14 @@ import WebcamCapture from "./WebcamCapture";
 import AudioCapture from "./AudioCapture/AudioCapture";
 import dashboardStyles from "@pages/styles/Dashboard.module.sass";
 import { XLg, CheckLg, Trash } from "react-bootstrap-icons";
+import classNames from "classnames";
 
 function MediaForm({
   assetType,
   assetId,
   initialContent,
   saveEdit,
+  isEditing,
   setIsEditing,
   deleteAsset,
   setAllAssets,
@@ -86,6 +88,7 @@ function MediaForm({
 
   const handleSave = () => {
     saveEdit ? saveEdit(newAssetContent) : addNewAsset();
+    setIsEditing ? setIsEditing(false) : setOpenMediaForm(false);
   };
 
   const addNewAsset = async () => {
@@ -119,6 +122,43 @@ function MediaForm({
     } catch (error) {
       console.error("Error adding asset:", error);
     }
+  };
+
+  const renderButtons = () => {
+    return (
+      <div className={dashboardStyles.editButtons}>
+        <button
+          onClick={handleSave}
+          disabled={!validateContent(newAssetContent)}
+          className={dashboardStyles.editButtons_button}
+          style={{
+            display: isEditing && assetType === "camImage" ? "none" : "flex",
+          }}
+        >
+          <CheckLg size="20" />
+        </button>
+        <button
+          onClick={() => {
+            setIsEditing ? setIsEditing(false) : setOpenMediaForm(false);
+          }}
+          className={classNames({
+            [dashboardStyles.editButtons_button]: isEditing,
+            [dashboardStyles.editButtons_button_close]: !isEditing,
+          })}
+        >
+          <XLg />
+        </button>
+        <button
+          onClick={() =>
+            assetId ? deleteAsset(assetId) : setOpenMediaForm(false)
+          }
+          className={dashboardStyles.editButtons_button}
+        >
+          <Trash />
+        </button>
+        {touched && !validateContent(newAssetContent) && <p>Invalid content</p>}
+      </div>
+    );
   };
 
   return (
@@ -174,30 +214,7 @@ function MediaForm({
           style={{ width: "30px", height: "30px" }}
         />
       ) : (
-        <div>
-          <button
-            onClick={handleSave}
-            disabled={!validateContent(newAssetContent)}
-            className={dashboardStyles.editButtons_button}
-          >
-            <CheckLg size="20" />
-          </button>
-          <button
-            onClick={() => setIsEditing(false)}
-            className={dashboardStyles.editButtons_button}
-          >
-            <XLg />
-          </button>
-          <button
-            onClick={() => deleteAsset(assetId)}
-            className={dashboardStyles.editButtons_button}
-          >
-            <Trash />
-          </button>
-          {touched && !validateContent(newAssetContent) && (
-            <p>Invalid content</p>
-          )}
-        </div>
+        renderButtons()
       )}
     </div>
   );
