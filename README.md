@@ -6,6 +6,8 @@ Memoreel is a full-stack journal app developed for daily note-taking. It allows 
 
 [Memoreel | For days worth remembering](https://memoreel-app.netlify.app/)
 
+![Memoreel | For days worth remembering](https://github.com/laurasinclair/memoreel-frontend/blob/c24e4fbe7f076088ac5fb42c9e39f3baacb9d193/public/images/memoreel_screenshot.jpg)
+
 ## Features
 
 - User authentication and authorization
@@ -55,11 +57,3 @@ Memoreel is a full-stack journal app developed for daily note-taking. It allows 
   - `GET /assets/:id` - Get a single asset
   - `PUT /assets/:id` - Update an asset
   - `DELETE /assets/:id` - Delete an asset
-
-CLOUDINARY_NAME=your_cloudinary_name
-CLOUDINARY_KEY=your_cloudinary_key
-CLOUDINARY_SECRET=your_cloudinary_secret
-TOKEN_SECRET=your_jwt_secret
-MONGODB_URI=your_mongodb_uri
-
-npm install cloudinary multer-storage-cloudinary multer
