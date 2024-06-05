@@ -29,14 +29,7 @@ function App() {
             </IsAnon>
           }
         />
-        <Route
-          path="/about"
-          element={
-            <IsAnon>
-              <About />
-            </IsAnon>
-          }
-        />
+        <Route path="/about" element={<About />} />
         <Route
           path="/signup"
           element={
