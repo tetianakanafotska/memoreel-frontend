@@ -26,7 +26,6 @@ function History() {
         .then((res) => {
           setAllboards(res.data);
           setLoading(false);
-          console.log("allboards", res.data);
         })
         .catch((error) => console.log("Error fetching boards" + error));
     }

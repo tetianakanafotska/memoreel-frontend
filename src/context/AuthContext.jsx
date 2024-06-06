@@ -70,7 +70,6 @@ function AuthProviderWrapper(props) {
         await boardsService.delete(boardId);
       }
       const deleteResponse = await usersService.delete(user._id);
-      console.log(deleteResponse);
 
       if (deleteResponse.status === 200) {
         removeToken();
