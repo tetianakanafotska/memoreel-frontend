@@ -2,7 +2,7 @@
 @import '/src/styles/_variables.sass'
 
 .about
-	margin-top: 50px
+	margin: 50px 0
 	&_project
 		margin: 40px auto 50px
 		text-align: center
@@ -11,6 +11,10 @@
 .social
 	border: 1px solid $dark
 	margin-bottom: 20px
+	height: calc(100% - 20px)
+	display: flex
+	flex-direction: column
+	justify-content: space-between
 	&_person
 		display: flex
 		flex-direction: column
