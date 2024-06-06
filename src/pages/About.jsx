@@ -2,7 +2,7 @@ import styles from "./styles/About.module.sass";
 import { Github, Linkedin } from "react-bootstrap-icons";
 import { Container, Row, Col } from "react-bootstrap";
 import imgLaura from "@img/63737600.jpeg";
-import imgEcem from "@img/placeholder.jpg";
+import imgEcem from "@img/ecem.jpg";
 import imgTetiana from "@img/tetiana.jpeg";
 
 function About() {
@@ -71,16 +71,24 @@ function About() {
                   alt="Ecem Onkol"
                 />
                 <h4 className={styles.social_person_name}>Ecem Onkol</h4>
-                <p>Some text.</p>
+                <p>
+                  From the Turkish Aegean coast, with an olive addiction and a
+                  designer background, still sprinkling creativity onto JS katas
+                  like confetti! 🎉
+                </p>
               </div>
 
               <div className={styles.social_links}>
-                <a href="https://github.com/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://github.com/ecemonkol"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <Github size="30" color="#0B0A08" />
                 </a>
 
                 <a
-                  href="https://www.linkedin.com/in/"
+                  href="https://www.linkedin.com/in/ecemonkol/"
                   target="_blank"
                   rel="noreferrer"
                 >
