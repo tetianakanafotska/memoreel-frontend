@@ -2,7 +2,7 @@
 @import '/src/styles/_variables.sass'
 
 .about
-	margin-top: 50px
+	margin: 50px 0
 	&_project
 		margin: 40px auto 50px
 		text-align: center
@@ -11,21 +11,28 @@
 .social
 	border: 1px solid $dark
 	margin-bottom: 20px
+	height: calc(100% - 20px)
+	display: flex
+	flex-direction: column
+	justify-content: space-between
 	&_person
 		display: flex
+		flex-direction: column
 		align-items: center
 		padding: 24px 24px
 		&_image
-			width: 35px
-			height: 35px
-			fit-content: cover
+			width: 100px
+			height: 100px
+			object-fit: cover
 			overflow: hidden
 			border: 1px solid $dark
 			border-radius: 50%
-			margin-right: 14px
+			margin: 0 14px 20px 0
 		&_name
 			padding: 0
 			margin: 0
+		p
+			font-size: 0.8rem
 	&_links
 		background: $white
 		display: flex

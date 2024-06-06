@@ -5,7 +5,7 @@ import { Container } from "react-bootstrap";
 import landingslide1 from "@img/landingpage-slideshow/landingslide1.png";
 import landingslide2 from "@img/landingpage-slideshow/landingslide2.png";
 import { Marquee } from "@components";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 
 export default function LandingPage() {
   const { user, isLoggedIn } = useContext(AuthContext);
