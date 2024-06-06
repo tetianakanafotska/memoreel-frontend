@@ -4,7 +4,7 @@ import { AuthContext } from "@context";
 import { LogoFull, LogoSquare } from "@components/Logo";
 import styles from "./index.module.sass";
 import placeholder from "@img/placeholder.jpg";
-import { BoxArrowRight } from "react-bootstrap-icons";
+import { BoxArrowRight, EmojiSmile } from "react-bootstrap-icons";
 import Button from "../Button";
 import { useMediaPredicate } from "react-media-hook";
 
@@ -12,6 +12,14 @@ function NavBar() {
   const { isLoggedIn, logOutUser, user } = useContext(AuthContext);
   const location = useLocation();
   const mobileViewport = useMediaPredicate("(max-width: 578px)");
+  const [isSpinning, setIsSpinning] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsSpinning(false);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const renderLogo = () => {
     let size = "300px";
@@ -30,10 +38,15 @@ function NavBar() {
   };
 
   const renderAuthLinks = () => (
-    <>
+    <div className={styles.topRight}>
       {location.pathname !== "/login" && <Button to="/login">Login</Button>}
       {location.pathname !== "/signup" && <Button to="/signup">Signup</Button>}
-    </>
+      {location.pathname === "/" && (
+        <Button to="/about" className={styles.aboutBtn}>
+          <EmojiSmile className={isSpinning ? styles.spin : ""} />
+        </Button>
+      )}
+    </div>
   );
 
   return (
@@ -59,6 +72,11 @@ function NavBar() {
             {(location.pathname === "/dashboard/history" ||
               location.pathname === "/profile") && (
               <Button to="/dashboard">Dashboard</Button>
+            )}
+            {location.pathname === "/" && (
+              <Button to="/about">
+                <EmojiSmile className={isSpinning ? styles.spin : ""} />
+              </Button>
             )}
             <Button to="/" onClick={logOutUser}>
               {<BoxArrowRight size="20" />}
