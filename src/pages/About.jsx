@@ -45,12 +45,16 @@ function About() {
               </div>
 
               <div className={styles.social_links}>
-                <a href="https://github.com/" target="_blank" rel="noreferrer">
+                <a
+                  href="https://github.com/tetianakanafotska"
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <Github size="30" color="#0B0A08" />
                 </a>
 
                 <a
-                  href="https://www.linkedin.com/in/"
+                  href="https://www.linkedin.com/in/tetiana-kanafotska/"
                   target="_blank"
                   rel="noreferrer"
                 >

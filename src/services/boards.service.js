@@ -15,12 +15,15 @@ class BoardsService {
     });
   }
 
+  get = (id) => {
+    return this.api.get(`/boards/${id}`, id);
+  };
+
   post = (requestBody) => {
     return this.api.post("/boards", requestBody);
   };
 
   delete = (id) => {
-    console.log("deleted used");
     return this.api.delete(`/boards/${id}`);
   };
 }

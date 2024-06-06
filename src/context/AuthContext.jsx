@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import authService from "../services/auth.service";
 import usersService from "../services/users.service.js";
+import boardsService from "../services/boards.service.js";
+import assetsService from "../services/assets.service.js";
 import { useNavigate } from "react-router-dom";
 
 const AuthContext = React.createContext();
@@ -30,6 +32,7 @@ function AuthProviderWrapper(props) {
         .catch((error) => {
           if (error) {
             setAuthError(error.response.data.message);
+            removeToken();
             return;
           }
           setIsLoggedIn(false);
@@ -52,22 +55,33 @@ function AuthProviderWrapper(props) {
     authenticateUser();
   };
 
-  const handleDeleteAccount = () => {
-    usersService
-      .delete(user._id)
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
+  const handleDeleteAccount = async () => {
+    try {
+      const userResponse = await usersService.get(user._id);
+      const boards = userResponse.data.boards;
+
+      for (const boardId of boards) {
+        const boardResponse = await boardsService.get(boardId);
+        const assets = boardResponse.data.assets;
+
+        for (const assetId of assets) {
+          await assetsService.delete(assetId);
         }
+        await boardsService.delete(boardId);
+      }
+      const deleteResponse = await usersService.delete(user._id);
+      console.log(deleteResponse);
+
+      if (deleteResponse.status === 200) {
         removeToken();
         setIsLoggedIn(false);
         setIsLoading(false);
         setUser(null);
         navigate("/login");
-      })
-      .catch((error) => {
-        console.error("Error deleting account:", error);
-      });
+      }
+    } catch (error) {
+      console.error("Error deleting account:", error);
+    }
   };
 
   useEffect(() => {
