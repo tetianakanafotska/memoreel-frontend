@@ -10,9 +10,9 @@ function About() {
     <div className={styles.about}>
       <Container>
         <Row>
-          <Col md="6" lg="5" className={styles.about_project}>
+          <Col md="6" className={styles.about_project}>
             <p className="lead">
-              This project was made with love and a lot of git conflicts
+              This project was made with love, <br />and a lot of git conflicts.
             </p>
             <p>
               MemoReel was created with a desire to develop an app that feels
@@ -45,12 +45,12 @@ function About() {
               </div>
 
               <div className={styles.social_links}>
-                <a href="https://github.com/" target="_blank" rel="noreferrer">
+                <a href="https://github.com/tetianakanafotska/" target="_blank" rel="noreferrer">
                   <Github size="30" color="#0B0A08" />
                 </a>
 
                 <a
-                  href="https://www.linkedin.com/in/"
+                  href="https://www.linkedin.com/in/tetiana-kanafotska/"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -109,7 +109,7 @@ function About() {
                   alt="Laura Sinclair"
                 />
                 <h4 className={styles.social_person_name}>Laura Sinclair</h4>
-                <p>Some text.</p>
+                <p>Frenchie with a creative background and the odd ability to fix CSS problems in her sleep. Full-time croissant lover.</p>
               </div>
               <div className={styles.social_links}>
                 <a
