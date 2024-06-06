@@ -47,6 +47,15 @@ function NavBar() {
         <div>{!isLoggedIn && renderAuthLinks()}</div>
         {isLoggedIn && (
           <div className={styles.navbarButtons}>
+            {location.pathname === "/dashboard" && (
+              <Button
+                to="/dashboard/history"
+                type="primary"
+                className={styles.navlink}
+              >
+                History
+              </Button>
+            )}
             {(location.pathname === "/dashboard/history" ||
               location.pathname === "/profile") && (
               <Button to="/dashboard">Dashboard</Button>
@@ -73,19 +82,6 @@ function NavBar() {
               </NavLink>
             ) : (
               <Button to="/profile">{user.name.trim().charAt(0)}</Button>
-            )}
-          </div>
-          <div>
-            {location.pathname === "/dashboard" && (
-              <div className="history-button">
-                <Button
-                  to="/dashboard/history"
-                  type="primary"
-                  className={styles.navlink}
-                >
-                  History
-                </Button>
-              </div>
             )}
           </div>
         </div>
