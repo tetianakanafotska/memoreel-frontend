@@ -102,7 +102,10 @@ function UserProfilePage() {
               className={userProfilePageStyle.profileImg}
             />
           ) : (
-            <button className={userProfilePageStyle.icon}>
+            <button
+              onClick={(e) => e.preventDefault()}
+              className={userProfilePageStyle.icon}
+            >
               {nameInput.trim().charAt(0)}
             </button>
           )}

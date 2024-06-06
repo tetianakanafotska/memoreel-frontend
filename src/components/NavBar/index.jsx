@@ -60,7 +60,7 @@ function NavBar() {
       {isLoggedIn && (
         <div className={styles.navbar_bottom}>
           <div>
-            {user ? (
+            {user.profileImg ? (
               <NavLink to="/profile" className="user-picture">
                 <img
                   src={user.profileImg}
