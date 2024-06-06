@@ -32,6 +32,11 @@
 		display: flex
 		justify-content: center
 		align-items: center
+		overflow-x: auto
+		overflow-y: hidden
+		padding-left: 100px
+		@include media-breakpoint-up(md)
+			padding-left: 0
 	&_mediaForm
 		position: fixed
 		z-index: 99999
@@ -46,7 +51,9 @@
 			position: relative
 			background-color: #A9AEDD
 			margin: 30px auto
-			padding: 60px 40px 30px
+			padding: 60px 20px 30px
+			@include media-breakpoint-up(md)
+				padding: 60px 40px 30px
 			max-width: 450px
 			border: 1px solid $dark
 			text-align: center
@@ -79,9 +86,11 @@
 						right:10px
 
 				&_input
+					line-height: 1.4rem
 					&:is(textarea)
 						height: 350px
-					width: 350px
+					max-width: 350px
+					width: 100%
 					background-color: $white
 					border: 1px solid $dark
 					padding: 20px 30px
