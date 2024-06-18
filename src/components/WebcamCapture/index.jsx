@@ -3,10 +3,9 @@ import Webcam from 'react-webcam';
 import { Camera } from 'react-bootstrap-icons';
 import { ImagePreviewer } from '@components';
 
-import MediaItem, { Polaroid } from '@components/MediaItem';
+import { Polaroid } from '@components/MediaItem';
 
-import boardStyles from '../Board/index.module.sass';
-import dashboardStyles from '@pages/Dashboard/index.module.sass';
+import styles from './index.module.sass';
 
 function WebcamCapture({ handleUploadFile, loading, setLoading }) {
 	const camRef = useRef();
@@ -31,7 +30,7 @@ function WebcamCapture({ handleUploadFile, loading, setLoading }) {
 
 	return (
 		<div className='main'>
-			<div className={dashboardStyles.editButtons_photoContainer}>
+			<div className={styles.photoContainer}>
 				{photoTaken ? (
 					<ImagePreviewer
 						url={previewURL}
@@ -57,7 +56,6 @@ function WebcamCapture({ handleUploadFile, loading, setLoading }) {
 
 				{photoTaken ? (
 					<button
-						className={dashboardStyles.editButtons_webcamBtn}
 						onClick={() => {
 							setPreviewURL('');
 							setPhotoTaken(false);
@@ -65,18 +63,17 @@ function WebcamCapture({ handleUploadFile, loading, setLoading }) {
 						<Camera
 							size='30'
 							className='me-2'
-						/>{' '}
+						/>
 						Retake
 					</button>
 				) : (
 					<button
 						disabled={loading}
-						onClick={captureAndUpload}
-						className={dashboardStyles.editButtons_webcamBtn}>
+						onClick={captureAndUpload}>
 						<Camera
 							size='30'
 							className='me-2'
-						/>{' '}
+						/>
 						Snap!
 					</button>
 				)}

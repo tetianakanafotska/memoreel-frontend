@@ -11,6 +11,7 @@ import IsAnon from "./IsAnon/";
 import WebcamCapture from "./WebcamCapture/";
 import AudioCapture from "./AudioCapture/";
 import ImagePreviewer from "./ImagePreviewer/";
+import EditButtons from "./EditButtons/";
 
-export { Button, NavBar, Board, MediaForm, MediaItem, AddMediaButtons, Loading, Marquee, IsPrivate, IsAnon, WebcamCapture, AudioCapture, ImagePreviewer
+export { Button, NavBar, Board, MediaForm, MediaItem, AddMediaButtons, Loading, Marquee, IsPrivate, IsAnon, WebcamCapture, AudioCapture, ImagePreviewer, EditButtons
  };

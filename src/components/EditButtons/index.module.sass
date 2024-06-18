@@ -1,0 +1,28 @@
+@import 'bootstrap/scss/bootstrap-grid.scss'
+@import '/src/styles/_variables.sass'
+
+.editButtons
+	cursor: pointer
+	display: flex
+	justify-content: center
+	align-items: center
+	margin-top: 20px
+	&_button
+		border-radius: 50%
+		height: 50px
+		width: 50px
+		padding: 0
+		svg path
+			fill: $dark
+		background-color: $green
+		&:hover,
+		&:focus,
+		&:active
+			background-color: darken($green, 10%)
+		&_close
+			height: 35px
+			width: 35px
+			padding: 6px
+			position: absolute
+			top:10px
+			right:10px
