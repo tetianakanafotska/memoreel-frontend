@@ -5,12 +5,12 @@ import classNames from 'classnames';
 
 import styles from './index.module.sass';
 
-export function AddMediaButton({onClick, openPopUp}) {
+export function AddMediaButton({onClick, addMediaIsOpen}) {
 	return (
 		<button
       onClick={onClick}
 			className={classNames(styles.addMediaButton_addButton, {
-				[styles.addMediaButton_addButton_on]: openPopUp,
+				[styles.addMediaButton_addButton_on]: addMediaIsOpen,
 			})}>
 			<PlusLg
 				size='20'
@@ -18,7 +18,7 @@ export function AddMediaButton({onClick, openPopUp}) {
 			/>
 			<span
 				className={classNames('mx-1', {
-					[styles.hideText]: openPopUp,
+					[styles.hideText]: addMediaIsOpen,
 				})}>
 				Add Media
 			</span>

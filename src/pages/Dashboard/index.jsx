@@ -16,7 +16,7 @@ import boardStyles from '@components/Board/index.module.sass';
 
 const Dashboard = () => {
 	const { user } = useContext(AuthContext);
-	const [openPopUp, setOpenPopUp] = useState(false);
+	const [addMediaIsOpen, setAddMediaIsOpen] = useState(false);
 	const [openMediaForm, setOpenMediaForm] = useState(false);
 	const [assetType, setAssetType] = useState(null);
 	const [allAssets, setAllAssets] = useState([]);
@@ -53,8 +53,8 @@ const Dashboard = () => {
 			});
 	};
 
-	const handleOpenPopUp = () => {
-		setOpenPopUp(!openPopUp);
+	const handleAddMediaIsOpen = () => {
+		setAddMediaIsOpen(!addMediaIsOpen);
 	};
 
 	useEffect(() => {
@@ -80,7 +80,7 @@ const Dashboard = () => {
 					<div className={styles.dashboard_mediaForm_bgr}>
 						<MediaForm
 							assetType={assetType}
-							setOpenPopUp={setOpenPopUp}
+							setAddMediaIsOpen={setAddMediaIsOpen}
 							setOpenMediaForm={setOpenMediaForm}
 							setAllAssets={setAllAssets}
 							deleteAsset={deleteAsset}
@@ -104,13 +104,13 @@ const Dashboard = () => {
 				<div className={styles.dashboard_addContent}>
 					<AddMediaButton
 						onClick={() => {
-							handleOpenPopUp();
+							handleAddMediaIsOpen();
 							setOpenMediaForm((prev) => (prev ? false : false));
 						}}
-						openPopUp={openPopUp}
+						addMediaIsOpen={addMediaIsOpen}
 					/>
 
-					{openPopUp && (
+					{addMediaIsOpen && (
 						<PopUpButtons
 							assetType={assetType}
 							setAssetType={setAssetType}
