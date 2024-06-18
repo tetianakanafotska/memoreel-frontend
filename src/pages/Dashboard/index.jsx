@@ -6,15 +6,13 @@ import {
 	Marquee,
 	Loading,
 } from '@components';
+import { AddMediaButton } from '@components/PopUpButtons';
 import { AuthContext } from '@context';
 import assetsService from '../../services/assets.service';
 import usersService from '../../services/users.service';
 import { Container, Row, Col } from 'react-bootstrap';
 import styles from './index.module.sass';
 import boardStyles from '@components/Board/index.module.sass';
-import popUpButtonStyles from '@components/PopUpButtons/index.module.sass';
-import { PlusLg } from 'react-bootstrap-icons';
-import classNames from 'classnames';
 
 const Dashboard = () => {
 	const { user } = useContext(AuthContext);
@@ -104,25 +102,13 @@ const Dashboard = () => {
 				/>
 
 				<div className={styles.dashboard_addContent}>
-					<button
+					<AddMediaButton
 						onClick={() => {
 							handleOpenPopUp();
 							setOpenMediaForm((prev) => (prev ? false : false));
 						}}
-						className={classNames(popUpButtonStyles.popUpButton_addButton, {
-							[popUpButtonStyles.popUpButton_addButton_on]: openPopUp,
-						})}>
-						<PlusLg
-							size='20'
-							className='mx-1'
-						/>
-						<span
-							className={classNames('mx-1', {
-								[popUpButtonStyles.hideText]: openPopUp,
-							})}>
-							Add Media
-						</span>
-					</button>
+						openPopUp={openPopUp}
+					/>
 
 					{openPopUp && (
 						<PopUpButtons
