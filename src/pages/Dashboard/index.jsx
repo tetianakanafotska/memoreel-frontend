@@ -74,18 +74,14 @@ const Dashboard = () => {
 	) : (
 		<>
 			{openMediaForm && (
-				<div className={styles.dashboard_mediaForm}>
-					<div className={styles.dashboard_mediaForm_bgr}>
-						<MediaForm
-							assetType={assetType}
-							setAddMediaIsOpen={setAddMediaIsOpen}
-							setOpenMediaForm={setOpenMediaForm}
-							setAllAssets={setAllAssets}
-							deleteAsset={deleteAsset}
-							userId={user._id}
-						/>
-					</div>
-				</div>
+				<MediaForm
+					assetType={assetType}
+					setAddMediaIsOpen={setAddMediaIsOpen}
+					setOpenMediaForm={setOpenMediaForm}
+					setAllAssets={setAllAssets}
+					deleteAsset={deleteAsset}
+					userId={user._id}
+				/>
 			)}
 			<section className={styles.dashboard}>
 				<Marquee

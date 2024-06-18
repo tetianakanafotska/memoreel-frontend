@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { XLg, CheckLg, Trash } from 'react-bootstrap-icons';
-import classNames from 'classnames';
 
 import uploadService from '@services/file-upload.service';
 import assetsService from '@services/assets.service';
@@ -8,7 +6,7 @@ import boardsService from '@services/boards.service';
 import usersService from '@services/users.service';
 
 import { WebcamCapture, AudioCapture, EditButtons } from '@components';
-import dashboardStyles from '@pages/Dashboard/index.module.sass';
+import styles from './index.module.sass';
 import loadingGif from '@images/loading.gif';
 
 function MediaForm({
@@ -122,80 +120,82 @@ function MediaForm({
 		}
 	};
 
-	const renderButtons = () => {
+	const editButtons = () => {
 		return (
-			<div className={dashboardStyles.editButtons}>
-				<EditButtons
-					handleSave={handleSave}
-					validateContent={validateContent}
-					newAssetContent={newAssetContent}
-					isEditing={isEditing}
-					setIsEditing={setIsEditing}
-					deleteAsset={deleteAsset}
-					touched={touched}
-					assetType={assetType}
-					assetId={assetId}
-          setOpenMediaForm={setOpenMediaForm}
-				/>
-			</div>
+			<EditButtons
+				handleSave={handleSave}
+				validateContent={validateContent}
+				newAssetContent={newAssetContent}
+				isEditing={isEditing}
+				setIsEditing={setIsEditing}
+				deleteAsset={deleteAsset}
+				touched={touched}
+				assetType={assetType}
+				assetId={assetId}
+				setOpenMediaForm={setOpenMediaForm}
+			/>
 		);
 	};
 
 	return (
-		<div className={dashboardStyles.dashboard_mediaForm_inputs}>
-			{assetType === 'text' && (
-				<textarea
-					placeholder="What's on your mind today?"
-					onChange={(e) => {
-						setNewAssetContent(e.target.value);
-						setTouched(true);
-					}}
-					value={newAssetContent}
-					className={dashboardStyles.editButtons_input}
-				/>
-			)}
-			{assetType === 'image' && (
-				<input
-					type='file'
-					accept='image/*'
-					onChange={handleFileChange}
-					className={dashboardStyles.editButtons_input}
-				/>
-			)}
-			{assetType === 'youtubeURL' && (
-				<input
-					type='text'
-					onChange={(e) => {
-						setNewAssetContent(e.target.value);
-						setTouched(true);
-					}}
-					value={newAssetContent}
-					placeholder='Paste Youtube URL here'
-					className={dashboardStyles.editButtons_input}
-				/>
-			)}
-			{assetType === 'camImage' && (
-				<WebcamCapture
-					handleUploadFile={handleUploadFile}
-					loading={loading}
-					setLoading={setLoading}
-				/>
-			)}
-			{assetType === 'audio' && (
-				<AudioCapture
-					handleUploadFile={handleUploadFile}
-					setLoading={setLoading}
-				/>
-			)}
-			{loading ? (
-				<img
-					src={loadingGif}
-					alt='Loading...'
-					style={{ width: '30px', height: '30px' }}
-				/>
-			) : (
-				renderButtons()
-			)}
+		<div className={styles.mediaForm}>
+			<div className={styles.mediaForm_bgr}>
+				<div className={styles.mediaForm_inputs}>
+					{assetType === 'text' && (
+						<textarea
+							placeholder="What's on your mind today?"
+							onChange={(e) => {
+								setNewAssetContent(e.target.value);
+								setTouched(true);
+							}}
+							value={newAssetContent}
+							className={styles.mediaForm_input}
+						/>
+					)}
+					{assetType === 'image' && (
+						<input
+							type='file'
+							accept='image/*'
+							onChange={handleFileChange}
+							className={styles.mediaForm_input}
+						/>
+					)}
+					{assetType === 'youtubeURL' && (
+						<input
+							type='text'
+							onChange={(e) => {
+								setNewAssetContent(e.target.value);
+								setTouched(true);
+							}}
+							value={newAssetContent}
+							placeholder='Paste Youtube URL here'
+							className={styles.mediaForm_input}
+						/>
+					)}
+					{assetType === 'camImage' && (
+						<WebcamCapture
+							handleUploadFile={handleUploadFile}
+							loading={loading}
+							setLoading={setLoading}
+						/>
+					)}
+					{assetType === 'audio' && (
+						<AudioCapture
+							handleUploadFile={handleUploadFile}
+							setLoading={setLoading}
+						/>
+					)}
+					{loading ? (
+						<img
+							src={loadingGif}
+							alt='Loading...'
+							style={{ width: '30px', height: '30px' }}
+						/>
+					) : (
+						editButtons()
+					)}
+				</div>
+			</div>
 		</div>
 	);
 }
