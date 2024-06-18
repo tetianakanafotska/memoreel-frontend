@@ -1,18 +1,29 @@
+// Basics
 import Button from './Button';
+
+// Layout
 import NavBar from './NavBar';
-import Board from './Board';
-import MediaForm from './MediaForm';
-import MediaItem from './MediaItem';
-import AddMediaButtons from './AddMediaButtons';
-import Loading from './Loading';
 import Marquee from './Marquee';
-import IsPrivate from './IsPrivate';
-import IsAnon from './IsAnon';
+
+// Displaying media
+import Board from './Board';
+import MediaItem from './MediaItem';
+
+// Uploading content
+import MediaForm from './MediaForm';
+import AddMediaButtons from './AddMediaButtons';
 import WebcamCapture from './WebcamCapture';
 import AudioCapture from './AudioCapture';
 import ImagePreviewer from './ImagePreviewer';
 import EditButtons from './EditButtons';
+
+// State
+import Loading from './Loading';
 import InfoMessage from './InfoMessage';
+
+// Auth
+import IsPrivate from './IsPrivate';
+import IsAnon from './IsAnon';
 
 export {
 	Button,
