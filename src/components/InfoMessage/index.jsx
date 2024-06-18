@@ -2,7 +2,7 @@ import React from "react";
 import { useContext } from "react";
 import userProfilePageStyle from "@pages/UserProfilePage/index.module.sass";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 function InfoMessage() {
   const navigate = useNavigate();

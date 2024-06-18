@@ -5,7 +5,7 @@ import uploadService from "../../services/file-upload.service.js";
 import userProfilePageStyle from "./index.module.sass";
 import { Pen } from "react-bootstrap-icons";
 import { Loading } from "@components";
-import InfoMessage from "../../components/InfoMessage.jsx";
+import InfoMessage from "../../components/InfoMessage/index.jsx";
 
 function UserProfilePage() {
   const [nameInput, setNameInput] = useState("");

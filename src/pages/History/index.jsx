@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@context";
 import { MediaItem, Loading } from "@components";
-import boardStyles from "@components/styles/Board.module.sass";
-import usersService from "../../services/users.service";
+import boardStyles from "@components/Board/index.module.sass";
+import usersService from "@services/users.service";
 import historyStyles from "./index.module.sass";
 
 function History() {

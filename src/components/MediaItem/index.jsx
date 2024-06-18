@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import ReactPlayer from "react-player/youtube";
-import boardStyles from "./styles/Board.module.sass";
+import boardStyles from "../Board/index.module.sass";
 import { Pen } from "react-bootstrap-icons";
-import MediaForm from "./MediaForm";
+import MediaForm from "@components/MediaForm";
 import classNames from "classnames";
 
 function MediaItem({ asset, editAsset, deleteAsset, enableEditing }) {

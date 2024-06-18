@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styles from "./PopUpButtons.module.sass";
+import styles from "./index.module.sass";
 import { Images, PlayBtn, Camera, Stickies, Mic } from "react-bootstrap-icons";
 
 export default function PopUpButtons({

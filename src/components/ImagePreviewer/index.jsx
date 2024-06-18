@@ -1,5 +1,5 @@
 import React from "react";
-import boardStyles from "./styles/Board.module.sass";
+import boardStyles from "../Board/index.module.sass";
 
 function ImagePreviewer({ url }) {
   return url ? (

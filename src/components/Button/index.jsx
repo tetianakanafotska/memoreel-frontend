@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import styles from './styles/Button.module.sass';
+import styles from './index.module.sass';
 import classNames from 'classnames';
 
 export default function Button({ to, label, style = '', fullWidth = false, iconRight, iconLeft, onClick, children, type }) {

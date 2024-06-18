@@ -1,5 +1,5 @@
-import "@styles/App.sass";
-import { NavBar } from "@components";
+import "./styles/App.sass";
+import { NavBar, IsPrivate, IsAnon } from "@components";
 import {
   LandingPage,
   About,
@@ -11,8 +11,6 @@ import {
   UserProfilePage,
 } from "@pages";
 import { Routes, Route } from "react-router-dom";
-import IsPrivate from "./components/IsPrivate";
-import IsAnon from "./components/IsAnon";
 
 function App() {
   return (

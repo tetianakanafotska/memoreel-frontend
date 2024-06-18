@@ -3,7 +3,7 @@ import { NavLink, useLocation } from "react-router-dom";
 import { AuthContext } from "@context";
 import { LogoFull, LogoSquare } from "@components/Logo";
 import styles from "./index.module.sass";
-import placeholder from "@img/placeholder.jpg";
+import placeholder from "@images/placeholder.jpg";
 import { BoxArrowRight, EmojiSmile } from "react-bootstrap-icons";
 import Button from "../Button";
 import { useMediaPredicate } from "react-media-hook";

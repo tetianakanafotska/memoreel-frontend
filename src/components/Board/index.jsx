@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./styles/Board.module.sass";
+import styles from "./index.module.sass";
 import classNames from "classnames";
 
 function Board({ board }) {

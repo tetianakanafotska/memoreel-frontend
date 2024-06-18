@@ -1,9 +1,9 @@
 import styles from "./index.module.sass";
 import { Github, Linkedin } from "react-bootstrap-icons";
 import { Container, Row, Col } from "react-bootstrap";
-import imgLaura from "@img/63737600.jpeg";
-import imgEcem from "@img/ecem.jpg";
-import imgTetiana from "@img/tetiana.jpeg";
+import imgLaura from "@images/63737600.jpeg";
+import imgEcem from "@images/ecem.jpg";
+import imgTetiana from "@images/tetiana.jpeg";
 
 function About() {
   return (

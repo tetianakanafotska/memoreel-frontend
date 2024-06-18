@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AudioRecorder } from 'react-audio-voice-recorder';
-import './AudioCapture.sass';
-import boardStyles from '../styles/Board.module.sass';
+import './index.sass';
+import boardStyles from '../Board/index.module.sass';
 
 function AudioCapture({ handleUploadFile, setLoading }) {
 	const [audioURL, setAudioURL] = useState('');

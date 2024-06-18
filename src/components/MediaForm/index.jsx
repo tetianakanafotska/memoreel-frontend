@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import loadingGif from "../assets/images/loading.gif";
-import uploadService from "../services/file-upload.service";
-import assetsService from "../services/assets.service";
-import boardsService from "../services/boards.service";
-import usersService from "../services/users.service";
-import WebcamCapture from "./WebcamCapture";
-import AudioCapture from "./AudioCapture/AudioCapture";
+import loadingGif from "@images/loading.gif";
+import uploadService from "../../services/file-upload.service";
+import assetsService from "../../services/assets.service";
+import boardsService from "../../services/boards.service";
+import usersService from "../../services/users.service";
+import WebcamCapture from "../WebcamCapture";
+import AudioCapture from "../AudioCapture";
 import dashboardStyles from "@pages/Dashboard/index.module.sass";
 import { XLg, CheckLg, Trash } from "react-bootstrap-icons";
 import classNames from "classnames";

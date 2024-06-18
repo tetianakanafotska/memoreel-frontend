@@ -1,9 +1,9 @@
 import styles from "./index.module.sass";
 import { AuthContext } from "@context";
-import Button from "../../components/Button.jsx";
+import Button from "../../components/Button/index.jsx";
 import { Container } from "react-bootstrap";
-import landingslide1 from "@img/landingpage-slideshow/landingslide1.png";
-import landingslide2 from "@img/landingpage-slideshow/landingslide2.png";
+import landingslide1 from "@images/landingpage-slideshow/landingslide1.png";
+import landingslide2 from "@images/landingpage-slideshow/landingslide2.png";
 import { Marquee } from "@components";
 import React, { useContext } from "react";
 
