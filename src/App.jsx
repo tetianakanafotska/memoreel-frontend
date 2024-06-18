@@ -1,4 +1,3 @@
-import "./styles/App.sass";
 import { NavBar, IsPrivate, IsAnon } from "@components";
 import {
   LandingPage,

@@ -6,6 +6,45 @@
 @import '_font-ojuju.sass'
 @import '_font-kalam.sass'
 
+:root
+	line-height: 1.5
+	font-weight: 500
+	font-family: $font-family-sans-serif
+	font-size: 20px
+
+	font-synthesis: none
+	text-rendering: optimizeLegibility
+	-webkit-font-smoothing: antialiased
+	-moz-osx-font-smoothing: grayscale
+	-webkit-text-size-adjust: 100%
+
+#root
+	margin: 0
+	overflow-x: hidden
+
+img
+	max-width: 100%
+
+*
+	box-sizing: border-box
+	padding: 0
+
+::-moz-selection // text color when selected
+	color: $white
+	background: $purple
+
+::-webkit-selection // text color when selected
+	color: $white
+	background: $purple
+
+::selection // text color when selected
+	color: $white
+	background: $purple
+
+.debug,
+.debug *
+	outline: 1px solid red
+
 body
 	background-color: $maincolor-light
 	font-family: $font-family-sans-serif
