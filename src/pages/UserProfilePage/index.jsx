@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useRef } from "react";
-import { AuthContext } from "../../context/AuthContext.jsx";
+import { AuthContext } from "@context/AuthContext.jsx";
 import usersService from "../../services/users.service.js";
 import uploadService from "../../services/file-upload.service.js";
 import userProfilePageStyle from "./index.module.sass";
