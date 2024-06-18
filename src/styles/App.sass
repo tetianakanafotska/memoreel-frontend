@@ -16,12 +16,6 @@ body
 	font-size: 20px
 	min-height: 100vh
 
-	// use that for media queries
-	// sm, md, lg, xl
-	// border: 10px solid transparentize($color-1, 0.5) // remove this whenever you want
-	@include media-breakpoint-up(md)
-		// border: 10px solid transparentize($color-3, 0.5) // remove this whenever you want
-
 p
 	font-size: 1rem
 
@@ -61,20 +55,7 @@ h1, h2, h3, h4, h5, h6
 		margin: 0
 		border: none !important
 
-.closeBtn
-	display: block
-	position: fixed
-	z-index: 999
-	border-radius: 50%
-	svg
-		display: block
-		path
-			fill: $white
-	top: 20px
-	right: 20px
-	background-color: transparentize($green, 0.6)
-
-#errorMessage
+.message
 	font-size: 1.1rem
 	text-align: center
 	margin-top: 100px
@@ -86,4 +67,3 @@ h1, h2, h3, h4, h5, h6
 	align-items: center
 	text-align: center
 	color: $indigo
-	padding-bottom: 200px
