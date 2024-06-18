@@ -1,165 +1,51 @@
+@import 'bootstrap/scss/bootstrap-grid.scss'
 @import '/src/styles/_variables.sass'
 
 .board
 	width: 100vw
 	display: flex
-	flex-direction: row
-	align-items: center
-	overflow-x: scroll
-	overflow-y: hidden
-	padding: 30px 0
+	align-items: stretch
+	// align-items: center
 	margin: 0 12px 12px 0
-	&:hover
-		::-webkit-scrollbar-thumb
-			background: transparentize($maincolor-dark, 0.5)
-		::-webkit-scrollbar
-			background-color: $maincolor-light
-		::-webkit-scrollbar-thumb:hover
-			background: transparentize($maincolor-dark, 0.2)
-	::-webkit-scrollbar
-		background-color: transparent
-		border-radius: 30px
-		height: 7px
-		width: 7px
-	::-webkit-scrollbar-thumb
-		background: transparent
-		border-radius: 20px
-		padding-bottom: 200px
-	&_item
-		position: relative
-		margin: 0 20px
-		height: 100%
-		display: flex
-		align-items: center
-		flex-direction: column
-		justify-content: space-between
-		&:hover,
-		&:focus,
-		&:active
-			.editButtons
-				transition: all .2s ease-in-out
-				button
-					opacity: 1
-					padding: 15px
-		.editButtons
-			position: absolute
-			z-index: 888
-			top: 5px
-			right: 15px
-			button
-				opacity: 0
-
-		&_body
-			display: flex
-			flex-direction: column
-			align-items: center
-			justify-content: center
-			flex: 1
-			*
-				max-height: 420px
-				word-break: break-word
-		&_image
-			width: 500px
-			img
-				border: 1px solid $dark
-				width: 100%
-				margin-top: 10px
-				height: 350px
-				object-fit: contain
-				background-color: $dark
-		&_note
-			position: relative
-			width: 350px
-			height: 350px
-			display: block
-			background-color: $dark
-			z-index: 0
-			& > div
-				width: 100%
-				height: 100%
-				background-color: white
-				padding: 20px
-				font-family: $font-family-monospace
-				color: $dark
-				display: flex
-				align-items: center
-				justify-content: center
-				z-index: 1111
-				border: 1px solid black
-				position: absolute
-				overflow-y: scroll
-				overflow: auto
-
-		&_polaroid
-			width: fit-content
-			padding: 10px
-			background-color: $white
-			box-shadow: 0 0.2rem 1.2rem rgba(0,0,0,0.2)
-			transform: rotate(3deg) scale(0.9, 0.9)
-			transition: all 0.35s
-			animation: rotate-in 0.5s ease-in-out
-			width: 380px
-			> img,
-			> video
-				max-width: 100%
-				height: auto
-				border: 0
-				object-fit: cover
-				border-radius: 0
-				padding-bottom: 70px
-			&:before
-				content: ''
-				position: absolute
-				z-index: -1
-				transition: all 0.35s
-		&_video
-			iframe
-				border-radius: none
-				//box-shadow: 0 10px 20px transparentize($dark, 0.8)
-				background-color: lighten($indigo, 10%)
-				background-image: url(/src/assets/images/flower.svg)
-				background-position: center center
-				background-size: 60px 60px
-				background-repeat: no-repeat
-				outline: 1px solid black
-		&_audio
-			width: 350px
-			outline: 1px solid $dark
-			background-color: $white
-			height: 350px
-			padding: 20px
-			display: flex
-			flex-direction: column
-			align-items: center
-			justify-content: center
-			p
-				font-size: 2.9rem
-				font-family: $font-family-handwriting
-				text-align: center
-				line-height: 1.2
-				margin: 40px 0 25px 0
-				transform: rotate(-3deg)
-			audio
-				padding: 0 25px
-				margin: 10px 0
-				&::-webkit-media-controls-panel
-					display: flex
-					flex-direction: row
-					overflow: visible
-				&::-webkit-media-controls-play-button
-					background-color: $purple
-					border-radius: 20px
-				&::-webkit-media-controls-current-time-display
-					font-size: 1rem
-				&::-webkit-media-controls-time-remaining-display
-					font-size: 1rem
-				&::-webkit-media-controls-timeline
-					border-radius: 30px
-					padding: 0 10px
-				&::-webkit-media-controls-enclosure
-					border-radius: 0
-					background-color: $white
-.marquee
-	margin-top: 20px
+	background-color: $maincolor-medium
+	border: 1px solid $dark
 	margin-bottom: 30px
-	font-size: 1.2rem
+	&_content
+		display: flex
+		padding: 30px 0
+		margin: 0 12px 12px 0
+		max-height: 500px
+		overflow-y: hidden
+		overflow-x: auto
+		&:hover
+			::-webkit-scrollbar-thumb
+				background: transparentize($maincolor-dark, 0.5)
+			::-webkit-scrollbar
+				background-color: $maincolor-light
+			::-webkit-scrollbar-thumb:hover
+				background: transparentize($maincolor-dark, 0.2)
+		::-webkit-scrollbar
+			background-color: transparent
+			border-radius: 30px
+			height: 7px
+			width: 7px
+		::-webkit-scrollbar-thumb // scrollbar handle
+			background: transparent
+			border-radius: 20px
+			padding-bottom: 200px
+	&_date
+		font-size: 1rem
+		@include media-breakpoint-up(sm)
+			font-size: 1.2rem
+		@include media-breakpoint-up(md)
+			font-size: 1.6rem
+		font-weight: 400
+		writing-mode: vertical-rl
+		transform: rotate(180deg)
+		text-align: end
+		display: inline-block
+		background-color: #A9AEDD
+		padding: 0px 10px 30px 10px
+		margin: 0 15px 0 0
+		border-left: 1px solid $dark
+		font-family: $font-family-monospace

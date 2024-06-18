@@ -1,10 +1,9 @@
 import React, { useRef, useState } from 'react';
 import Webcam from 'react-webcam';
 import { Camera } from 'react-bootstrap-icons';
+
 import { ImagePreviewer } from '@components';
-
 import { Polaroid } from '@components/MediaItem';
-
 import styles from './index.module.sass';
 
 function WebcamCapture({ handleUploadFile, loading, setLoading }) {

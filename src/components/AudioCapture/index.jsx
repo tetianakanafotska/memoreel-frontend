@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { AudioRecorder } from 'react-audio-voice-recorder';
+
+import { VoiceNote } from '@components/MediaItem';
 import './index.sass';
-import boardStyles from '../Board/index.module.sass';
 
 function AudioCapture({ handleUploadFile, setLoading }) {
 	const [audioURL, setAudioURL] = useState('');
@@ -19,25 +20,25 @@ function AudioCapture({ handleUploadFile, setLoading }) {
 	};
 
 	return (
-		<div className={boardStyles.board_item_audio}>
+		<VoiceNote>
 			<p>Voice note</p>
 
-      <div>
-			  <AudioRecorder
-          onRecordingComplete={uploadAudio}
-          audioTrackConstraints={{
-            noiseSuppression: true,
-            echoCancellation: true,
-          }}
-          onNotAllowedOrFound={(err) => console.error(err)}
-          downloadOnSavePress={false}
-          downloadFileExtension='webm'
-          mediaRecorderOptions={{
-            audioBitsPerSecond: 128000,
-          }}
-          className='audio-recorder'
-			/>
-      </div>
+			<div>
+				<AudioRecorder
+					onRecordingComplete={uploadAudio}
+					audioTrackConstraints={{
+						noiseSuppression: true,
+						echoCancellation: true,
+					}}
+					onNotAllowedOrFound={(err) => console.error(err)}
+					downloadOnSavePress={false}
+					downloadFileExtension='webm'
+					mediaRecorderOptions={{
+						audioBitsPerSecond: 128000,
+					}}
+					className='audio-recorder'
+				/>
+			</div>
 
 			{audioURL && (
 				<div className='audio-player-container'>
@@ -56,7 +57,7 @@ function AudioCapture({ handleUploadFile, setLoading }) {
 					</div>
 				</div>
 			)}
-		</div>
+		</VoiceNote>
 	);
 }
 

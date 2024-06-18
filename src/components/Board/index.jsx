@@ -1,66 +1,43 @@
-import React, { useState } from "react";
-import styles from "./index.module.sass";
-import classNames from "classnames";
+import React, { useState } from 'react';
+import { MediaItem } from '@components';
+import classNames from 'classnames';
 
-function Board({ board }) {
-	const { id, createdAt } = board;
+import styles from './index.module.sass';
 
-	const renderContent = (key, value) => {
-		if (!value) return null;
-		switch (value.type) {
-			case 'image':
-				return (
-					<div
-						className={classNames(
-							styles.boardImage,
-							styles.boardElement
-						)}>
-						<img
-							src={value.content}
-							alt={key}
-						/>
-					</div>
-				);
-			case 'text':
-				return (
-					<div
-						className={classNames(
-							styles.boardNote,
-							styles.boardElement
-						)}>
-						<div>
-							<p>{value.content}</p>
-						</div>
-					</div>
-				);
-			case 'videoURL':
-				return (
-					<div
-						className={classNames(
-							styles.boardNote,
-							styles.boardElement
-						)}>
-						<div>
-							<p>Still to implement {value.content}</p>
-						</div>
-					</div>
-				);
-
-			default:
-				return null;
-		}
+function Board({ board, assets, className }) {
+	const formatDate = (inputDate) => {
+		const date = new Date(inputDate);
+		const day = String(date.getDate()).padStart(2, '0');
+		const month = String(date.getMonth() + 1).padStart(2, '0');
+		const year = date.getFullYear();
+		const formattedDate = `${day}.${month}.${year}`;
+		return formattedDate;
 	};
 
-	return (
-		<div className={styles.board}>
-			{board &&
-				board.assets &&
-				Object.entries(board.assets).map(([key, value]) => {
-					return (
-						<>{<div key={id}>{renderContent(key, value)}</div>}</>
-					);
-				})}
+	return board ? (
+		<div
+			key={board._id}
+			className={styles.board}>
+			
+			<p className={styles.board_date}>{formatDate(board.createdAt)}</p>
+
+			<div className={styles.board_content}>
+				{board.assets.length > 0 &&
+					board.assets
+						.slice()
+						.reverse()
+						.map((asset) => (
+							<div key={asset._id}>
+								<MediaItem
+									asset={asset}
+									enableEditing={false}
+								/>
+							</div>
+						))}
+			</div>
 		</div>
+	) : (
+		'...'
 	);
 }
 

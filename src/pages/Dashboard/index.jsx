@@ -92,10 +92,9 @@ const Dashboard = () => {
 							: "What's on your mind?",
 						'What made you laugh today?',
 					]}
-					className={boardStyles.marquee}
 				/>
 
-				<div className={styles.dashboard_addContent}>
+				<div className={styles.dashboard_addMedia}>
 					<AddMediaButton
 						onClick={() => {
 							handleAddMediaIsOpen();
@@ -115,7 +114,7 @@ const Dashboard = () => {
 				</div>
 
 				{allAssets.length > 0 ? (
-					<div className={boardStyles.board}>
+					<div className={boardStyles.board_content}>
 						{allAssets
 							.slice()
 							.reverse()

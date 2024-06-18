@@ -9,6 +9,9 @@
 	align-items: center
 	flex-direction: column
 	justify-content: space-between
+	&:hover
+		.mediaItem_editButton
+			opacity: 1
 	&_body
 		display: flex
 		flex-direction: column
@@ -18,6 +21,12 @@
 		*
 			max-height: 420px
 			word-break: break-word
+	&_editButton
+		position: absolute
+		top: 20px
+		right: 20px
+		opacity: 0
+		transition: 0.2s all ease-in-out
 
 	// More specifically
 	&_polaroid
@@ -45,9 +54,9 @@
 	&_image
 		width: 500px
 		img
+			display: block
 			border: 1px solid $dark
 			width: 100%
-			margin-top: 10px
 			height: 350px
 			object-fit: contain
 			background-color: $dark
@@ -108,9 +117,9 @@
 			outline: 1px solid black
 	&_audio
 		width: 350px
+		height: 350px
 		outline: 1px solid $dark
 		background-color: $white
-		height: 350px
 		padding: 20px
 		display: flex
 		flex-direction: column

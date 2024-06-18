@@ -3,10 +3,15 @@ import ReactPlayer from 'react-player/youtube';
 import { Pen } from 'react-bootstrap-icons';
 
 import MediaForm from '@components/MediaForm';
-import boardStyles from '../Board/index.module.sass';
+import { EditButton } from '@components/EditButtons';
 import styles from './index.module.sass';
 
-export default function MediaItem({ asset, editAsset, deleteAsset, enableEditing }) {
+export default function MediaItem({
+	asset,
+	editAsset,
+	deleteAsset,
+	enableEditing,
+}) {
 	const [isEditing, setIsEditing] = useState(false);
 	const [assetContent, setAssetContent] = useState(asset.content);
 
@@ -35,7 +40,7 @@ export default function MediaItem({ asset, editAsset, deleteAsset, enableEditing
 
 	return (
 		<div className={styles.mediaItem}>
-			{isEditing ? (
+			{isEditing && (
 				<MediaForm
 					assetType={asset.type}
 					initialContent={assetContent}
@@ -45,20 +50,14 @@ export default function MediaItem({ asset, editAsset, deleteAsset, enableEditing
 					assetId={asset._id}
 					deleteAsset={deleteAsset}
 				/>
-			) : (
-				<div className={styles.mediaItem_body}>{renderContent()}</div>
 			)}
+			<div className={styles.mediaItem_body}>{renderContent()}</div>
 			{enableEditing && (
-				<div
-					className={boardStyles.editButtons}
-					style={{ display: isEditing ? 'none' : 'flex' }}>
-					<button
-						onClick={() => {
-							setIsEditing((prev) => !prev);
-						}}>
-						<Pen size={16} />
-					</button>
-				</div>
+				<EditButton
+					setIsEditing={setIsEditing}
+					bgcolor='#FFF791'
+					className={styles.mediaItem_editButton}
+				/>
 			)}
 		</div>
 	);
@@ -99,8 +98,10 @@ export const Polaroid = ({ children, assetContent }) => {
 	);
 };
 
-export const VoiceNote = ({ assetContent }) => {
-	return (
+export const VoiceNote = ({ children, assetContent }) => {
+	return children ? (
+		<div className={styles.mediaItem_audio}>{children}</div>
+	) : (
 		<div className={styles.mediaItem_audio}>
 			<p>
 				voice <br /> note
