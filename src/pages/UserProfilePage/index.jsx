@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext, useRef } from "react";
-import { AuthContext } from "@context/AuthContext.jsx";
-import usersService from "../../services/users.service.js";
-import uploadService from "../../services/file-upload.service.js";
-import userProfilePageStyle from "./index.module.sass";
 import { Pen } from "react-bootstrap-icons";
-import { Loading } from "@components";
-import InfoMessage from "../../components/InfoMessage/index.jsx";
+
+import { AuthContext } from "@context";
+import usersService from "@services/users.service.js";
+import uploadService from "@services/file-upload.service.js";
+import styles from "./index.module.sass";
+import { Loading, InfoMessage } from "@components";
 
 function UserProfilePage() {
   const [nameInput, setNameInput] = useState("");
@@ -88,28 +88,28 @@ function UserProfilePage() {
   if (loading) return <Loading />;
 
   return (
-    <div className={userProfilePageStyle.userProfile}>
+    <div className={styles.userProfile}>
       <form
         onSubmit={handleSubmit}
-        className={userProfilePageStyle.formContainer}
+        className={styles.formContainer}
       >
-        <div className={userProfilePageStyle.profilePicContainer}>
+        <div className={styles.profilePicContainer}>
           {user && profileImg ? (
             <img
               referrerPolicy="no-referrer"
               src={profileImg}
               alt="profile-photo"
-              className={userProfilePageStyle.profileImg}
+              className={styles.profileImg}
             />
           ) : (
             <button
               onClick={(e) => e.preventDefault()}
-              className={userProfilePageStyle.icon}
+              className={styles.icon}
             >
               {nameInput.trim().charAt(0)}
             </button>
           )}
-          <button className={userProfilePageStyle.profileImg_pen}>
+          <button className={styles.profileImg_pen}>
             <Pen
               onClick={(e) => {
                 e.preventDefault();
@@ -155,7 +155,7 @@ function UserProfilePage() {
         <button type="submit" disabled={!hasChanges()}>
           Save
         </button>
-        <p className={userProfilePageStyle.deleteAccountButton}>
+        <p className={styles.deleteAccountButton}>
           <a onClick={handleDeleteAccount}>Delete my account</a>
         </p>
       </form>

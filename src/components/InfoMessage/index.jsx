@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 
-import { AuthContext } from '@context/AuthContext';
+import { AuthContext } from '@context';
 import {Button} from '@components';
 
 function InfoMessage() {
