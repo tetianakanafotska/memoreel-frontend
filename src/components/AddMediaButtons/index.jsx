@@ -26,7 +26,7 @@ export function AddMediaButton({onClick, addMediaIsOpen}) {
 	);
 }
 
-export default function PopUpButtons({
+export default function AddMediaButtons({
 	assetType,
 	setAssetType,
 	setOpenMediaForm,

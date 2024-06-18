@@ -1,12 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
 import {
-	PopUpButtons,
 	MediaForm,
 	MediaItem,
 	Marquee,
 	Loading,
 } from '@components';
-import { AddMediaButton } from '@components/PopUpButtons';
+import AddMediaButtons, { AddMediaButton } from '@components/AddMediaButtons';
 import { AuthContext } from '@context';
 import assetsService from '../../services/assets.service';
 import usersService from '../../services/users.service';
@@ -111,7 +110,7 @@ const Dashboard = () => {
 					/>
 
 					{addMediaIsOpen && (
-						<PopUpButtons
+						<AddMediaButtons
 							assetType={assetType}
 							setAssetType={setAssetType}
 							setOpenMediaForm={setOpenMediaForm}
