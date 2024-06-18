@@ -8,6 +8,9 @@ import Loading from "./Loading";
 import Marquee from "./Marquee/";
 import IsPrivate from "./IsPrivate/";
 import IsAnon from "./IsAnon/";
+import WebcamCapture from "./WebcamCapture/";
+import AudioCapture from "./AudioCapture/";
+import ImagePreviewer from "./ImagePreviewer/";
 
-export { Button, NavBar, Board, MediaForm, MediaItem, AddMediaButtons, Loading, Marquee, IsPrivate, IsAnon
+export { Button, NavBar, Board, MediaForm, MediaItem, AddMediaButtons, Loading, Marquee, IsPrivate, IsAnon, WebcamCapture, AudioCapture, ImagePreviewer
  };

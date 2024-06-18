@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import loadingGif from "@images/loading.gif";
+import { XLg, CheckLg, Trash } from "react-bootstrap-icons";
+import classNames from "classnames";
+
 import uploadService from "../../services/file-upload.service";
 import assetsService from "../../services/assets.service";
 import boardsService from "../../services/boards.service";
 import usersService from "../../services/users.service";
-import WebcamCapture from "../WebcamCapture";
-import AudioCapture from "../AudioCapture";
+
+import {WebcamCapture, AudioCapture} from "@components";
 import dashboardStyles from "@pages/Dashboard/index.module.sass";
-import { XLg, CheckLg, Trash } from "react-bootstrap-icons";
-import classNames from "classnames";
+import loadingGif from "@images/loading.gif";
 
 function MediaForm({
   assetType,
