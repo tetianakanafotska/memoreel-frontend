@@ -9,7 +9,6 @@ import AddMediaButtons, { AddMediaButton } from '@components/AddMediaButtons';
 import { AuthContext } from '@context';
 import assetsService from '../../services/assets.service';
 import usersService from '../../services/users.service';
-import { Container, Row, Col } from 'react-bootstrap';
 import styles from './index.module.sass';
 import boardStyles from '@components/Board/index.module.sass';
 
