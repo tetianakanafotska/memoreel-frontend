@@ -1,6 +1,6 @@
 import React from "react";
 import { useContext } from "react";
-import userProfilePageStyle from "../pages/styles/UserProfilePage.module.sass";
+import userProfilePageStyle from "@pages/UserProfilePage/index.module.sass";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 

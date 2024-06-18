@@ -1,6 +1,6 @@
-import styles from "./styles/LandingPage.module.sass";
+import styles from "./index.module.sass";
 import { AuthContext } from "@context";
-import Button from "../components/Button.jsx";
+import Button from "../../components/Button.jsx";
 import { Container } from "react-bootstrap";
 import landingslide1 from "@img/landingpage-slideshow/landingslide1.png";
 import landingslide2 from "@img/landingpage-slideshow/landingslide2.png";

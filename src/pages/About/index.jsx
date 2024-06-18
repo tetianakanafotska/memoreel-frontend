@@ -1,4 +1,4 @@
-import styles from "./styles/About.module.sass";
+import styles from "./index.module.sass";
 import { Github, Linkedin } from "react-bootstrap-icons";
 import { Container, Row, Col } from "react-bootstrap";
 import imgLaura from "@img/63737600.jpeg";

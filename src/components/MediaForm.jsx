@@ -6,7 +6,7 @@ import boardsService from "../services/boards.service";
 import usersService from "../services/users.service";
 import WebcamCapture from "./WebcamCapture";
 import AudioCapture from "./AudioCapture/AudioCapture";
-import dashboardStyles from "@pages/styles/Dashboard.module.sass";
+import dashboardStyles from "@pages/Dashboard/index.module.sass";
 import { XLg, CheckLg, Trash } from "react-bootstrap-icons";
 import classNames from "classnames";
 

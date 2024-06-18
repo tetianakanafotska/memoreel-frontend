@@ -1,5 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap'
-import styles from './styles/NotFound.module.sass'
+import styles from './index.module.sass'
 import classNames from 'classnames'
 
 export default function NotFound () {

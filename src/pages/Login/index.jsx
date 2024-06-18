@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '@context';
-import authService from '../services/auth.service';
-import loginStyles from './styles/Login.module.sass';
+import authService from '../../services/auth.service';
+import loginStyles from './index.module.sass';
 import { Container, Row, Col } from 'react-bootstrap';
 
 function Login() {

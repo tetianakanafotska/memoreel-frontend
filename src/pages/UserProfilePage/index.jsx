@@ -1,11 +1,11 @@
 import { useEffect, useState, useContext, useRef } from "react";
-import { AuthContext } from "../context/AuthContext";
-import usersService from "../services/users.service.js";
-import uploadService from "../services/file-upload.service";
-import userProfilePageStyle from "./styles/UserProfilePage.module.sass";
+import { AuthContext } from "../../context/AuthContext.jsx";
+import usersService from "../../services/users.service.js";
+import uploadService from "../../services/file-upload.service.js";
+import userProfilePageStyle from "./index.module.sass";
 import { Pen } from "react-bootstrap-icons";
 import { Loading } from "@components";
-import InfoMessage from "../components/InfoMessage.jsx";
+import InfoMessage from "../../components/InfoMessage.jsx";
 
 function UserProfilePage() {
   const [nameInput, setNameInput] = useState("");

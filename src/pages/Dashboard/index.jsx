@@ -7,11 +7,11 @@ import {
 	Loading,
 } from '@components';
 import { AuthContext } from '@context';
-import assetsService from '../services/assets.service';
-import usersService from '../services/users.service';
+import assetsService from '../../services/assets.service';
+import usersService from '../../services/users.service';
 import { Container, Row, Col } from 'react-bootstrap';
-import styles from './styles/Dashboard.module.sass';
-import boardStyles from '../components/styles/Board.module.sass';
+import styles from './index.module.sass';
+import boardStyles from '@components/styles/Board.module.sass';
 import popUpButtonStyles from '@components/PopUpButtons/PopUpButtons.module.sass';
 import { PlusLg } from 'react-bootstrap-icons';
 import classNames from 'classnames';

@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import Webcam from "react-webcam";
 import ImagePreviewer from "./ImagePreviewer";
 import boardStyles from "./styles/Board.module.sass";
-import dashboardStyles from "@pages/styles/Dashboard.module.sass";
+import dashboardStyles from "@pages/Dashboard/index.module.sass";
 import { Camera } from "react-bootstrap-icons";
 
 function WebcamCapture({ handleUploadFile, loading, setLoading }) {
