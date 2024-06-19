@@ -1,0 +1,41 @@
+@import 'bootstrap/scss/bootstrap-grid.scss'
+@import '/src/styles/_variables.sass'
+
+
+.dashboard
+	padding-bottom: 100px
+	h2, h3, h4
+		text-align: center
+	h2
+		font-size: 1rem
+		font-weight: 400
+	h3
+		font-size: 2rem
+		@include media-breakpoint-up(md)
+			font-size: 2.4rem
+	&:hover
+		::-webkit-scrollbar-thumb
+			background: transparentize($maincolor-dark, 0.5)
+		::-webkit-scrollbar
+			background-color: $maincolor-light
+		::-webkit-scrollbar-thumb:hover
+			background: transparentize($maincolor-dark, 0.2)
+	::-webkit-scrollbar
+		background-color: transparent
+		border-radius: 30px
+		height: 7px
+		width: 7px
+	::-webkit-scrollbar-thumb
+		background: transparent
+		border-radius: 20px
+		padding-bottom: 200px
+	&_addMedia
+		display: flex
+		justify-content: center
+		align-items: center
+		margin: 50px auto 30px
+		overflow-x: auto
+		overflow-y: hidden
+		padding-left: 100px
+		@include media-breakpoint-up(md)
+			padding-left: 0

@@ -1,0 +1,66 @@
+@import '/src/styles/_variables.sass'
+
+.addMediaButton
+  border-radius: 30px
+  // border: 2px solid red
+  background-color: $lemon
+  color: $dark
+  height: 2.6rem
+  transition: background-color 0.4s ease, color 0.4s ease
+
+  &:hover,
+  &:focus,
+  &:active
+    background-color: $green
+    color: $dark !important
+
+  &.active
+    background-color: $green
+    color: $dark !important
+
+.addMediaButton_addButton
+  @extend .addMediaButton
+  min-width: 2.6rem
+  height: 2.6rem
+  padding: 10px
+
+  &_on
+    transform: rotate(45deg)
+
+.hideText
+  display: none
+
+.addMediaButton_assetTypeButton
+  @extend .addMediaButton
+  opacity: 1
+  display: flex
+  padding: 10px 20px
+  animation: slideInFromLeft 0.5s
+
+  &:hover,
+  &:focus,
+  &:active
+    transition: all 0.3s ease
+
+  span
+    pointer-events: none
+    width: 0
+    opacity: 0
+    margin-left: 0
+    transition: opacity 0s ease-in 0s, width 0.4s ease-in 0s, margin-left 0.6s ease-out 0s
+
+  &:hover span,
+  &.active span
+    opacity: 1
+    width: fit-content
+    margin-left: 12px
+
+@keyframes slideInFromLeft
+  0%
+    opacity: 0
+    width: 0
+    margin-left: 0
+  100%
+    opacity: 1
+    width: fit-content
+    margin-left: 12px

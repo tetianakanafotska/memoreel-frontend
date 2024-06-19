@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./Loading.module.sass";
-import brandmark from "@img/brandmark.svg";
+import styles from "./index.module.sass";
+import brandmark from "@images/brandmark.svg";
 import classNames from "classnames";
 
 function Loading() {

@@ -1,0 +1,88 @@
+@import 'bootstrap/scss/bootstrap-grid.scss'
+@import '/src/styles/_variables.sass'
+
+.userProfile
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  text-align: center
+
+  h2
+    span
+      margin: 8px 0 20px
+      display: block
+      font-size: 1rem
+      font-weight: 500
+
+  .icon
+    font-size: 4rem
+    width: 120px
+    height: 120px
+    border-radius: 50% !important
+
+  .deleteAccountButton
+    width: 100%
+    text-align: center
+    font-size: 18px
+    font-weight: 100
+    cursor: pointer
+    z-index: 99999
+
+  .profilePicContainer
+    display: flex
+    flex-direction: column
+    align-items: center
+    margin-bottom: 20px
+    position: relative
+    margin-bottom: 20px
+    min-width: 120px
+    &:hover
+      .profileImg_pen
+        opacity: 1
+
+  .profileImg
+    border-radius: 50%
+    position: relative
+    height: 150px
+    object-fit: cover
+    width: 150px
+    outline: 1px solid black
+    &_pen
+      position: absolute
+      padding: 4px
+      width: 40px
+      height: 40px
+      bottom: 0
+      right: 4px
+      background-color: $green
+      border-radius: 50%
+      display: flex
+      align-items: center
+      justify-content: center
+      opacity: 0
+      transition: opacity 0.2s
+
+  form
+    display: flex
+    flex-direction: column
+    align-items: center
+    width: 100%
+    max-width: 400px
+
+    label
+      width: 100%
+      text-align: left
+      margin-bottom: 10px
+
+    input
+      width: 100%
+      margin-bottom: 10px
+      border: 1px solid $dark
+      background-color: lighten($lilac, 5%)
+      color: $dark
+      border-radius: 0px !important
+
+    button
+      display: block
+      margin: 20px auto 0 auto
