@@ -12,8 +12,8 @@ export default defineConfig({
 			'@components': `${path.resolve(__dirname, 'src/components/')}`,
 			'@context': `${path.resolve(__dirname, 'src/context/')}`,
 			'@assets': `${path.resolve(__dirname, 'src/assets/')}`,
-			'@styles': `${path.resolve(__dirname, 'src/styles/')}`,
-			'@img': `${path.resolve(__dirname, 'src/assets/images/')}`,
+			'@images': `${path.resolve(__dirname, 'src/assets/images/')}`,
+			'@services': `${path.resolve(__dirname, 'src/services/')}`,
 			'@pages': path.resolve(__dirname, 'src/pages'),
 			'@utils': path.resolve(__dirname, 'src/utils')
 		},
