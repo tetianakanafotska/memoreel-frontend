@@ -33,11 +33,11 @@ function AuthProviderWrapper(props) {
           if (error) {
             setAuthError(error.response.data.message);
             removeToken();
+            setIsLoggedIn(false);
+            setIsLoading(false);
+            setUser(null);
             return;
           }
-          setIsLoggedIn(false);
-          setIsLoading(false);
-          setUser(null);
         });
     } else {
       setIsLoggedIn(false);
